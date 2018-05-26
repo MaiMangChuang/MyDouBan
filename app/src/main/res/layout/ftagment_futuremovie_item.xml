@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:padding="4dp"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_height="160dp">
+    <ImageView
+        android:layout_width="120dp"
+        android:layout_height="150dp"
+        android:id="@+id/iv_movieImages"
+        android:scaleType="fitXY"
+        />
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/tv_movieTitle"
+        android:textSize="18sp"
+        android:layout_toRightOf="@id/iv_movieImages"
+        android:text="标题"
+        android:padding="5dp"
+        />
+
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/tv_movieOriginal_title"
+        android:layout_toRightOf="@id/iv_movieImages"
+        android:layout_below="@id/tv_movieTitle"
+        android:text="原名"
+        android:padding="5dp"
+        android:maxWidth="180dp"
+        android:ellipsize="end"
+        />
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/tv_movieDirectors"
+        android:layout_toRightOf="@id/iv_movieImages"
+        android:layout_below="@id/tv_movieOriginal_title"
+        android:text="导演"
+        android:padding="5dp"
+        />
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/tv_movieType"
+        android:layout_toRightOf="@id/iv_movieImages"
+        android:layout_below="@id/tv_movieDirectors"
+        android:text="类型"
+        android:padding="5dp"
+        android:maxWidth="180dp"
+        android:ellipsize="end"
+        />
+
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/tv_movieCasts"
+        android:layout_toRightOf="@id/iv_movieImages"
+        android:layout_below="@id/tv_movieType"
+        android:text="演员"
+        android:padding="5dp"
+        android:maxLines="1"
+        android:maxWidth="220dp"
+        android:ellipsize="end"
+        />
+
+
+    <TextView
+android:layout_below="@id/iv_movieImages"
+        android:layout_alignParentBottom="false"
+        android:layout_marginTop="5dp"
+     style="@style/line_style"/>
+</RelativeLayout>
