@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="#F1F2F6"
+    tools:context=".ui.activity.SearchlnterActivity">
+        <EditText
+            android:layout_marginLeft="8dp"
+            android:layout_marginRight="8dp"
+            android:layout_marginTop="2dp"
+            android:id="@+id/et_searchlnter"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textSize="22sp"
+            android:drawableLeft="@drawable/ic_search_b"
+            android:drawablePadding="10dp"
+            android:padding="6dp"
+            android:background="#FFFFFF"
+            android:hint="搜索信息"
+            />
+
+<android.support.v7.widget.RecyclerView
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="5dp"
+    android:id="@+id/rv_searchlnter"
+    >
+
+</android.support.v7.widget.RecyclerView>
+</LinearLayout>

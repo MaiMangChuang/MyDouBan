@@ -1,6 +1,7 @@
 package com.example.mydouban.adapter;
 
 import android.content.Context;
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.AppCompatRatingBar;
 import android.view.View;
@@ -27,10 +28,22 @@ import butterknife.ButterKnife;
  */
 public class MovieHotAdapter extends BaseQuickAdapter<SubjectsBean, MovieHotAdapter.MovieHotHolder> {
     Context context;
+    List<SubjectsBean> data;
+
+    @NonNull
+    @Override
+    public List<SubjectsBean> getData() {
+        return data;
+    }
+
+    public void setData(List<SubjectsBean> data) {
+        this.data = data;
+    }
 
     public MovieHotAdapter(int layoutResId, @Nullable List<SubjectsBean> data, Context context) {
         super(layoutResId, data);
         this.context = context;
+        this.data=data;
     }
 
     @Override

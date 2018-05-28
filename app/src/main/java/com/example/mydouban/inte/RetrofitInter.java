@@ -7,6 +7,7 @@ import com.example.mydouban.bean.MovieHot;
 import com.example.mydouban.bean.MovieSearch;
 import com.example.mydouban.bean.MovieTop250;
 import com.example.mydouban.bean.MovieValue;
+import com.example.mydouban.bean.Music;
 
 import retrofit2.http.GET;
 import retrofit2.http.POST;
@@ -59,10 +60,24 @@ public interface RetrofitInter {
      * @param count 加载的数量
      * @return
      */
-    @GET("/v2/movie/search?q={text}")
-    Observable<MovieSearch> getSearchMovies(@Path("text") String text,@Query("start") int start,@Query("count") int count);
+    @GET("/v2/movie/search")
+    Observable<MovieSearch> getSearchMovies(@Query("q") String text,@Query("start") int start,@Query("count") int count);
+
+    @GET("/v2/book/search")
+    Observable<Book> getSearchBooks(@Query("q") String text, @Query("start") int start, @Query("count") int count);
+
 
     @GET("/v2/book/search")
     Observable<Book> getTagBooks(@Query("tag") String tag, @Query("start") int start, @Query("count") int count);
+
+
+    @GET("/v2/book/search")
+    Observable<Book> getAuthorBooks(@Query("tag") String Author);
+
+    @GET("/v2/music/search")
+    Observable<Music> getTagMusic(@Query("tag") String tag, @Query("start") int start, @Query("count") int count);
+
+    @GET("/v2/music/search")
+    Observable<Music> getSearchMusic(@Query("q") String text, @Query("start") int start, @Query("count") int count);
 
 }

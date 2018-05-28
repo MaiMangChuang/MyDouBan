@@ -42,12 +42,12 @@ public class BookFragment extends BaseFragment {
     RecyclerView rvBook;
     Unbinder unbinder;
     private Context context;
-    private String title;
+
     private int start;
     private int count;
     private List<Book.BooksBean> booksBeanList;
     private BookAdapter adapter;
-
+    private String title;
     public void setTitle(String title) {
         this.title = title;
     }
@@ -64,7 +64,7 @@ public class BookFragment extends BaseFragment {
         context = getContext();
         booksBeanList=new ArrayList<>();
         start=0;
-        count=40;
+        count=20;
     }
 
     @Nullable
@@ -94,7 +94,7 @@ public class BookFragment extends BaseFragment {
                booksBeanList.addAll(book.getBooks());
                Log.e("TAG", "onNext: "+booksBeanList.size());
                adapter.notifyDataSetChanged();
-               start+=40;
+               start+=20;
            }
        });
 
@@ -108,7 +108,7 @@ public class BookFragment extends BaseFragment {
               rvBook.postDelayed(new Runnable() {
                   @Override
                   public void run() {
-                   int is= booksBeanList.size()%40;
+                   int is= booksBeanList.size()%20;
                       if (is!=0) {
                           //数据全部加载完毕
                           adapter.loadMoreEnd();

@@ -26,15 +26,17 @@ import butterknife.ButterKnife;
  */
 public class BookAdapter extends BaseQuickAdapter<Book.BooksBean, BookAdapter.BookHolder> {
 private  Context context;
+  private   List<Book.BooksBean> data;
     public BookAdapter(int layoutResId, @Nullable List<Book.BooksBean> data, Context context) {
         super(layoutResId, data);
         this.context=context;
+        this.data=data;
     }
 
     @Override
     protected void convert(BookAdapter.BookHolder helper, Book.BooksBean item) {
         helper.tvBookTiele.setText(item.getTitle());
-       float f=  Float.parseFloat(item.getRating().getAverage());
+        float f=  Float.parseFloat(item.getRating().getAverage());
         helper.rbMovieGrade.setRating(f/2);
         GlideUtil.showGlide(context,item.getImage(),helper.ivBookImage);
     }

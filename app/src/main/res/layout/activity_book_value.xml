@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout
-
+<RelativeLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
@@ -8,130 +7,174 @@
     android:layout_height="match_parent"
     tools:context=".ui.activity.BookValueActivity">
 
-
+<RelativeLayout
+    android:padding="7dp"
+    android:layout_width="match_parent"
+    android:id="@+id/rl"
+    android:background="#285A3F"
+    android:layout_height="wrap_content">
+    <ImageView
+        android:layout_width="35dp"
+        android:layout_height="30dp"
+        android:layout_marginTop="4dp"
+        android:layout_alignParentLeft="true"
+        android:src="@drawable/ic_arrow_back_black_24dp"
+        android:id="@+id/iv_black"
+        />
+    <ImageView
+        android:layout_width="35dp"
+        android:layout_height="30dp"
+        android:layout_marginTop="4dp"
+        android:src="@drawable/ic_star_no"
+        android:layout_alignParentRight="true"
+        android:id="@+id/iv_enshrine"
+        />
     <ImageView
         android:id="@+id/iv_bookImage"
-        android:layout_width="142dp"
-        android:layout_height="201dp"
-        android:layout_marginLeft="16dp"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="24dp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@android:color/background_light" />
+        android:layout_width="120dp"
+        android:layout_height="180dp"
+        android:paddingLeft="10dp"
+        android:layout_toRightOf="@id/iv_black"
+        />
 
     <TextView
         android:id="@+id/tv_bookTiele"
-        android:layout_width="0dp"
-        android:layout_height="40dp"
-        android:layout_marginEnd="16dp"
-        android:layout_marginLeft="8dp"
-        android:layout_marginRight="16dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="24dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:gravity="center_vertical"
-        android:text="TextView"
+        android:text="书名"
+        android:textColor="#FFFFFF"
         android:textSize="18sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/iv_bookImage"
-        app:layout_constraintTop_toTopOf="parent" />
+        android:layout_toRightOf="@id/iv_bookImage"
+        android:padding="5dp"
+        />
 
     <TextView
         android:id="@+id/tv_personName"
-        android:layout_width="0dp"
-        android:layout_height="40dp"
-        android:layout_marginEnd="16dp"
-        android:layout_marginLeft="8dp"
-        android:layout_marginRight="16dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_toRightOf="@id/iv_bookImage"
+        android:textColor="#FFFFFF"
         android:gravity="center_vertical"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="22dp"
-        android:text="TextView"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/iv_bookImage"
-        app:layout_constraintTop_toBottomOf="@+id/tv_bookTiele" />
+       android:layout_below="@id/tv_bookOriginTitle"
+        android:padding="5dp"
+        android:text="作者"
+     />
 
     <TextView
         android:id="@+id/tv_year"
-        android:layout_width="0dp"
-        android:layout_height="40dp"
-        android:layout_marginEnd="16dp"
-        android:layout_marginLeft="8dp"
-        android:layout_marginRight="16dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_toRightOf="@id/iv_bookImage"
         android:gravity="center_vertical"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="22dp"
-        android:text="TextView"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.416"
-        app:layout_constraintStart_toEndOf="@+id/iv_bookImage"
-        app:layout_constraintTop_toBottomOf="@+id/tv_personName" />
-
-    <TextView
-        android:id="@+id/tv"
-        android:layout_width="0dp"
-        android:layout_height="40dp"
-        android:gravity="center_vertical"
-        android:layout_marginEnd="16dp"
-        android:layout_marginLeft="8dp"
-        android:layout_marginRight="16dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="22dp"
-        android:text="TextView"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.391"
-        app:layout_constraintStart_toEndOf="@+id/iv_bookImage"
-        app:layout_constraintTop_toBottomOf="@+id/tv_year" />
-
-    <TextView
-        android:id="@+id/tv_bookValue"
-        android:layout_width="0dp"
-        android:layout_height="65dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginLeft="8dp"
-        android:layout_marginRight="8dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="28dp"
+        android:textColor="#FFFFFF"
+     android:layout_below="@id/tv_personName"
+        android:text="出版时间"
         android:padding="5dp"
-        android:text="TextView"
-        android:maxLines="5"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tv" />
+        />
 
-    <android.support.v7.widget.RecyclerView
-        android:id="@+id/rv_book"
-        android:layout_width="0dp"
-        android:layout_height="150dp"
-        android:layout_marginTop="24dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tv_bookValue" />
+    <TextView
+        android:id="@+id/tv_bookOriginTitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/tv_bookTiele"
+        android:layout_toRightOf="@+id/iv_bookImage"
+        android:textColor="#FFFFFF"
+        android:gravity="center_vertical"
+        android:padding="5dp"
+        android:text="原名" />
+    <TextView
+        android:id="@+id/tv_publisher"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/tv_year"
+        android:layout_toRightOf="@id/iv_bookImage"
+        android:textColor="#FFFFFF"
+        android:gravity="center"
+        android:padding="5dp"
+        android:text="出版社"
+        />
 
     <TextView
         android:id="@+id/tv_number"
-        android:layout_width="45dp"
-        android:layout_height="16dp"
-        android:layout_marginLeft="16dp"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="8dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+      android:layout_below="@id/tv_publisher"
+        android:layout_toRightOf="@id/iv_bookImage"
+        android:textSize="16sp"
         android:gravity="center"
-        android:text="TextView"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/iv_bookImage" />
+        android:textColor="#FFFFFF"
+        android:padding="5dp"
+        android:text="评分"
+        />
 
     <RatingBar
         android:id="@+id/ratingBar"
         style="@style/MovieRatingBar"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="8dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
+       android:layout_below="@id/tv_publisher"
+        android:layout_toRightOf="@id/tv_number"
+      android:layout_margin="7dp"
         android:numStars="5"
-        app:layout_constraintEnd_toStartOf="@+id/tv"
-        app:layout_constraintHorizontal_bias="1.0"
-        app:layout_constraintStart_toEndOf="@+id/tv_number"
-        app:layout_constraintTop_toBottomOf="@+id/iv_bookImage" />
-</android.support.constraint.ConstraintLayout>
+        android:layout_gravity="center"
+     />
+</RelativeLayout>
+
+    <TextView
+        android:id="@+id/textView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+       android:layout_below="@id/rl"
+        android:padding="10dp"
+        android:text="简介"
+        android:gravity="center"
+        android:textColor="#000000"
+        android:textSize="18sp"
+     />
+
+    <TextView
+        android:id="@+id/tv_bookValue"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:maxLines="5"
+        android:padding="10dp"
+        android:textSize="15sp"
+        android:text="简介"
+        android:ellipsize="end"
+        android:layout_below="@id/textView"
+        />
+
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/tv_web"
+        android:textSize="25sp"
+        android:text="查看更多"
+        android:layout_alignParentBottom="true"
+        android:gravity="center"
+        android:textColor="@color/colorPrimary"
+        />
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/tv_bookValue"
+        android:padding="10dp"
+        android:id="@+id/text"
+        android:textSize="18sp"
+        android:text="作者的其他作品"
+        android:gravity="center"
+
+        />
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/rv_book"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/text"
+        android:layout_above="@id/tv_web"
+        android:padding="10dp"
+        />
+
+</RelativeLayout>

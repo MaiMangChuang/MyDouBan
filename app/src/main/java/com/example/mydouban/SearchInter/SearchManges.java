@@ -16,7 +16,8 @@ public class SearchManges {
     /**
      * 存放查询类的对象
      */
-    private static HashMap<String,SearchCall> searchCalls=new HashMap<String,SearchCall>();;
+    private static HashMap<String,SearchCall> searchCalls=new HashMap<String,SearchCall>();
+    public static String nowSearchCall;
 
     public static void put(String key,SearchCall searchCall){
         if(searchCalls.get(key)==null){
@@ -44,6 +45,7 @@ public class SearchManges {
             put(key,searchCall);
         }
         Log.e("mmmmmm", "直接拿");
+        nowSearchCall=key;
         return searchCalls.get(key);
     }
 
