@@ -17,13 +17,13 @@
         android:layout_height="wrap_content"
         android:textSize="25sp"
         android:paddingTop="5dp"
-        android:text="姓名：SB千群"
+        android:text="姓名：...."
         />
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textSize="20sp"
         android:paddingTop="5dp"
-        android:text="个人简介：逗比一个，诚招女朋友"
+        android:text="个人简介：........"
         />
 </LinearLayout>

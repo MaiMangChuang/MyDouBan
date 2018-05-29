@@ -122,7 +122,8 @@ public class TopMovieFragment extends BaseFragment {
             @Override
             public void onError(Throwable e) {
                 loaderAnim.stopAnim();
-                Log.e("TAG", "e " + e.toString());
+                Log.e("TopMovieFragment", "start " + start);
+                Log.e("TopMovieFragment", "e " + e.toString());
             }
 
             @Override
@@ -136,8 +137,7 @@ public class TopMovieFragment extends BaseFragment {
                         list.addAll(movieTop250.getSubjects().subList(0,250-listSize));
                         start +=250-listSize;
                     }
-                    Log.e("TAGS", "listSize: " +listSize+"start:"+start);
-                    adapter.notifyItemRangeChanged(start, start + 20);
+                    adapter.notifyItemRangeChanged(start-20, start );
 
                 }
 
