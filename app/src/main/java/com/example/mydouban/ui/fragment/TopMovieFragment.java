@@ -122,8 +122,6 @@ public class TopMovieFragment extends BaseFragment {
             @Override
             public void onError(Throwable e) {
                 loaderAnim.stopAnim();
-                Log.e("TopMovieFragment", "start " + start);
-                Log.e("TopMovieFragment", "e " + e.toString());
             }
 
             @Override

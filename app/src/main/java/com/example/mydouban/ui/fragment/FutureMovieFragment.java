@@ -83,7 +83,7 @@ public class FutureMovieFragment extends BaseFragment {
     }
 
     private void httpData(){
-        HttpUtil.getRetrofit().getFutureMovies() .subscribeOn(Schedulers.io())
+        HttpUtil.getRetrofit().getFutureMovies().subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread()).map(new Func1<MovieFuture, List<SubjectsBean>>() {
             @Override
             public List<SubjectsBean> call(MovieFuture movieFuture) {

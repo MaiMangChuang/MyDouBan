@@ -14,20 +14,21 @@ import retrofit2.converter.gson.GsonConverterFactory;
  */
 public class HttpUtil {
     private static RetrofitInter retrofit;
-    public static final String URL="https://api.douban.com";
-    public static RetrofitInter getRetrofit(){
-        if(retrofit==null){
-            synchronized (HttpUtil.class){
-                if(retrofit==null){
-                    retrofit=new Retrofit.Builder().baseUrl(URL)
+    public static final String URL = "https://api.douban.com";
+
+    public static RetrofitInter getRetrofit() {
+        if (retrofit == null) {
+            synchronized (HttpUtil.class) {
+                if (retrofit == null) {
+                    retrofit = new Retrofit.Builder().baseUrl(URL)
                             .addConverterFactory(GsonConverterFactory.create())
                             .addCallAdapterFactory(RxJavaCallAdapterFactory.create())
                             .build().create(RetrofitInter.class);
-
                 }
             }
-
         }
         return retrofit;
     }
+
+
 }

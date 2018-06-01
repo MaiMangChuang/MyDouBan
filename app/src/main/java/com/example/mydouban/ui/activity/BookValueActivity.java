@@ -79,7 +79,9 @@ public class BookValueActivity extends BaseAppCompatActivity {
     }
 
     private void httpDate() {
-        HttpUtil.getRetrofit().getAuthorBooks(booksBean.getAuthor().get(0)).subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread()).subscribe(new Subscriber<Book>() {
+        HttpUtil.getRetrofit().getAuthorBooks(booksBean.getAuthor().get(0))
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread()).subscribe(new Subscriber<Book>() {
             @Override
             public void onCompleted() {
 
@@ -96,7 +98,7 @@ public class BookValueActivity extends BaseAppCompatActivity {
                     booksBeans.addAll(book.getBooks());
                     adapter.notifyDataSetChanged();
                 } else {
-              text.setVisibility(View.GONE);
+                    text.setVisibility(View.GONE);
                 }
 
             }
