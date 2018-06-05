@@ -25,8 +25,12 @@
         <activity android:name=".ui.activity.MovieWebActivity" />
         <activity android:name=".ui.activity.BookValueActivity" />
         <activity android:name=".ui.activity.BookWebActivity" />
-        <activity android:name=".ui.activity.SearchlnterActivity" />
-        <activity android:name=".ui.activity.MusicWebActivity"></activity>
+        <activity android:name=".ui.activity.SearchlnterActivity"
+
+            />
+        <activity android:name=".ui.activity.MusicWebActivity"/>
+
+
     </application>
 
 </manifest>
