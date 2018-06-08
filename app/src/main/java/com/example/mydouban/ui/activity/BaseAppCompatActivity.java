@@ -3,6 +3,7 @@ package com.example.mydouban.ui.activity;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Parcelable;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 
@@ -20,7 +21,7 @@ import butterknife.Unbinder;
  * 创建时间：2018/1/7 16:48
  */
   public abstract class BaseAppCompatActivity extends AppCompatActivity {
-    List<Activity> activityList = ActivityLife.getActivityList();
+    public List<Activity> activityList = ActivityLife.getActivityList();
     public ShowUtil showUtil;
     Unbinder unbinder;
 
@@ -59,6 +60,15 @@ import butterknife.Unbinder;
         Intent intent=new Intent(this,cls);
         startActivity(intent);
     }
+    public  void myStartActivity( Class<?> cls,String key ,Parcelable value){
+        Bundle bundle = new Bundle();
+        bundle.putParcelable(key, value);
+        Intent intent=new Intent(this,cls);
+        intent.putExtras(bundle);
+        startActivity(intent);
+    }
+
+
 
 
 }

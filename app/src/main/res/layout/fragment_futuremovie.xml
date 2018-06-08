@@ -9,5 +9,11 @@
        android:layout_margin="5dp"
        android:id="@+id/rv_movie"
        />
+   <ImageView
+       style="@style/Loader_ImageView"
+       android:id="@+id/iv_loader"
+       android:layout_centerInParent="true"
+       android:background="@drawable/brvah_sample_footer_loading"
 
+       />
 </RelativeLayout>

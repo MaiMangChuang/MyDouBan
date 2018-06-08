@@ -6,7 +6,11 @@
         android:id="@+id/rv_music"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
-
     </android.support.v7.widget.RecyclerView>
+    <ImageView
+        style="@style/Loader_ImageView"
+        android:id="@+id/iv_loader"
+        android:background="@drawable/brvah_sample_footer_loading"
+        />
 
 </FrameLayout>

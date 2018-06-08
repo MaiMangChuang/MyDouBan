@@ -11,6 +11,8 @@ import android.widget.TextView;
 import com.example.mydouban.R;
 import com.example.mydouban.bean.MovieValue;
 import com.example.mydouban.bean.SubjectsBean;
+import com.example.mydouban.inte.MovieInter;
+import com.example.mydouban.presenter.MoviePterImpl;
 import com.example.mydouban.util.GlideUtil;
 import com.example.mydouban.util.HttpUtil;
 import com.example.mydouban.util.LoaderAnim;
@@ -27,7 +29,7 @@ import rx.schedulers.Schedulers;
  * 创建人：maimanchuang
  * 创建时间：2018/5/20 0:12
  */
-public class MovieValueActivity extends BaseAppCompatActivity {
+public class MovieValueActivity extends BaseAppCompatActivity implements MovieInter.MovieViewInter<MovieValue> {
     @BindView(R.id.iv_movieImages)
     ImageView ivMovieImages;
     @BindView(R.id.tv_movieTiele)
@@ -59,51 +61,18 @@ public class MovieValueActivity extends BaseAppCompatActivity {
     @BindView(R.id.iv_loader)
     ImageView ivLoader;
     private LoaderAnim loaderAnim;
+    private MovieInter.MoviePterInter presenter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         subjectsBean = getIntent().getParcelableExtra("MovieValu");
-        loaderAnim = new LoaderAnim(ivLoader);
-        init();
-    }
-
-    private void init() {
         String movieId = subjectsBean.getId();
-        showUtil.showLog(movieId);
-        loaderAnim.starAnim();
-        HttpUtil.getRetrofit().getMovieValue(movieId).subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread()).subscribe(new Subscriber<MovieValue>() {
-            @Override
-            public void onCompleted() {
-
-            }
-
-            @Override
-            public void onError(Throwable e) {
-                loaderAnim.stopAnim();
-                showUtil.showLog(e.toString());
-            }
-
-            @Override
-            public void onNext(MovieValue movieValue) {
-                movieUrl = movieValue.getMobile_url();
-                double movieAverage = movieValue.getRating().getAverage();
-                tvMovieTiele.setText(movieValue.getTitle());
-                tvMovieName.setText("原名：" + movieValue.getOriginal_title());
-                tvMovieGrade.setText(String.valueOf(movieAverage));
-                tvMovieTyte.setText("电影类型：" + ProjectUtil.clean(movieValue.getGenres().toString()));
-                tvMovieCountry.setText("上映国家：" + ProjectUtil.clean(movieValue.getCountries().toString()));
-                tvMovieTime.setText("上映时间：" + movieValue.getYear());
-                tvMovieValue.setText(movieValue.getSummary());
-                tvCommentNumber.setText(movieValue.getRatings_count() + "人评价");
-                rbMovieGrade.setRating((float) movieAverage / 2);
-                GlideUtil.showGlide(MovieValueActivity.this, movieValue.getImages().getLarge(), ivMovieImages);
-                loaderAnim.stopAnim();
-            }
-        });
-
+        loaderAnim = new LoaderAnim(ivLoader);
+        presenter = new MoviePterImpl(this, movieId);
+        presenter.initData();
     }
+
 
     @Override
     public int getLayoutResID() {
@@ -128,4 +97,34 @@ public class MovieValueActivity extends BaseAppCompatActivity {
     }
 
 
+    @Override
+    public void loaderAnimStar() {
+        loaderAnim.starAnim();
+    }
+
+    @Override
+    public void loaderAnimStop() {
+        loaderAnim.stopAnim();
+    }
+
+    @Override
+    public void notifyData(MovieValue movieValue) {
+        movieUrl = movieValue.getMobile_url();
+        double movieAverage = movieValue.getRating().getAverage();
+        tvMovieTiele.setText(movieValue.getTitle());
+        tvMovieName.setText("原名：" + movieValue.getOriginal_title());
+        tvMovieGrade.setText(String.valueOf(movieAverage));
+        tvMovieTyte.setText("电影类型：" + ProjectUtil.clean(movieValue.getGenres().toString()));
+        tvMovieCountry.setText("上映国家：" + ProjectUtil.clean(movieValue.getCountries().toString()));
+        tvMovieTime.setText("上映时间：" + movieValue.getYear());
+        tvMovieValue.setText(movieValue.getSummary());
+        tvCommentNumber.setText(movieValue.getRatings_count() + "人评价");
+        rbMovieGrade.setRating((float) movieAverage / 2);
+        GlideUtil.showGlide(MovieValueActivity.this, movieValue.getImages().getLarge(), ivMovieImages);
+    }
+
+    @Override
+    public void showDiao() {
+
+    }
 }

@@ -17,6 +17,8 @@ import com.example.mydouban.R;
 import com.example.mydouban.adapter.MovieHotAdapter;
 import com.example.mydouban.bean.MovieHot;
 import com.example.mydouban.bean.SubjectsBean;
+import com.example.mydouban.inte.MovieInter;
+import com.example.mydouban.presenter.HotMoviePterImpl;
 import com.example.mydouban.ui.activity.MovieValueActivity;
 import com.example.mydouban.util.GlideUtil;
 import com.example.mydouban.util.HttpUtil;
@@ -42,7 +44,7 @@ import rx.schedulers.Schedulers;
  * 创建人：maimanchuang
  * 创建时间：2018/5/18 16:06
  */
-public class HotMovieFragment extends BaseFragment {
+public class HotMovieFragment extends BaseFragment implements MovieInter.MovieViewInter<MovieHot>{
     @BindView(R.id.banner)
     com.youth.banner.Banner banner;
     @BindView(R.id.rv_hotMovie)
@@ -56,6 +58,7 @@ public class HotMovieFragment extends BaseFragment {
     private MovieHotAdapter adapter;
     private final int BANNERSIZE = 4;
     private LoaderAnim loaderAnim;
+    private MovieInter.MoviePterInter presenter;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -70,10 +73,11 @@ public class HotMovieFragment extends BaseFragment {
         View view = inflater.inflate(R.layout.fragment_hotmovie, container, false);
         unbinder = ButterKnife.bind(this, view);
         loaderAnim=new LoaderAnim(ivLoader);
+        presenter=new HotMoviePterImpl(this);
         subjectsBeanBannerList = new ArrayList<SubjectsBean>();
         subjectsBeanRVList = new ArrayList<SubjectsBean>();
         init();
-        httpData();
+        presenter.initData();
         return view;
     }
 
@@ -94,50 +98,15 @@ public class HotMovieFragment extends BaseFragment {
         banner.setIndicatorGravity(BannerConfig.RIGHT);
         //设置轮播时间
         banner.setDelayTime(4000);
-
+        initRV();
     }
 
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-
     }
 
 
-    private void httpData() {
-      loaderAnim.starAnim();
-        HttpUtil.getRetrofit().getHotMovies()
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread()).map(new Func1<MovieHot, List<SubjectsBean>>() {
-            @Override
-            public List<SubjectsBean> call(MovieHot movieHot) {
-                return movieHot.getSubjects();
-            }
-        }).subscribe(new Subscriber<List<SubjectsBean>>() {
-            @Override
-            public void onCompleted() {
-
-            }
-
-            @Override
-            public void onError(Throwable e) {
-                Log.e("HotMovieFragment", "e " + e.toString());
-                loaderAnim.stopAnim();
-            }
-
-            @Override
-            public void onNext(List<SubjectsBean> subjectsBeanList) {
-                for (int i = 0; i < BANNERSIZE; i++) {
-                    SubjectsBean subjectsBean = subjectsBeanList.get(i);
-                    subjectsBeanBannerList.add(subjectsBean);
-                }
-                subjectsBeanRVList.addAll(subjectsBeanList.subList(BANNERSIZE, subjectsBeanList.size()));
-                startBanner();
-                initRV();
-                loaderAnim.stopAnim();
-            }
-        });
-    }
 
     private void initRV() {
         rvHotMovie.setLayoutManager(new GridLayoutManager(context, 3));
@@ -145,15 +114,11 @@ public class HotMovieFragment extends BaseFragment {
             @Override
             public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
                 SubjectsBean subjectsBean = subjectsBeanRVList.get(position);
-                Bundle bundle = new Bundle();
-                bundle.putParcelable("MovieValu", subjectsBean);
-                Intent intent = new Intent(context, MovieValueActivity.class);
-                intent.putExtras(bundle);
-                context.startActivity(intent);
+                myStartActivity(context,MovieValueActivity.class,"MovieValu", subjectsBean);
             }
         });
         rvHotMovie.setAdapter(adapter);
-        adapter.notifyDataSetChanged();
+
     }
 
     private void startBanner() {
@@ -187,5 +152,32 @@ public class HotMovieFragment extends BaseFragment {
     public void onStop() {
         super.onStop();
         loaderAnim.stopAnim();
+    }
+
+    @Override
+    public void loaderAnimStar() {
+        loaderAnim.starAnim();
+    }
+
+    @Override
+    public void loaderAnimStop() {
+        loaderAnim.stopAnim();
+    }
+
+    @Override
+    public void notifyData(MovieHot data) {
+         List<SubjectsBean>  subjectsBeans=  data.getSubjects();
+        for (int i = 0; i < BANNERSIZE; i++) {
+            SubjectsBean subjectsBean = subjectsBeans.get(i);
+            subjectsBeanBannerList.add(subjectsBean);
+        }
+        subjectsBeanRVList.addAll(subjectsBeans.subList(BANNERSIZE, subjectsBeans.size()));
+        startBanner();
+        adapter.notifyDataSetChanged();
+    }
+
+    @Override
+    public void showDiao() {
+
     }
 }

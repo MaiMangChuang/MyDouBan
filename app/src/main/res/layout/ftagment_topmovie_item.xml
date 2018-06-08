@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="80dp"
-    android:paddingTop="8dp"
+    android:layout_height="72dp"
+    android:paddingTop="6dp"
     android:paddingLeft="8dp"
     android:paddingRight="10dp"
     android:background="@drawable/setting_item_selector"
@@ -27,9 +27,10 @@
     android:scaleType="fitCenter"
     />
 <TextView
+    android:paddingTop="3dp"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
-    android:textSize="18sp"
+    android:textSize="17sp"
     android:textColor="@color/colorPrimary"
     android:text="电影名称"
     android:ellipsize="end"
@@ -41,16 +42,17 @@
     />
 
     <TextView
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
-    android:textSize="15sp"
-    android:textColor="@color/colorPrimary"
-    android:text="电影类型"
-    android:layout_marginRight="10dp"
-    android:layout_marginTop="2dp"
-    android:layout_alignParentRight="true"
-    android:id="@+id/tv_movieTytpe"
-    />
+        android:id="@+id/tv_movieTytpe"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_marginRight="10dp"
+        android:paddingTop="3dp"
+        android:text="电影类型"
+        android:ellipsize="end"
+        android:maxLength="6"
+        android:textColor="@color/colorPrimary"
+        android:textSize="14sp" />
 
     <TextView
         android:layout_width="wrap_content"

@@ -15,6 +15,8 @@ import android.widget.TextView;
 import com.example.mydouban.R;
 import com.example.mydouban.adapter.BookAdapter;
 import com.example.mydouban.bean.Book;
+import com.example.mydouban.inte.BookInter;
+import com.example.mydouban.presenter.BookPterImpl;
 import com.example.mydouban.util.GlideUtil;
 import com.example.mydouban.util.HttpUtil;
 
@@ -27,7 +29,7 @@ import rx.Subscriber;
 import rx.android.schedulers.AndroidSchedulers;
 import rx.schedulers.Schedulers;
 
-public class BookValueActivity extends BaseAppCompatActivity {
+public class BookValueActivity extends BaseAppCompatActivity implements BookInter.BookViewInter<Book> {
 
     @BindView(R.id.iv_bookImage)
     ImageView ivBookImage;
@@ -64,6 +66,7 @@ public class BookValueActivity extends BaseAppCompatActivity {
     private Book.BooksBean booksBean;
     private List<Book.BooksBean> booksBeans;
     private BookAdapter adapter;
+    private BookInter.BookPterInter presenter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -71,43 +74,16 @@ public class BookValueActivity extends BaseAppCompatActivity {
         booksBean = getIntent().getParcelableExtra("BooksBean");
         booksBeans = new ArrayList<Book.BooksBean>();
         adapter = new BookAdapter(R.layout.about_book_item, booksBeans, this);
-        rvBook.setLayoutManager(new LinearLayoutManager(this, LinearLayout.HORIZONTAL, false));
-        rvBook.setAdapter(adapter);
-
+        presenter=new BookPterImpl(this,booksBean.getAuthor().get(0));
         initView();
-        httpDate();
+        presenter.initData();
     }
 
-    private void httpDate() {
-        HttpUtil.getRetrofit().getAuthorBooks(booksBean.getAuthor().get(0))
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread()).subscribe(new Subscriber<Book>() {
-            @Override
-            public void onCompleted() {
 
-            }
-
-            @Override
-            public void onError(Throwable e) {
-
-            }
-
-            @Override
-            public void onNext(Book book) {
-                if (book.getBooks().size() > 0) {
-                    booksBeans.addAll(book.getBooks());
-                    adapter.notifyDataSetChanged();
-                } else {
-                    text.setVisibility(View.GONE);
-                }
-
-            }
-        });
-
-
-    }
 
     private void initView() {
+        rvBook.setLayoutManager(new LinearLayoutManager(this, LinearLayout.HORIZONTAL, false));
+        rvBook.setAdapter(adapter);
         tvBookTiele.setText(booksBean.getTitle());
         tvBookValue.setText(booksBean.getSummary());
         tvNumber.setText("评分：" + booksBean.getRating().getAverage());
@@ -141,5 +117,30 @@ public class BookValueActivity extends BaseAppCompatActivity {
                 startActivity(intent);
                 break;
         }
+    }
+
+    @Override
+    public void loaderAnimStar() {
+
+    }
+
+    @Override
+    public void loaderAnimStop() {
+
+    }
+
+    @Override
+    public void notifyData(Book data) {
+        if (data.getBooks().size() > 0) {
+            booksBeans.addAll(data.getBooks());
+            adapter.notifyDataSetChanged();
+        } else {
+            text.setVisibility(View.GONE);
+        }
+    }
+
+    @Override
+    public void showDiao() {
+
     }
 }
