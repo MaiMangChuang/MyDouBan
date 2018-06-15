@@ -1,15 +1,11 @@
 package com.example.mydouban.ui.fragment;
 
 import android.content.Context;
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.ImageView;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
@@ -21,7 +17,6 @@ import com.example.mydouban.inte.MovieInter;
 import com.example.mydouban.presenter.HotMoviePterImpl;
 import com.example.mydouban.ui.activity.MovieValueActivity;
 import com.example.mydouban.util.GlideUtil;
-import com.example.mydouban.util.HttpUtil;
 import com.example.mydouban.util.LoaderAnim;
 import com.youth.banner.BannerConfig;
 import com.youth.banner.Transformer;
@@ -31,12 +26,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
-import butterknife.ButterKnife;
 import butterknife.Unbinder;
-import rx.Subscriber;
-import rx.android.schedulers.AndroidSchedulers;
-import rx.functions.Func1;
-import rx.schedulers.Schedulers;
 
 
 /**
@@ -44,7 +34,7 @@ import rx.schedulers.Schedulers;
  * 创建人：maimanchuang
  * 创建时间：2018/5/18 16:06
  */
-public class HotMovieFragment extends BaseFragment implements MovieInter.MovieViewInter<MovieHot>{
+public class HotMovieFragment extends BaseFragment<MovieInter.MoviePterInter> implements MovieInter.MovieViewInter<MovieHot>{
     @BindView(R.id.banner)
     com.youth.banner.Banner banner;
     @BindView(R.id.rv_hotMovie)
@@ -58,30 +48,26 @@ public class HotMovieFragment extends BaseFragment implements MovieInter.MovieVi
     private MovieHotAdapter adapter;
     private final int BANNERSIZE = 4;
     private LoaderAnim loaderAnim;
-    private MovieInter.MoviePterInter presenter;
+
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         context = getContext();
-
     }
 
-    @Nullable
+
+
     @Override
-    public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_hotmovie, container, false);
-        unbinder = ButterKnife.bind(this, view);
-        loaderAnim=new LoaderAnim(ivLoader);
-        presenter=new HotMoviePterImpl(this);
-        subjectsBeanBannerList = new ArrayList<SubjectsBean>();
-        subjectsBeanRVList = new ArrayList<SubjectsBean>();
-        init();
-        presenter.initData();
-        return view;
+    public int getLayoutResID() {
+        return R.layout.fragment_hotmovie;
     }
 
-    private void init() {
+     public void init() {
+         loaderAnim=new LoaderAnim(ivLoader);
+         presenter=new HotMoviePterImpl(this);
+         subjectsBeanBannerList = new ArrayList<>();
+         subjectsBeanRVList = new ArrayList<>();
         adapter = new MovieHotAdapter(R.layout.ftagment_hotmovie_item, subjectsBeanRVList, context);
         banner.setBannerStyle(BannerConfig.CIRCLE_INDICATOR_TITLE_INSIDE);
         //设置图片加载器
@@ -99,6 +85,7 @@ public class HotMovieFragment extends BaseFragment implements MovieInter.MovieVi
         //设置轮播时间
         banner.setDelayTime(4000);
         initRV();
+         presenter.initData();
     }
 
     @Override
@@ -122,8 +109,8 @@ public class HotMovieFragment extends BaseFragment implements MovieInter.MovieVi
     }
 
     private void startBanner() {
-        ArrayList<String> imageList = new ArrayList<String>();
-        ArrayList<String> titlesList = new ArrayList<String>();
+        ArrayList<String> imageList = new ArrayList<>();
+        ArrayList<String> titlesList = new ArrayList<>();
         for (SubjectsBean subjectsBean : subjectsBeanBannerList) {
             imageList.add(subjectsBean.getImages().getSmall());
             titlesList.add(subjectsBean.getTitle());
@@ -142,11 +129,7 @@ public class HotMovieFragment extends BaseFragment implements MovieInter.MovieVi
         return "正在热播";
     }
 
-    @Override
-    public void onDestroyView() {
-        super.onDestroyView();
-        unbinder.unbind();
-    }
+
 
     @Override
     public void onStop() {

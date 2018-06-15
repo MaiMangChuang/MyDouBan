@@ -10,29 +10,28 @@ import com.example.mydouban.model.FutureMovieModelImpl;
  * 创建人：maimanchuang
  * 创建时间：2018/6/7 0:16
  */
-public class FutureMoviePterImpl implements MovieInter.MoviePterInter {
-    private MovieInter.MovieViewInter<MovieFuture> view;
-    private MovieInter.MovieModInter<MovieFuture> modle;
+public class FutureMoviePterImpl extends BasePresenter<MovieInter.MovieViewInter<MovieFuture>,MovieInter.MovieModInter<MovieFuture>> implements MovieInter.MoviePterInter {
+
 
     public FutureMoviePterImpl(MovieInter.MovieViewInter<MovieFuture> view) {
-        this.view = view;
-        modle = new FutureMovieModelImpl();
+        super(view,new FutureMovieModelImpl());
+
 
     }
 
     @Override
     public void initData() {
-        view.loaderAnimStar();
-        modle.getData(new DataCallBack<MovieFuture>() {
+        mView.loaderAnimStar();
+        mModel.getData(new DataCallBack<MovieFuture>() {
             @Override
             public void dataLose(String message) {
-                view.loaderAnimStop();
+                mView.loaderAnimStop();
             }
 
             @Override
             public void dataSucceed(MovieFuture data) {
-                view.loaderAnimStop();
-                view.notifyData(data);
+                mView.loaderAnimStop();
+                mView.notifyData(data);
             }
         });
 

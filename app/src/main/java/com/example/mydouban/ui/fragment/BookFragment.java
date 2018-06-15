@@ -5,9 +5,7 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.ImageView;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
@@ -23,7 +21,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
-import butterknife.ButterKnife;
 import butterknife.Unbinder;
 
 /**
@@ -31,7 +28,7 @@ import butterknife.Unbinder;
  * 创建人：maimanchuang
  * 创建时间：2018/5/24 9:21
  */
-public class BookFragment extends BaseFragment implements BookInter.BookViewInter<Book> {
+public class BookFragment extends BaseFragment<BookInter.BookPterInter> implements BookInter.BookViewInter<Book> {
     @BindView(R.id.rv_book)
     RecyclerView rvBook;
     Unbinder unbinder;
@@ -41,7 +38,7 @@ public class BookFragment extends BaseFragment implements BookInter.BookViewInte
     private List<Book.BooksBean> booksBeanList;
     private BookAdapter adapter;
     private String title;
-    private BookInter.BookPterInter presenter;
+
     private LoaderAnim loaderAnim;
 
     public void setTitle(String title) {
@@ -62,16 +59,19 @@ public class BookFragment extends BaseFragment implements BookInter.BookViewInte
 
     }
 
-    @Nullable
+
+
     @Override
-    public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_book, container, false);
-        unbinder = ButterKnife.bind(this, view);
+    public int getLayoutResID() {
+        return R.layout.fragment_book;
+    }
+
+    @Override
+    public void init() {
         presenter = new BookPterImpl(this, title);
         loaderAnim=new LoaderAnim(ivLoader);
         initView();
         presenter.initData();
-        return view;
     }
 
 
@@ -112,11 +112,7 @@ public class BookFragment extends BaseFragment implements BookInter.BookViewInte
         return title;
     }
 
-    @Override
-    public void onDestroyView() {
-        super.onDestroyView();
-        unbinder.unbind();
-    }
+
 
     @Override
     public void onStop() {
@@ -144,4 +140,6 @@ public class BookFragment extends BaseFragment implements BookInter.BookViewInte
     public void showDiao() {
 
     }
+
+
 }

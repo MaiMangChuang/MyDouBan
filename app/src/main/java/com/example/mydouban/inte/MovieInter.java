@@ -6,7 +6,7 @@ package com.example.mydouban.inte;
  * 创建时间：2018/6/5 23:23
  */
 public interface MovieInter {
-    public interface MoviePterInter   {
+    public interface MoviePterInter extends BasePresenterInter   {
         /**
          * 数据获取
          */

@@ -33,7 +33,7 @@ import butterknife.Unbinder;
  * 创建人：maimanchuang
  * 创建时间：2018/5/18 17:27
  */
-public class FutureMovieFragment extends BaseFragment implements MovieInter.MovieViewInter<MovieFuture> {
+public class FutureMovieFragment extends BaseFragment<MovieInter.MoviePterInter> implements MovieInter.MovieViewInter<MovieFuture> {
 
     @BindView(R.id.rv_movie)
     RecyclerView rvMovie;
@@ -43,7 +43,7 @@ public class FutureMovieFragment extends BaseFragment implements MovieInter.Movi
     private List<SubjectsBean> subjectsBeanRVList;
     private MovieFutureAdapter adapter;
     private Context context;
-    private MovieInter.MoviePterInter presenter;
+  //  private MovieInter.MoviePterInter presenter;
     private LoaderAnim loaderAnim;
 
     @Override
@@ -52,17 +52,31 @@ public class FutureMovieFragment extends BaseFragment implements MovieInter.Movi
         context = getContext();
     }
 
-    @Nullable
+//    @Nullable
+//    @Override
+//    public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+//        View view = inflater.inflate(R.layout.fragment_futuremovie, container, false);
+//        unbinder = ButterKnife.bind(this, view);
+//        presenter = new FutureMoviePterImpl(this);
+//        loaderAnim=new LoaderAnim(ivLoader);
+//        subjectsBeanRVList = new ArrayList<SubjectsBean>();
+//        initView();
+//        presenter.initData();
+//        return view;
+//    }
+
     @Override
-    public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_futuremovie, container, false);
-        unbinder = ButterKnife.bind(this, view);
+    public int getLayoutResID() {
+        return R.layout.fragment_futuremovie;
+    }
+
+    @Override
+    public void init() {
         presenter = new FutureMoviePterImpl(this);
         loaderAnim=new LoaderAnim(ivLoader);
         subjectsBeanRVList = new ArrayList<SubjectsBean>();
         initView();
         presenter.initData();
-        return view;
     }
 
     private void initView() {
@@ -94,7 +108,7 @@ public class FutureMovieFragment extends BaseFragment implements MovieInter.Movi
     public void onDestroyView() {
         super.onDestroyView();
         loaderAnim.stopAnim();
-        unbinder.unbind();
+//        unbinder.unbind();
     }
 
     @Override

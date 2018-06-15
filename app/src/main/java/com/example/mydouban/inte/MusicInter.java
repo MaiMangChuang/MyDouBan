@@ -7,7 +7,7 @@ package com.example.mydouban.inte;
  */
 public interface MusicInter {
 
-    public interface MusicPterInter {
+    public interface MusicPterInter extends BasePresenterInter {
         /**
          * 数据获取
          */

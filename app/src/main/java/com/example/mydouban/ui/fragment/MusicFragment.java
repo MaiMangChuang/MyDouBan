@@ -32,7 +32,7 @@ import butterknife.Unbinder;
  * 创建人：maimanchuang
  * 创建时间：2018/5/28 14:39
  */
-public class MusicFragment extends BaseFragment implements MusicInter.MusicViewInter<Music> {
+public class MusicFragment extends BaseFragment<MusicPterImpl> implements MusicInter.MusicViewInter<Music> {
     @BindView(R.id.rv_music)
     RecyclerView rvMusic;
     @BindView(R.id.iv_loader)
@@ -41,7 +41,7 @@ public class MusicFragment extends BaseFragment implements MusicInter.MusicViewI
     private Context context;
     private List<Music.MusicsBean> musicBeanList;
     private MusicAdapter adapter;
-    private MusicPterImpl presenter;
+ //   private MusicPterImpl presenter;
     private LoaderAnim loaderAnim;
     Unbinder unbinder;
 
@@ -62,17 +62,31 @@ public class MusicFragment extends BaseFragment implements MusicInter.MusicViewI
         musicBeanList = new ArrayList<>();
     }
 
-    @Nullable
+//    @Nullable
+//    @Override
+//    public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+//        View view = inflater.inflate(R.layout.fragment_music, container, false);
+//        unbinder = ButterKnife.bind(this, view);
+//        musicBeanList = new ArrayList<>();
+//        presenter = new MusicPterImpl(this, title);
+//        loaderAnim=new LoaderAnim(ivLoader);
+//        initView();
+//        presenter.initData();
+//        return view;
+//    }
+
     @Override
-    public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_music, container, false);
-        unbinder = ButterKnife.bind(this, view);
+    public int getLayoutResID() {
+        return R.layout.fragment_music;
+    }
+
+    @Override
+    public void init() {
         musicBeanList = new ArrayList<>();
         presenter = new MusicPterImpl(this, title);
         loaderAnim=new LoaderAnim(ivLoader);
         initView();
         presenter.initData();
-        return view;
     }
 
 
@@ -119,7 +133,7 @@ public class MusicFragment extends BaseFragment implements MusicInter.MusicViewI
     @Override
     public void onDestroyView() {
         super.onDestroyView();
-        unbinder.unbind();
+//        unbinder.unbind();
     }
 
     @Override

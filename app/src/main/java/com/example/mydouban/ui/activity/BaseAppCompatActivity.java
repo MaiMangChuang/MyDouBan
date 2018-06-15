@@ -7,6 +7,8 @@ import android.os.Parcelable;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 
+import com.example.mydouban.inte.BasePresenterInter;
+import com.example.mydouban.presenter.BasePresenter;
 import com.example.mydouban.util.ActivityLife;
 import com.example.mydouban.util.ShowUtil;
 
@@ -20,9 +22,10 @@ import butterknife.Unbinder;
  * 创建人：maimanchuang
  * 创建时间：2018/1/7 16:48
  */
-  public abstract class BaseAppCompatActivity extends AppCompatActivity {
+  public abstract class BaseAppCompatActivity<T extends BasePresenterInter> extends AppCompatActivity {
     public List<Activity> activityList = ActivityLife.getActivityList();
     public ShowUtil showUtil;
+    protected T presenter;
     Unbinder unbinder;
 
     @Override
@@ -37,6 +40,10 @@ import butterknife.Unbinder;
     @Override
     protected void onDestroy() {
         super.onDestroy();
+        if(presenter!=null){
+            presenter.relieve();
+            presenter=null;
+        }
         activityList.remove(this);
        unbinder.unbind();
 

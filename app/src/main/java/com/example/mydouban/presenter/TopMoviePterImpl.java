@@ -10,14 +10,12 @@ import com.example.mydouban.model.TopMovieModelImpl;
  * 创建人：maimanchuang
  * 创建时间：2018/6/5 23:10
  */
-public class TopMoviePterImpl implements MovieInter.MoviePterInter{
- private MovieInter.MovieViewInter<MovieTop250> mView;
- private MovieInter.MovieModInter<MovieTop250> mModel;
+public class TopMoviePterImpl extends BasePresenter<MovieInter.MovieViewInter<MovieTop250>,MovieInter.MovieModInter<MovieTop250>> implements MovieInter.MoviePterInter{
+
  private TopMovieCallBack callBack;
 
    public TopMoviePterImpl(MovieInter.MovieViewInter<MovieTop250> mView){
-        this.mView=mView;
-        this.mModel=new TopMovieModelImpl();
+       super(mView,new TopMovieModelImpl());
         callBack=new TopMovieCallBack();
     }
 

@@ -10,28 +10,27 @@ import com.example.mydouban.model.HotMovieModelImpl;
  * 创建人：maimanchuang
  * 创建时间：2018/6/6 23:47
  */
-public class HotMoviePterImpl implements MovieInter.MoviePterInter {
-private MovieInter.MovieViewInter<MovieHot> view;
-private MovieInter.MovieModInter<MovieHot> modle;
+public class HotMoviePterImpl extends BasePresenter<MovieInter.MovieViewInter<MovieHot>,MovieInter.MovieModInter<MovieHot>> implements MovieInter.MoviePterInter {
+
 
   public   HotMoviePterImpl(MovieInter.MovieViewInter<MovieHot> view){
-        this.view=view;
-         modle=new HotMovieModelImpl();
+      super(view,new HotMovieModelImpl());
+
     }
 
     @Override
     public void initData() {
-        view.loaderAnimStar();
-        modle.getData(new DataCallBack<MovieHot>() {
+        mView.loaderAnimStar();
+        mModel.getData(new DataCallBack<MovieHot>() {
             @Override
             public void dataLose(String message) {
-                view.loaderAnimStop();
+                mView.loaderAnimStop();
             }
 
             @Override
             public void dataSucceed(MovieHot data) {
-                view.notifyData(data);
-                view.loaderAnimStop();
+                mView.notifyData(data);
+                mView.loaderAnimStop();
             }
         });
     }

@@ -14,42 +14,43 @@ import com.example.mydouban.model.FutureMovieModelImpl;
  * 创建人：maimanchuang
  * 创建时间：2018/6/8 0:53
  */
-public class BookPterImpl implements BookInter.BookPterInter {
-    private BookInter.BookViewInter<Book> view;
-    private BookInter.BookModInter<Book> modle;
+public class BookPterImpl extends BasePresenter<BookInter.BookViewInter<Book>,BookInter.BookModInter<Book>> implements BookInter.BookPterInter {
     private BookCallBack callBack;
 
     public BookPterImpl(BookInter.BookViewInter<Book> view,String tag) {
-        this.view = view;
-        modle = new BookModelImpl(tag);
+        super(view,new BookModelImpl(tag));
         callBack=new BookCallBack();
     }
 
 
     @Override
     public void initData() {
-        view.loaderAnimStar();
-        modle.getData(callBack);
+        mView.loaderAnimStar();
+        mModel.getData(callBack);
     }
 
     @Override
     public void moreData() {
-         modle.moreData(callBack);
+         mModel.moreData(callBack);
     }
+
+
 
     class BookCallBack implements DataCallBack<Book> {
 
         @Override
         public void dataLose(String message) {
-            view.loaderAnimStop();
-            view.showDiao();
+            mView.loaderAnimStop();
+            mView.showDiao();
         }
 
         @Override
         public void dataSucceed(Book data) {
-            view.notifyData(data);
-            view.loaderAnimStop();
+            mView.notifyData(data);
+            mView.loaderAnimStop();
         }
     }
+
+
 
 }

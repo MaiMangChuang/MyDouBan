@@ -10,41 +10,39 @@ import com.example.mydouban.model.MusicModelImpl;
  * 创建人：maimanchuang
  * 创建时间：2018/6/8 1:35
  */
-public class MusicPterImpl implements MusicInter.MusicPterInter {
-    private MusicInter.MusicViewInter<Music> view;
-    private MusicInter.MusicModInter<Music> modle;
+public class MusicPterImpl extends BasePresenter<MusicInter.MusicViewInter<Music>,MusicInter.MusicModInter<Music>> implements MusicInter.MusicPterInter {
+
     private MusicCallBack callBack;
 
 
     public MusicPterImpl(MusicInter.MusicViewInter<Music> view,String tag){
-        this.view=view;
-        modle=new MusicModelImpl(tag);
+        super(view,new MusicModelImpl(tag));
         callBack=new MusicCallBack();
     }
 
     @Override
     public void initData() {
-        view.loaderAnimStar();
-        modle.getData(callBack);
+        mView.loaderAnimStar();
+        mModel.getData(callBack);
     }
 
     @Override
     public void moreData() {
-        modle.moreData(callBack);
+        mModel.moreData(callBack);
     }
 
     class MusicCallBack implements DataCallBack<Music> {
 
         @Override
         public void dataLose(String message) {
-            view.loaderAnimStop();
-            view.showDiao();
+            mView.loaderAnimStop();
+            mView.showDiao();
         }
 
         @Override
         public void dataSucceed(Music data) {
-            view.notifyData(data);
-            view.loaderAnimStop();
+            mView.notifyData(data);
+            mView.loaderAnimStop();
         }
     }
 

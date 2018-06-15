@@ -12,13 +12,11 @@ import com.example.mydouban.model.TopMovieModelImpl;
  * 创建人：maimanchuang
  * 创建时间：2018/6/8 2:50
  */
-public class MoviePterImpl implements MovieInter.MoviePterInter {
-    private MovieInter.MovieViewInter<MovieValue> mView;
-    private MovieInter.MovieModInter<MovieValue> mModel;
+public class MoviePterImpl extends BasePresenter<MovieInter.MovieViewInter<MovieValue>,MovieInter.MovieModInter<MovieValue>> implements MovieInter.MoviePterInter {
+
 
     public MoviePterImpl(MovieInter.MovieViewInter<MovieValue> mView,String tag){
-        this.mView=mView;
-        this.mModel=new MovieValueModelImpl(tag);
+        super(mView,new MovieValueModelImpl(tag));
 
     }
     @Override

@@ -29,7 +29,7 @@ import rx.Subscriber;
 import rx.android.schedulers.AndroidSchedulers;
 import rx.schedulers.Schedulers;
 
-public class BookValueActivity extends BaseAppCompatActivity implements BookInter.BookViewInter<Book> {
+public class BookValueActivity extends BaseAppCompatActivity<BookInter.BookPterInter> implements BookInter.BookViewInter<Book> {
 
     @BindView(R.id.iv_bookImage)
     ImageView ivBookImage;
@@ -66,7 +66,6 @@ public class BookValueActivity extends BaseAppCompatActivity implements BookInte
     private Book.BooksBean booksBean;
     private List<Book.BooksBean> booksBeans;
     private BookAdapter adapter;
-    private BookInter.BookPterInter presenter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -143,4 +142,6 @@ public class BookValueActivity extends BaseAppCompatActivity implements BookInte
     public void showDiao() {
 
     }
+
+
 }

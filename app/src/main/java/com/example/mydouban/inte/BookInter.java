@@ -7,7 +7,7 @@ package com.example.mydouban.inte;
  */
 public interface BookInter {
 
-    public interface BookPterInter {
+    public interface BookPterInter extends BasePresenterInter {
         /**
          * 数据获取
          */

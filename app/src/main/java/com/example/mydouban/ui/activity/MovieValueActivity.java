@@ -29,7 +29,7 @@ import rx.schedulers.Schedulers;
  * 创建人：maimanchuang
  * 创建时间：2018/5/20 0:12
  */
-public class MovieValueActivity extends BaseAppCompatActivity implements MovieInter.MovieViewInter<MovieValue> {
+public class MovieValueActivity extends BaseAppCompatActivity<MovieInter.MoviePterInter> implements MovieInter.MovieViewInter<MovieValue> {
     @BindView(R.id.iv_movieImages)
     ImageView ivMovieImages;
     @BindView(R.id.tv_movieTiele)
@@ -61,7 +61,7 @@ public class MovieValueActivity extends BaseAppCompatActivity implements MovieIn
     @BindView(R.id.iv_loader)
     ImageView ivLoader;
     private LoaderAnim loaderAnim;
-    private MovieInter.MoviePterInter presenter;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -125,6 +125,12 @@ public class MovieValueActivity extends BaseAppCompatActivity implements MovieIn
 
     @Override
     public void showDiao() {
+
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
 
     }
 }
