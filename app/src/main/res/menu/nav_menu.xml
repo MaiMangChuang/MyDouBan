@@ -21,7 +21,7 @@
             />
 
         <item
-            android:title="白天"
+            android:title="收藏"
             android:id="@+id/nav_status"
             android:icon="@drawable/ic_settings_brightness"
             />

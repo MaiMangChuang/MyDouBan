@@ -42,7 +42,5 @@
     </style>
 
     <style name="Toolbar" parent="Theme.AppCompat.NoActionBar"/>
-    <style name="Loader" >
-        <item name="android:windowBackground">@drawable/saber</item>
-    </style>
+
 </resources>

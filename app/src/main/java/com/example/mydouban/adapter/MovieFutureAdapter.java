@@ -35,7 +35,12 @@ public class MovieFutureAdapter extends BaseQuickAdapter<SubjectsBean, MovieFutu
     @Override
     protected void convert(MovieFutureHolder helper, SubjectsBean item) {
         helper.tvMovieType.setText( "类型："+ProjectUtil.clean(item.getGenres().toString()));
-        helper.tvMovieDirectors.setText("导演：" +item.getDirectors().get(0).getName());
+        if(item.getDirectors().size()>0){
+            helper.tvMovieDirectors.setText("导演：" +item.getDirectors().get(0).getName());
+        }else {
+            helper.tvMovieDirectors.setText("导演：暂无信息");
+        }
+
         helper.tvMovieTitle.setText(item.getTitle());
         helper.tvMovieOriginalTitle.setText("原名：" +item.getOriginal_title());
         helper.tvMovieCasts.setText("演员："+listToString(item.getCasts(),3));
