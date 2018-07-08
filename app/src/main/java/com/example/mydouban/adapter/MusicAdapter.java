@@ -36,7 +36,12 @@ public class MusicAdapter extends BaseQuickAdapter<Music.MusicsBean, MusicAdapte
     @Override
     protected void convert(MusicHolder helper, Music.MusicsBean item) {
         helper.tvMusicTitle.setText(item.getTitle());
-        helper.tvMusicAuthor.setText(item.getAuthor().get(0).getName());
+        if(item.getAuthor().size()>0){
+            helper.tvMusicAuthor.setText(item.getAuthor().get(0).getName());
+        }else {
+            helper.tvMusicAuthor.setText(R.string.Lost);
+        }
+
         String average = item.getRating().getAverage();
         helper.tvMusicGrade.setText(average);
         helper.rbMovieGrade.setRating(Float.parseFloat(average) / 2);

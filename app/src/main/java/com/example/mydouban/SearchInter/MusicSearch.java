@@ -9,6 +9,7 @@ import com.example.mydouban.bean.Music;
 import com.example.mydouban.bean.SubjectsBean;
 import com.example.mydouban.inte.SearchCall;
 import com.example.mydouban.util.HttpUtil;
+import com.example.mydouban.util.MySubscriber;
 
 import rx.Observer;
 import rx.Scheduler;
@@ -25,12 +26,9 @@ public class MusicSearch implements SearchCall{
 
     @Override
     public void searchCall(String value, final BaseQuickAdapter adapter) {
-        HttpUtil.getRetrofit().getSearchMusic(value,0,20).subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread()).subscribe(new Observer<Music>() {
-            @Override
-            public void onCompleted() {
-
-            }
-
+        HttpUtil.getRetrofit().getSearchMusic(value,0,20)
+               .compose(HttpUtil.<Music>compatResult())
+                .subscribe(new MySubscriber<Music>() {
             @Override
             public void onError(Throwable e) {
 

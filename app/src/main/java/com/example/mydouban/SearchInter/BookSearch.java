@@ -9,6 +9,7 @@ import com.example.mydouban.bean.Book;
 import com.example.mydouban.bean.SubjectsBean;
 import com.example.mydouban.inte.SearchCall;
 import com.example.mydouban.util.HttpUtil;
+import com.example.mydouban.util.MySubscriber;
 
 import java.util.List;
 
@@ -27,24 +28,24 @@ public class BookSearch implements SearchCall {
 
     @Override
     public void searchCall(String value, final BaseQuickAdapter adapter) {
-        HttpUtil.getRetrofit().getSearchBooks(value,0,20).observeOn(AndroidSchedulers.mainThread()).subscribeOn(Schedulers.io()).subscribe(new Observer<Book>() {
-            @Override
-            public void onCompleted() {
+        HttpUtil.getRetrofit().getSearchBooks(value,0,20)
+                .compose(HttpUtil.<Book>compatResult())
+                .subscribe(new MySubscriber<Book>(){
+                    @Override
+                    public void onNext(Book book) {
+                        super.onNext(book);
+                        adapter.getData().clear();
+                        adapter.getData().addAll(book.getBooks());
+                        adapter.notifyDataSetChanged();
+                    }
 
-            }
+                    @Override
+                    public void onError(Throwable e) {
+                        super.onError(e);
+                    }
+                });
 
-            @Override
-            public void onError(Throwable e) {
 
-            }
-
-            @Override
-            public void onNext(Book book) {
-                adapter.getData().clear();
-                adapter.getData().addAll(book.getBooks());
-                adapter.notifyDataSetChanged();
-            }
-        });
 
     }
 }

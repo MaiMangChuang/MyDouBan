@@ -6,6 +6,7 @@ import com.example.mydouban.bean.Book;
 import com.example.mydouban.inte.BookInter;
 import com.example.mydouban.inte.DataCallBack;
 import com.example.mydouban.util.HttpUtil;
+import com.example.mydouban.util.MySubscriber;
 
 import rx.Subscriber;
 import rx.android.schedulers.AndroidSchedulers;
@@ -38,25 +39,16 @@ public class BookModelImpl implements BookInter.BookModInter<Book> {
     }
 
     private void httpData(final DataCallBack<Book> dataCallBack){
-        HttpUtil.getRetrofit().getTagBooks(tag,start,COUNT).subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread()).subscribe(new Subscriber<Book>() {
-            @Override
-            public void onCompleted() {
 
-            }
 
-            @Override
-            public void onError(Throwable e) {
-                dataCallBack.dataLose(e.toString());
-            }
-
+        HttpUtil.getRetrofit().getTagBooks(tag,start,COUNT).compose(HttpUtil.<Book>compatResult()).subscribe(new MySubscriber<Book>(dataCallBack){
             @Override
             public void onNext(Book book) {
-                Log.e("Book", "Book: "+book.getCount() );
-                dataCallBack.dataSucceed(book);
+                super.onNext(book);
                 start+=20;
             }
         });
+
 
     }
 

@@ -5,6 +5,7 @@ import com.example.mydouban.bean.SubjectsBean;
 import com.example.mydouban.inte.DataCallBack;
 import com.example.mydouban.inte.MovieInter;
 import com.example.mydouban.util.HttpUtil;
+import com.example.mydouban.util.MySubscriber;
 
 import java.util.List;
 
@@ -21,24 +22,11 @@ import rx.schedulers.Schedulers;
 public class FutureMovieModelImpl implements MovieInter.MovieModInter<MovieFuture> {
     @Override
     public void getData(final DataCallBack<MovieFuture> dataCallBack) {
-        HttpUtil.getRetrofit().getFutureMovies().subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new Subscriber<MovieFuture>() {
-                    @Override
-                    public void onCompleted() {
+        HttpUtil.getRetrofit().getFutureMovies()
+               .compose(HttpUtil.<MovieFuture>compatResult())
+                .subscribe(new MySubscriber<MovieFuture>(dataCallBack));
 
-                    }
 
-                    @Override
-                    public void onError(Throwable e) {
-                        dataCallBack.dataLose(e.toString());
-                    }
-
-                    @Override
-                    public void onNext(MovieFuture movieFuture) {
-                        dataCallBack.dataSucceed(movieFuture);
-                    }
-                });
     }
 
     @Override

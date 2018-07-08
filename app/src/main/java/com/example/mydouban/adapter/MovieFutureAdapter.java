@@ -38,7 +38,7 @@ public class MovieFutureAdapter extends BaseQuickAdapter<SubjectsBean, MovieFutu
         if(item.getDirectors().size()>0){
             helper.tvMovieDirectors.setText("导演：" +item.getDirectors().get(0).getName());
         }else {
-            helper.tvMovieDirectors.setText("导演：暂无信息");
+            helper.tvMovieDirectors.setText("导演："+R.string.Lost);
         }
 
         helper.tvMovieTitle.setText(item.getTitle());

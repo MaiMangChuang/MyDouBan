@@ -6,6 +6,9 @@ import com.example.mydouban.inte.RetrofitInter;
 import retrofit2.Retrofit;
 import retrofit2.adapter.rxjava.RxJavaCallAdapterFactory;
 import retrofit2.converter.gson.GsonConverterFactory;
+import rx.Observable;
+import rx.android.schedulers.AndroidSchedulers;
+import rx.schedulers.Schedulers;
 
 /**
  * 类描述：
@@ -28,6 +31,19 @@ public class HttpUtil {
             }
         }
         return retrofit;
+    }
+
+
+    public static <T> Observable.Transformer<T,T> compatResult() {
+
+        return new Observable.Transformer<T, T>() {
+            @Override
+            public Observable<T> call(Observable<T> tObservable) {
+                return   tObservable .observeOn(AndroidSchedulers.mainThread()).subscribeOn(Schedulers.io());
+            }
+        };
+
+
     }
 
 

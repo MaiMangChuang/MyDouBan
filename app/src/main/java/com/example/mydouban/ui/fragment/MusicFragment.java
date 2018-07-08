@@ -41,7 +41,6 @@ public class MusicFragment extends BaseFragment<MusicPterImpl> implements MusicI
     private Context context;
     private List<Music.MusicsBean> musicBeanList;
     private MusicAdapter adapter;
- //   private MusicPterImpl presenter;
     private LoaderAnim loaderAnim;
     Unbinder unbinder;
 
@@ -62,18 +61,7 @@ public class MusicFragment extends BaseFragment<MusicPterImpl> implements MusicI
         musicBeanList = new ArrayList<>();
     }
 
-//    @Nullable
-//    @Override
-//    public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-//        View view = inflater.inflate(R.layout.fragment_music, container, false);
-//        unbinder = ButterKnife.bind(this, view);
-//        musicBeanList = new ArrayList<>();
-//        presenter = new MusicPterImpl(this, title);
-//        loaderAnim=new LoaderAnim(ivLoader);
-//        initView();
-//        presenter.initData();
-//        return view;
-//    }
+
 
     @Override
     public int getLayoutResID() {

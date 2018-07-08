@@ -6,6 +6,7 @@ import com.example.mydouban.inte.MovieInter;
 import com.example.mydouban.ui.activity.MovieValueActivity;
 import com.example.mydouban.util.GlideUtil;
 import com.example.mydouban.util.HttpUtil;
+import com.example.mydouban.util.MySubscriber;
 import com.example.mydouban.util.ProjectUtil;
 
 import rx.Subscriber;
@@ -25,23 +26,12 @@ public class MovieValueModelImpl implements MovieInter.MovieModInter<MovieValue>
 
     @Override
     public void getData(final DataCallBack<MovieValue> dataCallBack) {
-        HttpUtil.getRetrofit().getMovieValue(tag).subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread()).subscribe(new Subscriber<MovieValue>() {
-            @Override
-            public void onCompleted() {
+        HttpUtil.getRetrofit()
+                .getMovieValue(tag)
+               .compose(HttpUtil.<MovieValue>compatResult())
+                .subscribe(new MySubscriber<MovieValue>(dataCallBack));
 
-            }
 
-            @Override
-            public void onError(Throwable e) {
-                dataCallBack.dataLose(e.toString());
-            }
-
-            @Override
-            public void onNext(MovieValue movieValue) {
-                dataCallBack.dataSucceed(movieValue);
-            }
-        });
     }
 
     @Override

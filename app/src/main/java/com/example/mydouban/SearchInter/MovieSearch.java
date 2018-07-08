@@ -12,6 +12,7 @@ import com.example.mydouban.bean.Book;
 import com.example.mydouban.bean.SubjectsBean;
 import com.example.mydouban.inte.SearchCall;
 import com.example.mydouban.util.HttpUtil;
+import com.example.mydouban.util.MySubscriber;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -32,17 +33,13 @@ public class MovieSearch implements SearchCall {
     @Override
     public void searchCall(String value, final BaseQuickAdapter adapter) {
 
-        HttpUtil.getRetrofit().getSearchMovies(value,0,20).subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread()).subscribe(new Observer<com.example.mydouban.bean.MovieSearch>() {
-            @Override
-            public void onCompleted() {
-
-            }
-
+        HttpUtil.getRetrofit().getSearchMovies(value,0,20)
+                .compose(HttpUtil.<com.example.mydouban.bean.MovieSearch>compatResult())
+                .subscribe(new MySubscriber<com.example.mydouban.bean.MovieSearch >() {
             @Override
             public void onError(Throwable e) {
 
             }
-
             @Override
             public void onNext(com.example.mydouban.bean.MovieSearch movieSearch) {
                 adapter.getData().clear();

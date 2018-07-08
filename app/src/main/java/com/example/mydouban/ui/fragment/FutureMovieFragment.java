@@ -43,7 +43,6 @@ public class FutureMovieFragment extends BaseFragment<MovieInter.MoviePterInter>
     private List<SubjectsBean> subjectsBeanRVList;
     private MovieFutureAdapter adapter;
     private Context context;
-  //  private MovieInter.MoviePterInter presenter;
     private LoaderAnim loaderAnim;
 
     @Override
@@ -52,18 +51,7 @@ public class FutureMovieFragment extends BaseFragment<MovieInter.MoviePterInter>
         context = getContext();
     }
 
-//    @Nullable
-//    @Override
-//    public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-//        View view = inflater.inflate(R.layout.fragment_futuremovie, container, false);
-//        unbinder = ButterKnife.bind(this, view);
-//        presenter = new FutureMoviePterImpl(this);
-//        loaderAnim=new LoaderAnim(ivLoader);
-//        subjectsBeanRVList = new ArrayList<SubjectsBean>();
-//        initView();
-//        presenter.initData();
-//        return view;
-//    }
+
 
     @Override
     public int getLayoutResID() {

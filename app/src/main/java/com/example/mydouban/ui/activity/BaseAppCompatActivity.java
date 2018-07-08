@@ -23,8 +23,8 @@ import butterknife.Unbinder;
  * 创建时间：2018/1/7 16:48
  */
   public abstract class BaseAppCompatActivity<T extends BasePresenterInter> extends AppCompatActivity {
-    public List<Activity> activityList = ActivityLife.getActivityList();
-    public ShowUtil showUtil;
+    protected List<Activity> activityList = ActivityLife.getActivityList();
+    protected ShowUtil showUtil;
     protected T presenter;
     Unbinder unbinder;
 
@@ -75,7 +75,11 @@ import butterknife.Unbinder;
         startActivity(intent);
     }
 
-
+    public  void myStartActivity( Class<?> cls,String key ,String value){
+        Intent intent=new Intent(this,cls);
+        intent.putExtra(key, value);
+        startActivity(intent);
+    }
 
 
 }

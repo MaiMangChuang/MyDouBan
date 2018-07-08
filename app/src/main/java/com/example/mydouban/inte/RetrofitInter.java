@@ -8,7 +8,6 @@ import com.example.mydouban.bean.MovieSearch;
 import com.example.mydouban.bean.MovieTop250;
 import com.example.mydouban.bean.MovieValue;
 import com.example.mydouban.bean.Music;
-import com.example.mydouban.util.MyObservable;
 
 import retrofit2.http.GET;
 import retrofit2.http.Path;

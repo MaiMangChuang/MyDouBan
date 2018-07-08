@@ -6,6 +6,7 @@ import com.example.mydouban.bean.Music;
 import com.example.mydouban.inte.DataCallBack;
 import com.example.mydouban.inte.MusicInter;
 import com.example.mydouban.util.HttpUtil;
+import com.example.mydouban.util.MySubscriber;
 
 import javax.security.auth.login.LoginException;
 
@@ -40,23 +41,15 @@ public class MusicModelImpl implements MusicInter.MusicModInter<Music> {
     }
 
     private void httpData(final DataCallBack<Music> dataCallBack) {
-        HttpUtil.getRetrofit().getTagMusic(tag, start, COUNT).observeOn(AndroidSchedulers.mainThread()).subscribeOn(Schedulers.io()).subscribe(new Observer<Music>() {
-            @Override
-            public void onCompleted() {
+        HttpUtil.getRetrofit().getTagMusic(tag, start, COUNT)
+               .compose(HttpUtil.<Music>compatResult())
+                .subscribe(new MySubscriber<Music>(dataCallBack) {
+                    @Override
+                    public void onNext(Music music) {
+                        super.onNext(music);
+                        start += 20;
+                    }
 
-            }
-
-            @Override
-            public void onError(Throwable e) {
-                dataCallBack.dataLose(e.toString());
-            }
-
-            @Override
-            public void onNext(Music music) {
-                Log.e("MusicModelImpl", "music: "+music.getCount() );
-                dataCallBack.dataSucceed(music);
-                start += 20;
-            }
         });
     }
 

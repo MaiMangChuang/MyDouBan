@@ -30,49 +30,36 @@ public class MovieTopAdapter extends BaseQuickAdapter<SubjectsBean, MovieTopAdap
 
     public MovieTopAdapter(int layoutResId, @Nullable List<SubjectsBean> data, Context context) {
         super(layoutResId, data);
-        this.context=context;
+        this.context = context;
     }
 
     @Override
     protected void convert(MovieTop250Holder helper, SubjectsBean item) {
-        // 评分
+
         String ratingAverage = String.valueOf(item.getRating().getAverage());
         helper.tvMovieGrade.setText(ratingAverage);
-        Log.d(TAG, "评分: " + ratingAverage);
-        // 影片类型
         String genres = item.getGenres().toString();
-       // String genre = genres.substring(1, genres.length() - 1);
         helper.tvMovieTytpe.setText(ProjectUtil.clean(genres));
-        // 影片标题
         String title = item.getTitle();
         helper.tvMovieTiele.setText(title);
-        Log.d(TAG, "影片标题: " + title);
-        // 主演
-       // String castAvatar = item.getCasts().get(0).getAvatars().getMedium();
-        String castName="暂无信息";
-        String castId="暂无信息";
-        if(item.getCasts().size()>=1){
-            castName = item.getCasts().get(0).getName();
-            castId = item.getCasts().get(0).getId();
+        if (item.getCasts().size() > 0) {
+            helper.tvMovieActor.setText(item.getCasts().get(0).getName());
+        } else {
+            helper.tvMovieActor.setText(R.string.Lost);
         }
-        helper.tvMovieActor.setText(castName);
-      //  Log.d("TAG", "主演头像: " + castAvatar);
-        Log.d("TAG", "主演中文名: " + castName);
-        Log.d("TAG", "主演 ID: " + castId);
-       //排名
-        if(helper.getLayoutPosition()+1>=100){
+
+
+        if (helper.getLayoutPosition() + 1 >= 100) {
             helper.tvNumber.setTextSize(14);
-        }else {
+        } else {
             helper.tvNumber.setTextSize(18);
         }
-        String movieNumber =String.valueOf(helper.getLayoutPosition()+1);
-        helper.tvNumber.setText(movieNumber+".");
+        String movieNumber = String.valueOf(helper.getLayoutPosition() + 1);
+        helper.tvNumber.setText(movieNumber + ".");
 
 
-        // 影片海报
         String image = item.getImages().getMedium();
-        Log.d("TAG", "影片海报: " + image);
-        GlideUtil.showGlide(context,image,helper.ivMovieImages);
+        GlideUtil.showGlide(context, image, helper.ivMovieImages);
     }
 
     static class MovieTop250Holder extends BaseViewHolder {
@@ -88,6 +75,7 @@ public class MovieTopAdapter extends BaseQuickAdapter<SubjectsBean, MovieTopAdap
         TextView tvMovieActor;
         @BindView(R.id.tv_movieGrade)
         TextView tvMovieGrade;
+
         public MovieTop250Holder(View itemView) {
             super(itemView);
             ButterKnife.bind(this, itemView);

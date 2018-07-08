@@ -45,23 +45,23 @@ public class SearchlnterActivity extends BaseAppCompatActivity {
     RecyclerView rvSearchlnter;
     String tvValue;
     boolean is;
-    Timer timer ;
+    Timer timer;
     private Handler mHandler;
-   private BaseQuickAdapter adapter;
+    private BaseQuickAdapter adapter;
     private SearchCall mSearchCall;
     private List list;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        tvValue="";
-         initAdapter();
+        tvValue = "";
+        initAdapter();
         timer = new Timer();
-        mHandler=new Handler(){
+        mHandler = new Handler() {
             @Override
             public void handleMessage(Message msg) {
                 super.handleMessage(msg);
-                if(tvValue!=etSearchlnter.getText().toString()&&etSearchlnter.getText().toString()!=""){
+                if (tvValue != etSearchlnter.getText().toString() && etSearchlnter.getText().toString() != "") {
                     httpData();
                 }
             }
@@ -69,57 +69,47 @@ public class SearchlnterActivity extends BaseAppCompatActivity {
         timer.schedule(new TimerTask() {
             @Override
             public void run() {
-                Message message=new Message();
-                message.what=0;
+                Message message = new Message();
+                message.what = 0;
                 mHandler.sendMessage(message);
             }
-        },3000,2000);
+        }, 3000, 2000);
 
     }
 
     private void initAdapter() {
-        list=new ArrayList();
-        mSearchCall=SearchManges.get(SearchManges.nowSearchCall);
+        list = new ArrayList();
+        mSearchCall = SearchManges.get(SearchManges.nowSearchCall);
         rvSearchlnter.setLayoutManager(new LinearLayoutManager(this));
-        switch (SearchManges.nowSearchCall){
-            case "MovieSearch" :
-                adapter=new MovieFutureAdapter(R.layout.ftagment_futuremovie_item,list,this);
+        switch (SearchManges.nowSearchCall) {
+            case "MovieSearch":
+                adapter = new MovieFutureAdapter(R.layout.ftagment_futuremovie_item, list, this);
                 adapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
                     @Override
                     public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
                         SubjectsBean subjectsBean = (SubjectsBean) list.get(position);
-                        Bundle bundle = new Bundle();
-                        bundle.putParcelable("MovieValu", subjectsBean);
-                        Intent intent = new Intent(SearchlnterActivity.this, MovieValueActivity.class);
-                        intent.putExtras(bundle);
-                        SearchlnterActivity.this.startActivity(intent);
+                        SearchlnterActivity.this.myStartActivity(MovieValueActivity.class, "MovieValu", subjectsBean);
                     }
                 });
                 break;
             case "BookSearch":
-                adapter=new BookSearchAdapter(R.layout.search_book_item,list,this);
+                adapter = new BookSearchAdapter(R.layout.search_book_item, list, this);
                 adapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
                     @Override
                     public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
                         Book.BooksBean booksBean = (Book.BooksBean) list.get(position);
-                        Bundle bundle = new Bundle();
-                        bundle.putParcelable("BooksBean", booksBean);
-                        Intent intent = new Intent(SearchlnterActivity.this, BookValueActivity.class);
-                        intent.putExtras(bundle);
-                        SearchlnterActivity.this.startActivity(intent);
+                        SearchlnterActivity.this.myStartActivity(BookValueActivity.class, "BooksBean", booksBean);
                     }
                 });
                 break;
 
             case "MusicSearch":
-                adapter=new MusicAdapter(R.layout.fragment_music_item,list,this);
+                adapter = new MusicAdapter(R.layout.fragment_music_item, list, this);
                 adapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
                     @Override
                     public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
                         Music.MusicsBean musicsBean = (Music.MusicsBean) list.get(position);
-                        Intent intent = new Intent(SearchlnterActivity.this, MusicWebActivity.class);
-                        intent.putExtra("musicUrl",musicsBean.getAlt());
-                        SearchlnterActivity.this.startActivity(intent);
+                        SearchlnterActivity.this.myStartActivity(MusicWebActivity.class, "musicUrl", musicsBean.getAlt());
                     }
                 });
                 break;
@@ -128,8 +118,8 @@ public class SearchlnterActivity extends BaseAppCompatActivity {
     }
 
     private void httpData() {
-        mSearchCall.searchCall(etSearchlnter.getText().toString(),adapter);
-        tvValue=etSearchlnter.getText().toString();
+        mSearchCall.searchCall(etSearchlnter.getText().toString(), adapter);
+        tvValue = etSearchlnter.getText().toString();
     }
 
 
@@ -148,8 +138,8 @@ public class SearchlnterActivity extends BaseAppCompatActivity {
     protected void onDestroy() {
         super.onDestroy();
         timer.cancel();
-        timer=null;
-        mHandler=null;
+        timer = null;
+        mHandler = null;
     }
 
     @Override

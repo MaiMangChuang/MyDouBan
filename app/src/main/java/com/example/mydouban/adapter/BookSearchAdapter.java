@@ -43,7 +43,7 @@ public class BookSearchAdapter extends BaseQuickAdapter<Book.BooksBean, BookSear
         if(item.getAuthor().size()>0){
             helper.tvPersonName.setText("作者：" + item.getAuthor().get(0));
         }else {
-            helper.tvPersonName.setText("作者：暂无信息");
+            helper.tvPersonName.setText("作者："+R.string.Lost);
         }
         helper.tvYear.setText("出版日期：" + item.getPubdate());
         String originTitle = item.getOrigin_title().length() < 1 ? item.getTitle() : item.getOrigin_title();

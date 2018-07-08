@@ -9,4 +9,5 @@
     <string name="Book">书籍</string>
     <string name="Music">音乐</string>
     <string name="BookTiele">豆瓣读书</string>
+    <string name="Lost">暂无信息</string>
 </resources>

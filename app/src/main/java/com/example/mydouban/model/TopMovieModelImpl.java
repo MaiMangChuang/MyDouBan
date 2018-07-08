@@ -6,6 +6,7 @@ import com.example.mydouban.bean.MovieTop250;
 import com.example.mydouban.inte.DataCallBack;
 import com.example.mydouban.inte.MovieInter;
 import com.example.mydouban.util.HttpUtil;
+import com.example.mydouban.util.MySubscriber;
 
 import rx.Subscriber;
 import rx.android.schedulers.AndroidSchedulers;
@@ -27,24 +28,18 @@ public TopMovieModelImpl(){
 
     private void httpData(final DataCallBack<MovieTop250> dataCallBack) {
 
-        HttpUtil.getRetrofit().getTopMovies(start, COUNT).subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread()).subscribe(new Subscriber<MovieTop250>() {
-            @Override
-            public void onCompleted() {
-            }
-
-            @Override
-            public void onError(Throwable e) {
-                dataCallBack.dataLose(e.toString());
-            }
-
+        HttpUtil.getRetrofit().getTopMovies(start, COUNT)
+                .compose(HttpUtil.<MovieTop250>compatResult())
+                .subscribe(new MySubscriber<MovieTop250>(dataCallBack) {
             @Override
             public void onNext(MovieTop250 movieTop250) {
+                super.onNext(movieTop250);
                 int listSize = movieTop250.getSubjects().size();
                 initStar(listSize);
-                dataCallBack.dataSucceed(movieTop250);
             }
         });
+
+
     }
 
     private void initStar(int listSize){
