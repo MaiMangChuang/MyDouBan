@@ -23,6 +23,7 @@ import com.example.mydouban.bean.SubjectsBean;
 import com.example.mydouban.inte.SearchCall;
 import com.example.mydouban.util.HttpUtil;
 import com.jakewharton.rxbinding.view.RxView;
+import com.jakewharton.rxbinding.widget.RxTextView;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -30,11 +31,14 @@ import java.util.Observable;
 import java.util.Observer;
 import java.util.Timer;
 import java.util.TimerTask;
+import java.util.concurrent.TimeUnit;
 
 import butterknife.BindView;
 import rx.Scheduler;
 import rx.Subscriber;
 import rx.android.schedulers.AndroidSchedulers;
+import rx.functions.Action1;
+import rx.functions.Func1;
 import rx.schedulers.Schedulers;
 
 public class SearchlnterActivity extends BaseAppCompatActivity {
@@ -43,10 +47,6 @@ public class SearchlnterActivity extends BaseAppCompatActivity {
     EditText etSearchlnter;
     @BindView(R.id.rv_searchlnter)
     RecyclerView rvSearchlnter;
-    String tvValue;
-    boolean is;
-    Timer timer;
-    private Handler mHandler;
     private BaseQuickAdapter adapter;
     private SearchCall mSearchCall;
     private List list;
@@ -54,26 +54,15 @@ public class SearchlnterActivity extends BaseAppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        tvValue = "";
         initAdapter();
-        timer = new Timer();
-        mHandler = new Handler() {
+        RxTextView.textChanges(etSearchlnter).debounce(600, TimeUnit.MILLISECONDS).subscribe(new Action1<CharSequence>() {
             @Override
-            public void handleMessage(Message msg) {
-                super.handleMessage(msg);
-                if (tvValue != etSearchlnter.getText().toString() && etSearchlnter.getText().toString() != "") {
-                    httpData();
+            public void call(CharSequence charSequence) {
+                if (!"".equals(charSequence.toString())) {
+                    httpData(charSequence.toString());
                 }
             }
-        };
-        timer.schedule(new TimerTask() {
-            @Override
-            public void run() {
-                Message message = new Message();
-                message.what = 0;
-                mHandler.sendMessage(message);
-            }
-        }, 3000, 2000);
+        });
 
     }
 
@@ -82,7 +71,7 @@ public class SearchlnterActivity extends BaseAppCompatActivity {
         mSearchCall = SearchManges.get(SearchManges.nowSearchCall);
         rvSearchlnter.setLayoutManager(new LinearLayoutManager(this));
         switch (SearchManges.nowSearchCall) {
-            case "MovieSearch":
+            case SearchManges.MOVIESEARCH:
                 adapter = new MovieFutureAdapter(R.layout.ftagment_futuremovie_item, list, this);
                 adapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
                     @Override
@@ -92,7 +81,7 @@ public class SearchlnterActivity extends BaseAppCompatActivity {
                     }
                 });
                 break;
-            case "BookSearch":
+            case SearchManges.BOOKSEARCH:
                 adapter = new BookSearchAdapter(R.layout.search_book_item, list, this);
                 adapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
                     @Override
@@ -103,7 +92,7 @@ public class SearchlnterActivity extends BaseAppCompatActivity {
                 });
                 break;
 
-            case "MusicSearch":
+            case SearchManges.MUSICSEARCH:
                 adapter = new MusicAdapter(R.layout.fragment_music_item, list, this);
                 adapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
                     @Override
@@ -117,9 +106,8 @@ public class SearchlnterActivity extends BaseAppCompatActivity {
         rvSearchlnter.setAdapter(adapter);
     }
 
-    private void httpData() {
-        mSearchCall.searchCall(etSearchlnter.getText().toString(), adapter);
-        tvValue = etSearchlnter.getText().toString();
+    private void httpData(String value) {
+        mSearchCall.searchCall(value, adapter);
     }
 
 
@@ -137,9 +125,6 @@ public class SearchlnterActivity extends BaseAppCompatActivity {
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        timer.cancel();
-        timer = null;
-        mHandler = null;
     }
 
     @Override

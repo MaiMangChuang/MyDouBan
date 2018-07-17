@@ -20,6 +20,7 @@ import com.example.mydouban.util.GlideUtil;
 import com.example.mydouban.util.LoaderAnim;
 import com.youth.banner.BannerConfig;
 import com.youth.banner.Transformer;
+import com.youth.banner.listener.OnBannerListener;
 import com.youth.banner.loader.ImageLoader;
 
 import java.util.ArrayList;
@@ -34,7 +35,7 @@ import butterknife.Unbinder;
  * 创建人：maimanchuang
  * 创建时间：2018/5/18 16:06
  */
-public class HotMovieFragment extends BaseFragment<MovieInter.MoviePterInter> implements MovieInter.MovieViewInter<MovieHot>{
+public class HotMovieFragment extends BaseFragment<MovieInter.MoviePterInter> implements MovieInter.MovieViewInter<MovieHot> {
     @BindView(R.id.banner)
     com.youth.banner.Banner banner;
     @BindView(R.id.rv_hotMovie)
@@ -57,35 +58,21 @@ public class HotMovieFragment extends BaseFragment<MovieInter.MoviePterInter> im
     }
 
 
-
     @Override
     public int getLayoutResID() {
         return R.layout.fragment_hotmovie;
     }
 
-     public void init() {
-         loaderAnim=new LoaderAnim(ivLoader);
-         presenter=new HotMoviePterImpl(this);
-         subjectsBeanBannerList = new ArrayList<>();
-         subjectsBeanRVList = new ArrayList<>();
+    public void init() {
+        loaderAnim = new LoaderAnim(ivLoader);
+        presenter = new HotMoviePterImpl(this);
+        subjectsBeanBannerList = new ArrayList<>();
+        subjectsBeanRVList = new ArrayList<>();
         adapter = new MovieHotAdapter(R.layout.ftagment_hotmovie_item, subjectsBeanRVList, context);
-        banner.setBannerStyle(BannerConfig.CIRCLE_INDICATOR_TITLE_INSIDE);
-        //设置图片加载器
-        banner.setImageLoader(new ImageLoader() {
-            @Override
-            public void displayImage(Context context, Object path, ImageView imageView) {
-                imageView.setScaleType(ImageView.ScaleType.FIT_XY);
-                GlideUtil.showGlide(context, (String) path, imageView);
-            }
-        });
-        //设置banner动画效果
-        banner.setBannerAnimation(Transformer.DepthPage);
-        //设置指示器位置（当banner模式中有指示器时）
-        banner.setIndicatorGravity(BannerConfig.RIGHT);
-        //设置轮播时间
-        banner.setDelayTime(4000);
+
+        initBanner();
         initRV();
-         presenter.initData();
+        presenter.initData();
     }
 
     @Override
@@ -93,19 +80,38 @@ public class HotMovieFragment extends BaseFragment<MovieInter.MoviePterInter> im
         super.onActivityCreated(savedInstanceState);
     }
 
-
-
+private void initBanner(){
+    banner.setBannerStyle(BannerConfig.CIRCLE_INDICATOR_TITLE_INSIDE);
+    //设置图片加载器
+    banner.setImageLoader(new ImageLoader() {
+        @Override
+        public void displayImage(Context context, Object path, ImageView imageView) {
+            GlideUtil.showGlide(context, (String) path, imageView);
+        }
+    });
+    //设置banner动画效果
+    banner.setBannerAnimation(Transformer.DepthPage);
+    //设置指示器位置（当banner模式中有指示器时）
+    banner.setIndicatorGravity(BannerConfig.RIGHT);
+banner.setOnBannerListener(new OnBannerListener() {
+    @Override
+    public void OnBannerClick(int position) {
+        SubjectsBean subjectsBean=  subjectsBeanBannerList.get(position);
+        myStartActivity(context, MovieValueActivity.class, "MovieValu", subjectsBean);
+    }
+});
+}
     private void initRV() {
-        rvHotMovie.setLayoutManager(new GridLayoutManager(context, 3));
+         GridLayoutManager gridLayoutManager=new GridLayoutManager(context,3);
+        rvHotMovie.setLayoutManager(gridLayoutManager);
         adapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
                 SubjectsBean subjectsBean = subjectsBeanRVList.get(position);
-                myStartActivity(context,MovieValueActivity.class,"MovieValu", subjectsBean);
+                myStartActivity(context, MovieValueActivity.class, "MovieValu", subjectsBean);
             }
         });
         rvHotMovie.setAdapter(adapter);
-
     }
 
     private void startBanner() {
@@ -115,7 +121,6 @@ public class HotMovieFragment extends BaseFragment<MovieInter.MoviePterInter> im
             imageList.add(subjectsBean.getImages().getSmall());
             titlesList.add(subjectsBean.getTitle());
         }
-
         //设置图片集合
         banner.setImages(imageList);
         //设置标题集合（当banner样式有显示title时）
@@ -128,7 +133,6 @@ public class HotMovieFragment extends BaseFragment<MovieInter.MoviePterInter> im
     public String getTiele() {
         return "正在热播";
     }
-
 
 
     @Override
@@ -149,13 +153,14 @@ public class HotMovieFragment extends BaseFragment<MovieInter.MoviePterInter> im
 
     @Override
     public void notifyData(MovieHot data) {
-         List<SubjectsBean>  subjectsBeans=  data.getSubjects();
+        List<SubjectsBean> subjectsBeans = data.getSubjects();
         for (int i = 0; i < BANNERSIZE; i++) {
             SubjectsBean subjectsBean = subjectsBeans.get(i);
             subjectsBeanBannerList.add(subjectsBean);
         }
         subjectsBeanRVList.addAll(subjectsBeans.subList(BANNERSIZE, subjectsBeans.size()));
         startBanner();
+        subjectsBeanRVList.addAll(subjectsBeans);
         adapter.notifyDataSetChanged();
     }
 

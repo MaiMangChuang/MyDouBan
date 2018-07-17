@@ -2,12 +2,18 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:background="#FFFFFF">
 
     <com.youth.banner.Banner
         android:id="@+id/banner"
         android:layout_width="wrap_content"
         android:layout_height="200dp"
+        app:scroll_time="1400"
+        app:image_scale_type="fit_center"
+        app:delay_time="4000"
+        app:indicator_margin="3dp"
+        app:title_textsize="15sp"
         android:background="#FFFFFF" />
 
     <android.support.v7.widget.RecyclerView
@@ -19,7 +25,6 @@
         />
 
     <ImageView
-
         style="@style/Loader_ImageView"
         android:id="@+id/iv_loader"
         android:layout_centerInParent="true"

@@ -13,6 +13,12 @@ import java.util.HashMap;
  */
 public class SearchManges {
 
+    public static final String MOVIESEARCH="MovieSearch";
+    public static final String BOOKSEARCH="BookSearch";
+    public static final String MUSICSEARCH="MusicSearch";
+
+
+
     /**
      * 存放查询类的对象
      */
@@ -21,7 +27,6 @@ public class SearchManges {
 
     public static void put(String key,SearchCall searchCall){
         if(searchCalls.get(key)==null){
-            Log.e("mmmmmm", "存对象");
             searchCalls.put(key,searchCall);
         }
     }
@@ -34,7 +39,6 @@ public class SearchManges {
     public static SearchCall get(String key){
         SearchCall searchCall=null;
         if(searchCalls.get(key)==null){
-            Log.e("mmmmmm", "实例对象");
             Class aClass= null;
             try {
                 aClass = Class.forName("com.example.mydouban.SearchInter."+key);
@@ -44,7 +48,6 @@ public class SearchManges {
             }
             put(key,searchCall);
         }
-        Log.e("mmmmmm", "直接拿");
         nowSearchCall=key;
         return searchCalls.get(key);
     }

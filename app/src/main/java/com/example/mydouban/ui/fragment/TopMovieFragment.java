@@ -88,7 +88,6 @@ public class TopMovieFragment extends BaseFragment<MovieInter.MoviePterInter> im
             }
         });
         rvMovie.setAdapter(adapter);
-        Log.e("TopMovieFragment", "onCreateView: ssssssssssssssssss" );
         presenter.initData();
     }
 

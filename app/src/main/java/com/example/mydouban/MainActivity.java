@@ -57,7 +57,7 @@ public class MainActivity extends BaseAppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        searchCall=SearchManges.get("MovieSearch");
+        searchCall=SearchManges.get(SearchManges.MOVIESEARCH);
         adapter = new ViewPagerAdapter(getSupportFragmentManager(), fragmentMovieList);
         initMovieFragment();
         viewPager.setAdapter(adapter);
@@ -112,8 +112,7 @@ public class MainActivity extends BaseAppCompatActivity {
                             toolbar.setTitle("豆瓣电影");
                             tabLayout.setTabMode(TabLayout.MODE_FIXED );
                             initMovieFragment();
-                            searchCall=SearchManges.get("MovieSearch");
-
+                            searchCall=SearchManges.get(SearchManges.MOVIESEARCH);
                         }
                         dlType.closeDrawer(Gravity.LEFT);
                         break;
@@ -124,7 +123,7 @@ public class MainActivity extends BaseAppCompatActivity {
                                toolbar.setTitle("豆瓣读书");
                                tabLayout.setTabMode(TabLayout.MODE_FIXED );
                                initBookFragment();
-                               searchCall=SearchManges.get("BookSearch");
+                               searchCall=SearchManges.get(SearchManges.BOOKSEARCH);
 
                            }
                            dlType.closeDrawer(Gravity.LEFT);
@@ -135,12 +134,12 @@ public class MainActivity extends BaseAppCompatActivity {
                                toolbar.setTitle("豆瓣音乐");
                                initMusicFragment();
                                tabLayout.setTabMode(TabLayout.MODE_SCROLLABLE);
-                               searchCall=SearchManges.get("MusicSearch");
+                               searchCall=SearchManges.get(SearchManges.MUSICSEARCH);
                            }
                            dlType.closeDrawer(Gravity.LEFT);
                     break;
                        case R.id.nav_status :
-                           Toast.makeText(MainActivity.this, "白天", Toast.LENGTH_SHORT).show();
+                           Toast.makeText(MainActivity.this, "收藏", Toast.LENGTH_SHORT).show();
                            dlType.closeDrawer(Gravity.LEFT);
                     break;
                 }

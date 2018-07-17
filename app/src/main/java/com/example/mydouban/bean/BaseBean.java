@@ -1,5 +1,7 @@
 package com.example.mydouban.bean;
 
+import com.chad.library.adapter.base.entity.SectionEntity;
+
 import java.lang.reflect.Field;
 
 /**
@@ -7,7 +9,7 @@ import java.lang.reflect.Field;
  * 创建人：maimanchuang
  * 创建时间：2018/2/24 23:24
  */
-public abstract class BaseBean {
+public abstract class BaseBean   {
 
     @Override
     public String toString() {

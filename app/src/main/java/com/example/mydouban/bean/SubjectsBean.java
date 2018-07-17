@@ -3,6 +3,8 @@ package com.example.mydouban.bean;
 import android.os.Parcel;
 import android.os.Parcelable;
 
+import com.chad.library.adapter.base.entity.SectionEntity;
+
 import java.util.List;
 
 /**
@@ -38,6 +40,8 @@ public  class SubjectsBean extends BaseBean implements Parcelable {
     private List<String> genres;
     private List<SubjectsBean.CastsBean> casts;
     private List<SubjectsBean.DirectorsBean> directors;
+
+
 
     public SubjectsBean.RatingBean getRating() {
         return rating;
@@ -585,6 +589,7 @@ public  class SubjectsBean extends BaseBean implements Parcelable {
         };
     }
 
+
     @Override
     public int describeContents() {
         return 0;
@@ -610,18 +615,18 @@ public  class SubjectsBean extends BaseBean implements Parcelable {
     }
 
     protected SubjectsBean(Parcel in) {
-        this.rating = in.readParcelable(SubjectsBean.RatingBean.class.getClassLoader());
+        this.rating = in.readParcelable(RatingBean.class.getClassLoader());
         this.title = in.readString();
         this.collect_count = in.readInt();
         this.original_title = in.readString();
         this.subtype = in.readString();
         this.year = in.readString();
-        this.images = in.readParcelable(SubjectsBean.ImagesBean.class.getClassLoader());
+        this.images = in.readParcelable(ImagesBean.class.getClassLoader());
         this.alt = in.readString();
         this.id = in.readString();
         this.genres = in.createStringArrayList();
-        this.casts = in.createTypedArrayList(SubjectsBean.CastsBean.CREATOR);
-        this.directors = in.createTypedArrayList(SubjectsBean.DirectorsBean.CREATOR);
+        this.casts = in.createTypedArrayList(CastsBean.CREATOR);
+        this.directors = in.createTypedArrayList(DirectorsBean.CREATOR);
     }
 
     public static final Parcelable.Creator<SubjectsBean> CREATOR = new Parcelable.Creator<SubjectsBean>() {
