@@ -20,9 +20,9 @@ import com.example.mydouban.SearchInter.MusicSearch;
 import com.example.mydouban.SearchInter.SearchManges;
 import com.example.mydouban.adapter.ViewPagerAdapter;
 import com.example.mydouban.inte.SearchCall;
+import com.example.mydouban.inte.ViewPagerInter;
 import com.example.mydouban.ui.activity.BaseAppCompatActivity;
 import com.example.mydouban.ui.activity.SearchlnterActivity;
-import com.example.mydouban.ui.fragment.BaseFragment;
 import com.example.mydouban.ui.fragment.BookFragment;
 import com.example.mydouban.ui.fragment.FutureMovieFragment;
 import com.example.mydouban.ui.fragment.HotMovieFragment;
@@ -36,9 +36,9 @@ import java.util.List;
 import butterknife.BindView;
 
 public class MainActivity extends BaseAppCompatActivity {
-    List<BaseFragment> fragmentMovieList;
-    List<BaseFragment> fragmentBookList;
-    List<BaseFragment> fragmentMusicList;
+    List<ViewPagerInter> fragmentMovieList;
+    List<ViewPagerInter> fragmentBookList;
+    List<ViewPagerInter> fragmentMusicList;
     ViewPagerAdapter adapter;
     @BindView(R.id.viewPager)
     ViewPager viewPager;
@@ -151,7 +151,7 @@ public class MainActivity extends BaseAppCompatActivity {
 
     private void initMusicFragment() {
         if(fragmentMusicList==null){
-            fragmentMusicList = new ArrayList<BaseFragment>();
+            fragmentMusicList = new ArrayList<ViewPagerInter>();
             for(String title : DataUtil.musicType){
                 fragmentMusicList.add(MusicFragment.newInstance(title));
             }
@@ -170,7 +170,7 @@ public class MainActivity extends BaseAppCompatActivity {
      */
     private void initMovieFragment() {
         if(fragmentMovieList==null){
-            fragmentMovieList = new ArrayList<BaseFragment>();
+            fragmentMovieList = new ArrayList<ViewPagerInter>();
             fragmentMovieList.add(new HotMovieFragment());
             fragmentMovieList.add(new TopMovieFragment());
             fragmentMovieList.add(new FutureMovieFragment());
@@ -187,7 +187,7 @@ public class MainActivity extends BaseAppCompatActivity {
      */
     private void initBookFragment() {
         if (fragmentBookList == null) {
-            fragmentBookList = new ArrayList<BaseFragment>();
+            fragmentBookList = new ArrayList<ViewPagerInter>();
             for(String title : DataUtil.bookType){
                 fragmentBookList.add(BookFragment.newInstance(title));
             }

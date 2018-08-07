@@ -5,7 +5,6 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 
@@ -30,7 +29,7 @@ import butterknife.Unbinder;
  * 创建人：maimanchuang
  * 创建时间：2018/5/18 16:15
  */
-public class TopMovieFragment extends BaseFragment<MovieInter.MoviePterInter> implements MovieInter.MovieViewInter<MovieTop250> {
+public class TopMovieFragment extends ViewPagerFragment<MovieInter.MoviePterInter> implements MovieInter.MovieViewInter<MovieTop250> {
     Context context;
     @BindView(R.id.rv_movie)
     RecyclerView rvMovie;
@@ -92,10 +91,10 @@ public class TopMovieFragment extends BaseFragment<MovieInter.MoviePterInter> im
     }
 
 
-    @Override
-    public String getTiele() {
-        return "TOP250";
-    }
+//    @Override
+//    public String getTiele() {
+//        return "TOP250";
+//    }
 
 
 
@@ -134,5 +133,10 @@ public class TopMovieFragment extends BaseFragment<MovieInter.MoviePterInter> im
     @Override
     public void showDiao() {
 
+    }
+
+    @Override
+    public String getTitle() {
+        return "TOP250";
     }
 }

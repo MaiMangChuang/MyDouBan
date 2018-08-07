@@ -6,9 +6,7 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.ImageView;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
@@ -24,7 +22,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
-import butterknife.ButterKnife;
 import butterknife.Unbinder;
 
 /**
@@ -32,7 +29,7 @@ import butterknife.Unbinder;
  * 创建人：maimanchuang
  * 创建时间：2018/5/28 14:39
  */
-public class MusicFragment extends BaseFragment<MusicPterImpl> implements MusicInter.MusicViewInter<Music> {
+public class MusicFragment extends ViewPagerFragment<MusicPterImpl> implements MusicInter.MusicViewInter<Music> {
     @BindView(R.id.rv_music)
     RecyclerView rvMusic;
     @BindView(R.id.iv_loader)
@@ -113,15 +110,15 @@ public class MusicFragment extends BaseFragment<MusicPterImpl> implements MusicI
 
     }
 
-    @Override
-    public String getTiele() {
-        return title;
-    }
+//    @Override
+//    public String getTiele() {
+//        return title;
+//    }
 
     @Override
     public void onDestroyView() {
         super.onDestroyView();
-//        unbinder.unbind();
+
     }
 
     @Override
@@ -150,5 +147,10 @@ public class MusicFragment extends BaseFragment<MusicPterImpl> implements MusicI
     @Override
     public void showDiao() {
 
+    }
+
+    @Override
+    public String getTitle() {
+        return title;
     }
 }

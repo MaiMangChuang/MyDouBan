@@ -3,18 +3,13 @@ package com.example.mydouban.adapter;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
-import android.support.v4.app.FragmentStatePagerAdapter;
 import android.support.v4.app.FragmentTransaction;
-import android.util.Log;
-import android.util.SparseArray;
-import android.view.View;
 import android.view.ViewGroup;
 
+
 import com.example.mydouban.inte.ViewPagerInter;
-import com.example.mydouban.ui.fragment.BaseFragment;
 
 import java.lang.reflect.Method;
-import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -23,14 +18,14 @@ import java.util.List;
  * 创建时间：2018/5/18 16:56
  */
 public class ViewPagerAdapter extends FragmentPagerAdapter {
-    private List<BaseFragment> fragmentList;
+    private List<ViewPagerInter> fragmentList;
     private FragmentManager mFragmentManager;;
 
-    public List<BaseFragment> getFragmentList() {
+    public List<ViewPagerInter> getFragmentList() {
         return fragmentList;
     }
 
-    public void setFragmentList(List<BaseFragment> fragmentList) {
+    public void setFragmentList(List<ViewPagerInter> fragmentList) {
         this.fragmentList = fragmentList;
 
     }
@@ -54,7 +49,7 @@ public class ViewPagerAdapter extends FragmentPagerAdapter {
         return super.getItemPosition(object);
     }
 
-    public ViewPagerAdapter(FragmentManager fm, List<BaseFragment> fragmentList) {
+    public ViewPagerAdapter(FragmentManager fm, List<ViewPagerInter> fragmentList) {
         super(fm);
         mFragmentManager=fm;
         this.fragmentList=fragmentList;
@@ -72,7 +67,7 @@ public class ViewPagerAdapter extends FragmentPagerAdapter {
 
     @Override
     public CharSequence getPageTitle(int position) {
-        return fragmentList.get(position).getTiele();
+        return fragmentList.get(position).getTitle();
     }
 
 

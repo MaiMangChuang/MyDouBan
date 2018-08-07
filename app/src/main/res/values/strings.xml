@@ -10,4 +10,6 @@
     <string name="Music">音乐</string>
     <string name="BookTiele">豆瓣读书</string>
     <string name="Lost">暂无信息</string>
+    <string name="loading">加载中...</string>
+    <string name="empty_data">暂无数据</string>
 </resources>

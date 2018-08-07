@@ -24,8 +24,8 @@ import butterknife.Unbinder;
  * 创建人：maimanchuang
  * 创建时间：2018/5/18 17:28
  */
-public abstract class  BaseFragment<T extends BasePresenterInter> extends Fragment  {
-    public abstract String getTiele();
+public abstract class  BaseFragment<T extends BasePresenterInter> extends Fragment   {
+//    public abstract String getTiele();
     protected T presenter;
     Unbinder unbinder;
     public  void myStartActivity(Context context, Class<?> cls, String key , Parcelable value){
@@ -54,7 +54,10 @@ public abstract class  BaseFragment<T extends BasePresenterInter> extends Fragme
             presenter.relieve();
             presenter=null;
         }
-        unbinder.unbind();
+        if(unbinder != Unbinder.EMPTY){
+            unbinder.unbind();
+        }
+
     }
     /**
      * 设置Fragment的布局内容

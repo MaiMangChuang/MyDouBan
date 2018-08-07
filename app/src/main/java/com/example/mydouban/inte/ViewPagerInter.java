@@ -7,5 +7,5 @@ package com.example.mydouban.inte;
  */
 public interface ViewPagerInter {
     public String getTitle();
-    public void setTitle(String title);
+
 }

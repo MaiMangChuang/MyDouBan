@@ -45,7 +45,9 @@ import butterknife.Unbinder;
             presenter=null;
         }
         activityList.remove(this);
-       unbinder.unbind();
+        if(unbinder != Unbinder.EMPTY){
+            unbinder.unbind();
+        }
 
     }
 

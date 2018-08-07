@@ -1,14 +1,11 @@
 package com.example.mydouban.ui.fragment;
 
 import android.content.Context;
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.ImageView;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
@@ -25,7 +22,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
-import butterknife.ButterKnife;
 import butterknife.Unbinder;
 
 /**
@@ -33,7 +29,7 @@ import butterknife.Unbinder;
  * 创建人：maimanchuang
  * 创建时间：2018/5/18 17:27
  */
-public class FutureMovieFragment extends BaseFragment<MovieInter.MoviePterInter> implements MovieInter.MovieViewInter<MovieFuture> {
+public class FutureMovieFragment extends ViewPagerFragment<MovieInter.MoviePterInter> implements MovieInter.MovieViewInter<MovieFuture> {
 
     @BindView(R.id.rv_movie)
     RecyclerView rvMovie;
@@ -81,10 +77,10 @@ public class FutureMovieFragment extends BaseFragment<MovieInter.MoviePterInter>
 
     }
 
-    @Override
-    public String getTiele() {
-        return "即将上映";
-    }
+//    @Override
+//    public String getTiele() {
+//        return "即将上映";
+//    }
 
     @Override
     public void onStop() {
@@ -96,7 +92,7 @@ public class FutureMovieFragment extends BaseFragment<MovieInter.MoviePterInter>
     public void onDestroyView() {
         super.onDestroyView();
         loaderAnim.stopAnim();
-//        unbinder.unbind();
+
     }
 
     @Override
@@ -118,5 +114,10 @@ loaderAnim.starAnim();
     @Override
     public void showDiao() {
 
+    }
+
+    @Override
+    public String getTitle() {
+        return "即将上映";
     }
 }
