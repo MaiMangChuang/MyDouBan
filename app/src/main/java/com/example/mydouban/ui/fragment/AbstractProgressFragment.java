@@ -22,7 +22,7 @@ import butterknife.Unbinder;
  * 创建人：maimanchuang
  * 创建时间：2018/8/7 15:36
  */
-public abstract class ProgressFragment<T extends BasePresenterInter> extends Fragment implements ProgressInter {
+public abstract class AbstractProgressFragment<T extends BasePresenterInter> extends Fragment implements ProgressInter {
 
 
 

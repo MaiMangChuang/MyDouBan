@@ -15,7 +15,7 @@ import rx.schedulers.Schedulers;
  * 创建人：Administrator
  * 创建时间：2017/7/19 19:00
  */
-public class HttpUtil {
+public final class HttpUtil {
     private static RetrofitInter retrofit;
     public static final String URL = "https://api.douban.com";
 

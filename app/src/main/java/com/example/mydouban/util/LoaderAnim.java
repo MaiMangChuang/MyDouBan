@@ -12,7 +12,7 @@ import com.example.mydouban.inte.AnimInter;
  * 创建人：maimanchuang
  * 创建时间：2018/5/24 9:36
  */
-public class LoaderAnim implements AnimInter {
+public final class LoaderAnim implements AnimInter {
     private View view;
 
     public LoaderAnim(View view) {

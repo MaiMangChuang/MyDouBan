@@ -29,6 +29,9 @@ import rx.Subscriber;
 import rx.android.schedulers.AndroidSchedulers;
 import rx.schedulers.Schedulers;
 
+/**
+ * @author Administrator
+ */
 public class BookValueActivity extends BaseAppCompatActivity<BookInter.BookPterInter> implements BookInter.BookViewInter<Book> {
 
     @BindView(R.id.iv_bookImage)
@@ -73,11 +76,10 @@ public class BookValueActivity extends BaseAppCompatActivity<BookInter.BookPterI
         booksBean = getIntent().getParcelableExtra("BooksBean");
         booksBeans = new ArrayList<Book.BooksBean>();
         adapter = new BookAdapter(R.layout.about_book_item, booksBeans, this);
-        presenter=new BookPterImpl(this,booksBean.getAuthor().get(0));
+        presenter = new BookPterImpl(this, booksBean.getAuthor().get(0));
         initView();
         presenter.initData();
     }
-
 
 
     private void initView() {
@@ -114,6 +116,8 @@ public class BookValueActivity extends BaseAppCompatActivity<BookInter.BookPterI
                 Intent intent = new Intent(this, BookWebActivity.class);
                 intent.putExtra("bookUrl", booksBean.getAlt());
                 startActivity(intent);
+                break;
+            default:
                 break;
         }
     }

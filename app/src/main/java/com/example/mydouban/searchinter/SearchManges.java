@@ -1,6 +1,4 @@
-package com.example.mydouban.SearchInter;
-
-import android.util.Log;
+package com.example.mydouban.searchinter;
 
 import com.example.mydouban.inte.SearchCall;
 

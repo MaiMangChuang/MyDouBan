@@ -23,7 +23,7 @@ public interface BookInter {
     public interface BookModInter<M>   {
         /**
          * 获取M数据
-         *
+         * @param dataCallBack 接口调用
          */
         void getData(DataCallBack<M> dataCallBack);
         void moreData(DataCallBack<M> dataCallBack);

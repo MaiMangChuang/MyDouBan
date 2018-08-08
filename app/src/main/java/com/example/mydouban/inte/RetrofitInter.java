@@ -83,11 +83,11 @@ public interface RetrofitInter {
 
     /**
      * 根据作者查询书籍
-     * @param Author 作者名
+     * @param author 作者名
      * @return 书籍内容
      */
     @GET("/v2/book/search")
-    Observable<Book> getAuthorBooks(@Query("tag") String Author);
+    Observable<Book> getAuthorBooks(@Query("tag") String author);
 
     /**
      * 根据类型查询音乐

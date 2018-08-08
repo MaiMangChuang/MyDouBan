@@ -1,9 +1,6 @@
 package com.example.mydouban.ui.activity;
 
-import android.content.Intent;
 import android.os.Bundle;
-import android.os.Handler;
-import android.os.Message;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
@@ -11,35 +8,22 @@ import android.widget.EditText;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.example.mydouban.R;
-import com.example.mydouban.SearchInter.SearchManges;
-import com.example.mydouban.adapter.BookAdapter;
+import com.example.mydouban.searchinter.SearchManges;
 import com.example.mydouban.adapter.BookSearchAdapter;
 import com.example.mydouban.adapter.MovieFutureAdapter;
-import com.example.mydouban.adapter.MovieHotAdapter;
 import com.example.mydouban.adapter.MusicAdapter;
 import com.example.mydouban.bean.Book;
 import com.example.mydouban.bean.Music;
 import com.example.mydouban.bean.SubjectsBean;
 import com.example.mydouban.inte.SearchCall;
-import com.example.mydouban.util.HttpUtil;
-import com.jakewharton.rxbinding.view.RxView;
 import com.jakewharton.rxbinding.widget.RxTextView;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Observable;
-import java.util.Observer;
-import java.util.Timer;
-import java.util.TimerTask;
 import java.util.concurrent.TimeUnit;
 
 import butterknife.BindView;
-import rx.Scheduler;
-import rx.Subscriber;
-import rx.android.schedulers.AndroidSchedulers;
 import rx.functions.Action1;
-import rx.functions.Func1;
-import rx.schedulers.Schedulers;
 
 public class SearchlnterActivity extends BaseAppCompatActivity {
 
@@ -101,6 +85,8 @@ public class SearchlnterActivity extends BaseAppCompatActivity {
                         SearchlnterActivity.this.myStartActivity(MusicWebActivity.class, "musicUrl", musicsBean.getAlt());
                     }
                 });
+                break;
+            default:
                 break;
         }
         rvSearchlnter.setAdapter(adapter);

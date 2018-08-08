@@ -82,8 +82,7 @@ public class ViewPagerAdapter extends FragmentPagerAdapter {
     private void removeFragment(ViewGroup container,int index) {
         String tag = getFragmentTag(container.getId(), index);
         Fragment fragment = mFragmentManager.findFragmentByTag(tag);
-        if (fragment == null)
-            return;
+        if (fragment == null){ return;}
         FragmentTransaction ft = mFragmentManager.beginTransaction();
         ft.remove(fragment);
         ft.commit();

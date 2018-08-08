@@ -29,7 +29,7 @@ import butterknife.Unbinder;
  * 创建人：maimanchuang
  * 创建时间：2018/5/18 16:15
  */
-public class TopMovieFragment extends ViewPagerFragment<MovieInter.MoviePterInter> implements MovieInter.MovieViewInter<MovieTop250> {
+public class TopMovieFragment extends AbstractViewPagerFragment<MovieInter.MoviePterInter> implements MovieInter.MovieViewInter<MovieTop250> {
     Context context;
     @BindView(R.id.rv_movie)
     RecyclerView rvMovie;
@@ -89,12 +89,6 @@ public class TopMovieFragment extends ViewPagerFragment<MovieInter.MoviePterInte
         rvMovie.setAdapter(adapter);
         presenter.initData();
     }
-
-
-//    @Override
-//    public String getTiele() {
-//        return "TOP250";
-//    }
 
 
 

@@ -35,7 +35,7 @@ import butterknife.Unbinder;
  * 创建人：maimanchuang
  * 创建时间：2018/5/18 16:06
  */
-public class HotMovieFragment extends ViewPagerFragment<MovieInter.MoviePterInter> implements MovieInter.MovieViewInter<MovieHot> {
+public class HotMovieFragment extends AbstractViewPagerFragment<MovieInter.MoviePterInter> implements MovieInter.MovieViewInter<MovieHot> {
     @BindView(R.id.banner)
     com.youth.banner.Banner banner;
     @BindView(R.id.rv_hotMovie)
@@ -63,6 +63,7 @@ public class HotMovieFragment extends ViewPagerFragment<MovieInter.MoviePterInte
         return R.layout.fragment_hotmovie;
     }
 
+    @Override
     public void init() {
         loaderAnim = new LoaderAnim(ivLoader);
         presenter = new HotMoviePterImpl(this);
@@ -129,10 +130,7 @@ banner.setOnBannerListener(new OnBannerListener() {
         banner.start();
     }
 
-//    @Override
-//    public String getTiele() {
-//        return "正在热播";
-//    }
+
 
 
     @Override

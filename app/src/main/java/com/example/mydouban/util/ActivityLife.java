@@ -10,7 +10,7 @@ import java.util.List;
  * 创建人：maimanchuang
  * 创建时间：2018/1/7 16:49
  */
-public class ActivityLife {
+public final class ActivityLife {
     private static List<Activity> activityList;
     private static ActivityLife activityLife;
 

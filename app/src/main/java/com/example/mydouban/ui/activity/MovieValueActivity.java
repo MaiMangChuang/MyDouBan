@@ -93,6 +93,8 @@ public class MovieValueActivity extends BaseAppCompatActivity<MovieInter.MoviePt
                 intent.putExtra("movieUrl", movieUrl);
                 startActivity(intent);
                 break;
+            default:
+                break;
         }
     }
 

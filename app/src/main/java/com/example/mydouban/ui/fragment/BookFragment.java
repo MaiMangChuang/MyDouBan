@@ -28,7 +28,7 @@ import butterknife.Unbinder;
  * 创建人：maimanchuang
  * 创建时间：2018/5/24 9:21
  */
-public class BookFragment extends ViewPagerFragment<BookInter.BookPterInter> implements BookInter.BookViewInter<Book> {
+public class BookFragment extends AbstractViewPagerFragment<BookInter.BookPterInter> implements BookInter.BookViewInter<Book> {
     @BindView(R.id.rv_book)
     RecyclerView rvBook;
     Unbinder unbinder;
@@ -107,10 +107,7 @@ public class BookFragment extends ViewPagerFragment<BookInter.BookPterInter> imp
         rvBook.setAdapter(adapter);
     }
 
-//    @Override
-//    public String getTiele() {
-//        return title;
-//    }
+
 
 
 

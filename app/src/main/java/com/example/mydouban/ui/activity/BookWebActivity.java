@@ -49,15 +49,7 @@ public class BookWebActivity extends BaseAppCompatActivity {
             showUtil.showLog("页面开始加载");
         }
 
-        @Override
-        public boolean shouldOverrideUrlLoading(WebView view, String url) {
-            Log.i("ansen", "拦截url:" + url);
-            if (url.equals("http://www.google.com/")) {
-                Toast.makeText(BookWebActivity.this, "国内不能访问google,拦截该url", Toast.LENGTH_LONG).show();
-                return true;//表示我已经处理过了
-            }
-            return super.shouldOverrideUrlLoading(view, url);
-        }
+
 
     };
     private void init() {

@@ -29,7 +29,7 @@ import butterknife.Unbinder;
  * 创建人：maimanchuang
  * 创建时间：2018/5/28 14:39
  */
-public class MusicFragment extends ViewPagerFragment<MusicPterImpl> implements MusicInter.MusicViewInter<Music> {
+public class MusicFragment extends AbstractViewPagerFragment<MusicPterImpl> implements MusicInter.MusicViewInter<Music> {
     @BindView(R.id.rv_music)
     RecyclerView rvMusic;
     @BindView(R.id.iv_loader)
@@ -110,10 +110,7 @@ public class MusicFragment extends ViewPagerFragment<MusicPterImpl> implements M
 
     }
 
-//    @Override
-//    public String getTiele() {
-//        return title;
-//    }
+
 
     @Override
     public void onDestroyView() {

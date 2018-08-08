@@ -1,20 +1,10 @@
-package com.example.mydouban.SearchInter;
-
-import android.content.Context;
-import android.support.v7.widget.RecyclerView;
-import android.util.Log;
+package com.example.mydouban.searchinter;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.example.mydouban.bean.Music;
-import com.example.mydouban.bean.SubjectsBean;
 import com.example.mydouban.inte.SearchCall;
 import com.example.mydouban.util.HttpUtil;
 import com.example.mydouban.util.MySubscriber;
-
-import rx.Observer;
-import rx.Scheduler;
-import rx.android.schedulers.AndroidSchedulers;
-import rx.schedulers.Schedulers;
 
 /**
  * 类描述：音乐查询实现类

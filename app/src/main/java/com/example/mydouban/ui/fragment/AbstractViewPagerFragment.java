@@ -8,7 +8,7 @@ import com.example.mydouban.inte.ViewPagerInter;
  * 创建人：maimanchuang
  * 创建时间：2018/8/7 16:01
  */
-public abstract class ViewPagerFragment<T extends BasePresenterInter> extends BaseFragment<T>  implements ViewPagerInter {
+public abstract class AbstractViewPagerFragment<T extends BasePresenterInter> extends BaseFragment<T>  implements ViewPagerInter {
 
 
 }

@@ -14,10 +14,10 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Toast;
 
-import com.example.mydouban.SearchInter.BookSearch;
-import com.example.mydouban.SearchInter.MovieSearch;
-import com.example.mydouban.SearchInter.MusicSearch;
-import com.example.mydouban.SearchInter.SearchManges;
+import com.example.mydouban.searchinter.BookSearch;
+import com.example.mydouban.searchinter.MovieSearch;
+import com.example.mydouban.searchinter.MusicSearch;
+import com.example.mydouban.searchinter.SearchManges;
 import com.example.mydouban.adapter.ViewPagerAdapter;
 import com.example.mydouban.inte.SearchCall;
 import com.example.mydouban.inte.ViewPagerInter;
@@ -35,6 +35,12 @@ import java.util.List;
 
 import butterknife.BindView;
 
+/**
+ * 类描述：
+ * 创建人：maimanchuang
+ * 创建时间：
+ * @author Administrator
+ */
 public class MainActivity extends BaseAppCompatActivity {
     List<ViewPagerInter> fragmentMovieList;
     List<ViewPagerInter> fragmentBookList;
@@ -53,11 +59,10 @@ public class MainActivity extends BaseAppCompatActivity {
     NavigationView navType;
 
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        searchCall=SearchManges.get(SearchManges.MOVIESEARCH);
+        searchCall = SearchManges.get(SearchManges.MOVIESEARCH);
         adapter = new ViewPagerAdapter(getSupportFragmentManager(), fragmentMovieList);
         initMovieFragment();
         viewPager.setAdapter(adapter);
@@ -77,10 +82,13 @@ public class MainActivity extends BaseAppCompatActivity {
         switch (id) {
             case R.id.action_search:
                 if (searchCall != null) {
-                   //跳转到查询页面
+                    //跳转到查询页面
                     myStartActivity(SearchlnterActivity.class);
                 }
                 Toast.makeText(MainActivity.this, "查询", Toast.LENGTH_SHORT).show();
+                break;
+
+            default:
                 break;
         }
         return super.onOptionsItemSelected(item);
@@ -100,48 +108,53 @@ public class MainActivity extends BaseAppCompatActivity {
                 super.onDrawerClosed(drawerView);
             }
         };
-        drawerToggle.syncState();//将左上角的图标和侧滑监听进行联动 达到动画效果显示
-        dlType.addDrawerListener(drawerToggle);//设置侧滑菜单的监听
+        //将左上角的图标和侧滑监听进行联动 达到动画效果显示
+        drawerToggle.syncState();
+        //设置侧滑菜单的监听
+        dlType.addDrawerListener(drawerToggle);
         navType.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-                switch (item.getItemId()){
+                switch (item.getItemId()) {
                     case R.id.nav_movie:
-                        if(searchCall instanceof MovieSearch){
-                        }else {
+                        if (searchCall instanceof MovieSearch) {
+                        } else {
                             toolbar.setTitle("豆瓣电影");
-                            tabLayout.setTabMode(TabLayout.MODE_FIXED );
+                            tabLayout.setTabMode(TabLayout.MODE_FIXED);
                             initMovieFragment();
-                            searchCall=SearchManges.get(SearchManges.MOVIESEARCH);
+                            searchCall = SearchManges.get(SearchManges.MOVIESEARCH);
                         }
                         dlType.closeDrawer(Gravity.LEFT);
                         break;
-                       case R.id.nav_book :
-                           if(searchCall instanceof BookSearch){
+                    case R.id.nav_book:
+                        if (searchCall instanceof BookSearch) {
 
-                           }else {
-                               toolbar.setTitle("豆瓣读书");
-                               tabLayout.setTabMode(TabLayout.MODE_FIXED );
-                               initBookFragment();
-                               searchCall=SearchManges.get(SearchManges.BOOKSEARCH);
+                        } else {
+                            toolbar.setTitle("豆瓣读书");
+                            tabLayout.setTabMode(TabLayout.MODE_FIXED);
+                            initBookFragment();
+                            searchCall = SearchManges.get(SearchManges.BOOKSEARCH);
 
-                           }
-                           dlType.closeDrawer(Gravity.LEFT);
-                    break;
-                       case R.id.nav_music :
-                           if(searchCall instanceof MusicSearch){
-                           }else {
-                               toolbar.setTitle("豆瓣音乐");
-                               initMusicFragment();
-                               tabLayout.setTabMode(TabLayout.MODE_SCROLLABLE);
-                               searchCall=SearchManges.get(SearchManges.MUSICSEARCH);
-                           }
-                           dlType.closeDrawer(Gravity.LEFT);
-                    break;
-                       case R.id.nav_status :
-                           Toast.makeText(MainActivity.this, "收藏", Toast.LENGTH_SHORT).show();
-                           dlType.closeDrawer(Gravity.LEFT);
-                    break;
+                        }
+                        dlType.closeDrawer(Gravity.LEFT);
+                        break;
+                    case R.id.nav_music:
+                        if (searchCall instanceof MusicSearch) {
+                        } else {
+                            toolbar.setTitle("豆瓣音乐");
+                            initMusicFragment();
+                            tabLayout.setTabMode(TabLayout.MODE_SCROLLABLE);
+                            searchCall = SearchManges.get(SearchManges.MUSICSEARCH);
+                        }
+                        dlType.closeDrawer(Gravity.LEFT);
+                        break;
+                    case R.id.nav_status:
+                        Toast.makeText(MainActivity.this, "收藏", Toast.LENGTH_SHORT).show();
+                        dlType.closeDrawer(Gravity.LEFT);
+                        break;
+
+                    default:
+                        break;
                 }
 
                 return true;
@@ -150,14 +163,14 @@ public class MainActivity extends BaseAppCompatActivity {
     }
 
     private void initMusicFragment() {
-        if(fragmentMusicList==null){
+        if (fragmentMusicList == null) {
             fragmentMusicList = new ArrayList<ViewPagerInter>();
-            for(String title : DataUtil.musicType){
+            for (String title : DataUtil.musicType) {
                 fragmentMusicList.add(MusicFragment.newInstance(title));
             }
         }
 
-        if(adapter.getFragmentList()==null||adapter.getFragmentList()!=fragmentMusicList){
+        if (adapter.getFragmentList() == null || adapter.getFragmentList() != fragmentMusicList) {
             adapter.setFragmentList(fragmentMusicList);
         }
         adapter.notifyDataSetChanged();
@@ -169,16 +182,16 @@ public class MainActivity extends BaseAppCompatActivity {
      * 准备MovieFragment
      */
     private void initMovieFragment() {
-        if(fragmentMovieList==null){
+        if (fragmentMovieList == null) {
             fragmentMovieList = new ArrayList<ViewPagerInter>();
             fragmentMovieList.add(new HotMovieFragment());
             fragmentMovieList.add(new TopMovieFragment());
             fragmentMovieList.add(new FutureMovieFragment());
         }
 
-       if(adapter.getFragmentList()==null||adapter.getFragmentList()!=fragmentMovieList){
-           adapter.setFragmentList(fragmentMovieList);
-       }
+        if (adapter.getFragmentList() == null || adapter.getFragmentList() != fragmentMovieList) {
+            adapter.setFragmentList(fragmentMovieList);
+        }
         adapter.notifyDataSetChanged();
     }
 
@@ -188,17 +201,16 @@ public class MainActivity extends BaseAppCompatActivity {
     private void initBookFragment() {
         if (fragmentBookList == null) {
             fragmentBookList = new ArrayList<ViewPagerInter>();
-            for(String title : DataUtil.bookType){
+            for (String title : DataUtil.bookType) {
                 fragmentBookList.add(BookFragment.newInstance(title));
             }
         }
-        if(adapter.getFragmentList()==null||adapter.getFragmentList()!=fragmentBookList){
+        if (adapter.getFragmentList() == null || adapter.getFragmentList() != fragmentBookList) {
             adapter.setFragmentList(fragmentBookList);
         }
         adapter.notifyDataSetChanged();
 
     }
-
 
 
     @Override

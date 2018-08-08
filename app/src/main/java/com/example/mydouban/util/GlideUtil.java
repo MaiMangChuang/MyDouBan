@@ -13,7 +13,7 @@ import com.example.mydouban.R;
  * 创建人：maimanchuang
  * 创建时间：2018/3/18 16:27
  */
-public class GlideUtil {
+public final class GlideUtil {
     private static RequestOptions options = new RequestOptions()
             .error(R.mipmap.lost);
  public  static void showGlide(Context context, String url, ImageView view){

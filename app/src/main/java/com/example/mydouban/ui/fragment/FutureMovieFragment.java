@@ -29,7 +29,7 @@ import butterknife.Unbinder;
  * 创建人：maimanchuang
  * 创建时间：2018/5/18 17:27
  */
-public class FutureMovieFragment extends ViewPagerFragment<MovieInter.MoviePterInter> implements MovieInter.MovieViewInter<MovieFuture> {
+public class FutureMovieFragment extends AbstractViewPagerFragment<MovieInter.MoviePterInter> implements MovieInter.MovieViewInter<MovieFuture> {
 
     @BindView(R.id.rv_movie)
     RecyclerView rvMovie;
@@ -77,10 +77,6 @@ public class FutureMovieFragment extends ViewPagerFragment<MovieInter.MoviePterI
 
     }
 
-//    @Override
-//    public String getTiele() {
-//        return "即将上映";
-//    }
 
     @Override
     public void onStop() {

@@ -45,14 +45,7 @@ public class MusicWebActivity extends BaseAppCompatActivity {
             loaderAnim.starAnim();
         }
 
-        @Override
-        public boolean shouldOverrideUrlLoading(WebView view, String url) {
-            Log.i("ansen", "拦截url:" + url);
-            if (url.equals("http://www.google.com/")) {
-                return true;//表示我已经处理过了
-            }
-            return super.shouldOverrideUrlLoading(view, url);
-        }
+
 
     };
 

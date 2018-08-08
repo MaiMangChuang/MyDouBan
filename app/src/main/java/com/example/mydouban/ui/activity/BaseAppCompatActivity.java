@@ -21,6 +21,7 @@ import butterknife.Unbinder;
  * 类描述：
  * 创建人：maimanchuang
  * 创建时间：2018/1/7 16:48
+ * @author Administrator
  */
   public abstract class BaseAppCompatActivity<T extends BasePresenterInter> extends AppCompatActivity {
     protected List<Activity> activityList = ActivityLife.getActivityList();
@@ -36,6 +37,11 @@ import butterknife.Unbinder;
         activityList.add(this);
         unbinder= ButterKnife.bind(this);
     }
+
+    /**
+     * 设置布局
+     * @return 放回布局id
+     */
     public abstract int getLayoutResID();
     @Override
     protected void onDestroy() {

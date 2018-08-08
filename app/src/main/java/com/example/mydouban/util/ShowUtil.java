@@ -12,7 +12,7 @@ import java.util.Objects;
  * 创建人：maimanchuang
  * 创建时间：2018/2/11 20:25
  */
-public class ShowUtil {
+public final class ShowUtil {
     private Activity activity;
     public ShowUtil(Activity activity){
         this.activity=activity;
