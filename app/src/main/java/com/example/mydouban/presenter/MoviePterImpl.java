@@ -26,6 +26,7 @@ public class MoviePterImpl extends BasePresenter<MovieInter.MovieViewInter<Movie
             @Override
             public void dataLose(String message) {
                 mView.loaderAnimStop();
+                mView.showDiao();
             }
 
             @Override

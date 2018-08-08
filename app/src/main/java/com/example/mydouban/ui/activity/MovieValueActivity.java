@@ -1,7 +1,6 @@
 package com.example.mydouban.ui.activity;
 
 import android.content.Intent;
-import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.widget.AppCompatRatingBar;
 import android.view.View;
@@ -14,22 +13,17 @@ import com.example.mydouban.bean.SubjectsBean;
 import com.example.mydouban.inte.MovieInter;
 import com.example.mydouban.presenter.MoviePterImpl;
 import com.example.mydouban.util.GlideUtil;
-import com.example.mydouban.util.HttpUtil;
-import com.example.mydouban.util.LoaderAnim;
 import com.example.mydouban.util.ProjectUtil;
 
 import butterknife.BindView;
 import butterknife.OnClick;
-import rx.Subscriber;
-import rx.android.schedulers.AndroidSchedulers;
-import rx.schedulers.Schedulers;
 
 /**
  * 类描述：
  * 创建人：maimanchuang
  * 创建时间：2018/5/20 0:12
  */
-public class MovieValueActivity extends BaseAppCompatActivity<MovieInter.MoviePterInter> implements MovieInter.MovieViewInter<MovieValue> {
+public class MovieValueActivity extends AbstractProgressActivity<MovieInter.MoviePterInter> implements MovieInter.MovieViewInter<MovieValue> {
     @BindView(R.id.iv_movieImages)
     ImageView ivMovieImages;
     @BindView(R.id.tv_movieTiele)
@@ -58,25 +52,31 @@ public class MovieValueActivity extends BaseAppCompatActivity<MovieInter.MoviePt
     @BindView(R.id.fab_web)
     FloatingActionButton fabWeb;
     String movieUrl;
-    @BindView(R.id.iv_loader)
-    ImageView ivLoader;
-    private LoaderAnim loaderAnim;
 
 
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        subjectsBean = getIntent().getParcelableExtra("MovieValu");
-        String movieId = subjectsBean.getId();
-        loaderAnim = new LoaderAnim(ivLoader);
-        presenter = new MoviePterImpl(this, movieId);
-        presenter.initData();
-    }
+
+//    @Override
+//    protected void onCreate(Bundle savedInstanceState) {
+//        super.onCreate(savedInstanceState);
+//        subjectsBean = getIntent().getParcelableExtra("MovieValu");
+//        String movieId = subjectsBean.getId();
+//        loaderAnim = new LoaderAnim(ivLoader);
+//        presenter = new MoviePterImpl(this, movieId);
+//        presenter.initData();
+//    }
 
 
     @Override
     public int getLayoutResID() {
         return R.layout.activity_movie_value;
+    }
+
+    @Override
+    public void init() {
+        subjectsBean = getIntent().getParcelableExtra("MovieValu");
+        String movieId = subjectsBean.getId();
+        presenter = new MoviePterImpl(this, movieId);
+        presenter.initData();
     }
 
     @OnClick({R.id.iv_black, R.id.iv_enshrine, R.id.fab_web})
@@ -101,12 +101,12 @@ public class MovieValueActivity extends BaseAppCompatActivity<MovieInter.MoviePt
 
     @Override
     public void loaderAnimStar() {
-        loaderAnim.starAnim();
+       showLoading();
     }
 
     @Override
     public void loaderAnimStop() {
-        loaderAnim.stopAnim();
+        showContentView();
     }
 
     @Override
@@ -130,9 +130,5 @@ public class MovieValueActivity extends BaseAppCompatActivity<MovieInter.MoviePt
 
     }
 
-    @Override
-    protected void onDestroy() {
-        super.onDestroy();
 
-    }
 }

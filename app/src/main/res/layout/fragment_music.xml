@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<merge xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
     <android.support.v7.widget.RecyclerView
@@ -7,10 +7,6 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
     </android.support.v7.widget.RecyclerView>
-    <ImageView
-        style="@style/Loader_ImageView"
-        android:id="@+id/iv_loader"
-        android:background="@drawable/brvah_sample_footer_loading"
-        />
 
-</FrameLayout>
+
+</merge>

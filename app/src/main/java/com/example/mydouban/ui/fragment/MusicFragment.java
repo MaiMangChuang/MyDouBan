@@ -7,7 +7,6 @@ import android.support.annotation.Nullable;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
-import android.widget.ImageView;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.example.mydouban.R;
@@ -16,7 +15,6 @@ import com.example.mydouban.bean.Music;
 import com.example.mydouban.inte.MusicInter;
 import com.example.mydouban.presenter.MusicPterImpl;
 import com.example.mydouban.ui.activity.MusicWebActivity;
-import com.example.mydouban.util.LoaderAnim;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -29,16 +27,13 @@ import butterknife.Unbinder;
  * 创建人：maimanchuang
  * 创建时间：2018/5/28 14:39
  */
-public class MusicFragment extends AbstractViewPagerFragment<MusicPterImpl> implements MusicInter.MusicViewInter<Music> {
+public class MusicFragment extends AbstractViewPagerProgressFragment<MusicPterImpl> implements MusicInter.MusicViewInter<Music> {
     @BindView(R.id.rv_music)
     RecyclerView rvMusic;
-    @BindView(R.id.iv_loader)
-    ImageView ivLoader;
     private String title;
     private Context context;
     private List<Music.MusicsBean> musicBeanList;
     private MusicAdapter adapter;
-    private LoaderAnim loaderAnim;
     Unbinder unbinder;
 
     public void setTitle(String title) {
@@ -69,7 +64,6 @@ public class MusicFragment extends AbstractViewPagerFragment<MusicPterImpl> impl
     public void init() {
         musicBeanList = new ArrayList<>();
         presenter = new MusicPterImpl(this, title);
-        loaderAnim=new LoaderAnim(ivLoader);
         initView();
         presenter.initData();
     }
@@ -112,26 +106,17 @@ public class MusicFragment extends AbstractViewPagerFragment<MusicPterImpl> impl
 
 
 
-    @Override
-    public void onDestroyView() {
-        super.onDestroyView();
-
-    }
-
-    @Override
-    public void onStop() {
-        loaderAnim.stopAnim();
-        super.onStop();
-    }
 
     @Override
     public void loaderAnimStar() {
-        loaderAnim.starAnim();
+
+      showLoading();
     }
 
     @Override
     public void loaderAnimStop() {
-        loaderAnim.stopAnim();
+
+       showContentView();
     }
 
 
@@ -143,7 +128,7 @@ public class MusicFragment extends AbstractViewPagerFragment<MusicPterImpl> impl
 
     @Override
     public void showDiao() {
-
+showEmptyView();
     }
 
     @Override

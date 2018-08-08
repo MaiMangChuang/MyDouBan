@@ -4,19 +4,13 @@
     android:orientation="vertical"
     android:layout_height="match_parent">
     <include layout="@layout/title"/>
-    <FrameLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent">
+
         <WebView
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:id="@+id/wv_book"
             >
         </WebView>
-        <ImageView
-            style="@style/Loader_ImageView"
-            android:id="@+id/iv_loader"
-            android:background="@drawable/brvah_sample_footer_loading"
-            />
-    </FrameLayout>
+
+
 </LinearLayout>

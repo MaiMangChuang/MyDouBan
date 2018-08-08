@@ -156,11 +156,7 @@
         android:textColor="#606060"
         android:textSize="15sp" />
 
-    <ImageView
-        android:id="@+id/iv_loader"
-        style="@style/Loader_ImageView"
-        android:layout_centerInParent="true"
-        android:background="@drawable/brvah_sample_footer_loading" />
+
 
 
 </RelativeLayout>

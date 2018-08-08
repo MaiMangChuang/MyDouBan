@@ -32,7 +32,7 @@ import rx.schedulers.Schedulers;
 /**
  * @author Administrator
  */
-public class BookValueActivity extends BaseAppCompatActivity<BookInter.BookPterInter> implements BookInter.BookViewInter<Book> {
+public class BookValueActivity extends AbstractProgressActivity<BookInter.BookPterInter> implements BookInter.BookViewInter<Book> {
 
     @BindView(R.id.iv_bookImage)
     ImageView ivBookImage;
@@ -70,19 +70,28 @@ public class BookValueActivity extends BaseAppCompatActivity<BookInter.BookPterI
     private List<Book.BooksBean> booksBeans;
     private BookAdapter adapter;
 
+//    @Override
+//    protected void onCreate(Bundle savedInstanceState) {
+//        super.onCreate(savedInstanceState);
+//
+//    }
+
+
+
+
+
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
+    public int getLayoutResID() {
+        return R.layout.activity_book_value;
+    }
+
+    @Override
+    public void init() {
         booksBean = getIntent().getParcelableExtra("BooksBean");
         booksBeans = new ArrayList<Book.BooksBean>();
         adapter = new BookAdapter(R.layout.about_book_item, booksBeans, this);
         presenter = new BookPterImpl(this, booksBean.getAuthor().get(0));
-        initView();
         presenter.initData();
-    }
-
-
-    private void initView() {
         rvBook.setLayoutManager(new LinearLayoutManager(this, LinearLayout.HORIZONTAL, false));
         rvBook.setAdapter(adapter);
         tvBookTiele.setText(booksBean.getTitle());
@@ -100,12 +109,6 @@ public class BookValueActivity extends BaseAppCompatActivity<BookInter.BookPterI
     }
 
 
-    @Override
-    public int getLayoutResID() {
-        return R.layout.activity_book_value;
-    }
-
-
     @OnClick({R.id.iv_black, R.id.tv_web})
     public void onViewClicked(View view) {
         switch (view.getId()) {
@@ -113,9 +116,10 @@ public class BookValueActivity extends BaseAppCompatActivity<BookInter.BookPterI
                 myFinish();
                 break;
             case R.id.tv_web:
-                Intent intent = new Intent(this, BookWebActivity.class);
-                intent.putExtra("bookUrl", booksBean.getAlt());
-                startActivity(intent);
+//                Intent intent = new Intent(this, BookWebActivity.class);
+//                intent.putExtra("bookUrl", booksBean.getAlt());
+//                startActivity(intent);
+                myStartActivity(BookWebActivity.class,"bookUrl", booksBean.getAlt());
                 break;
             default:
                 break;
@@ -124,12 +128,12 @@ public class BookValueActivity extends BaseAppCompatActivity<BookInter.BookPterI
 
     @Override
     public void loaderAnimStar() {
-
+     showLoading();
     }
 
     @Override
     public void loaderAnimStop() {
-
+    showContentView();
     }
 
     @Override
@@ -144,7 +148,7 @@ public class BookValueActivity extends BaseAppCompatActivity<BookInter.BookPterI
 
     @Override
     public void showDiao() {
-
+showEmptyView();
     }
 
 

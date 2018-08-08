@@ -13,10 +13,6 @@
             android:id="@+id/wv_music"
             >
         </WebView>
-        <ImageView
-            style="@style/Loader_ImageView"
-            android:id="@+id/iv_loader"
-            android:background="@drawable/brvah_sample_footer_loading"
-            />
+
     </FrameLayout>
 </LinearLayout>

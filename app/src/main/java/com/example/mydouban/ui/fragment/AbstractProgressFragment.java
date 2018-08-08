@@ -1,6 +1,9 @@
 package com.example.mydouban.ui.fragment;
 
+import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
+import android.os.Parcelable;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
@@ -12,7 +15,6 @@ import android.widget.TextView;
 import com.example.mydouban.R;
 import com.example.mydouban.inte.BasePresenterInter;
 import com.example.mydouban.inte.ProgressInter;
-import com.example.mydouban.inte.ViewPagerInter;
 
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
@@ -53,12 +55,12 @@ public abstract class AbstractProgressFragment<T extends BasePresenterInter> ext
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
 
 
-        mRootView = (FrameLayout) inflater.inflate(R.layout.fragment_progress,container,false);
+        mRootView = (FrameLayout) inflater.inflate(R.layout.progress,container,false);
         mViewProgress = mRootView.findViewById(R.id.view_progress);
-        mViewContent = (FrameLayout) mRootView.findViewById(R.id.view_content);
+        mViewContent =  mRootView.findViewById(R.id.view_content);
         mViewEmpty = mRootView.findViewById(R.id.view_empty);
 
-        mTextError = (TextView) mRootView.findViewById(R.id.text_tip);
+        mTextError =  mRootView.findViewById(R.id.text_tip);
 
         mViewEmpty.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -91,7 +93,7 @@ public abstract class AbstractProgressFragment<T extends BasePresenterInter> ext
 
 
 
-    public void  showProgressView(){
+    private void  showProgressView(){
         showView(R.id.view_progress);
 
     }
@@ -159,6 +161,13 @@ public abstract class AbstractProgressFragment<T extends BasePresenterInter> ext
     @Override
     public void showValue() {
         showContentView();
+    }
+    public  void myStartActivity(Context context, Class<?> cls, String key , Parcelable value){
+        Bundle bundle = new Bundle();
+        bundle.putParcelable(key, value);
+        Intent intent=new Intent(context,cls);
+        intent.putExtras(bundle);
+        startActivity(intent);
     }
 
 

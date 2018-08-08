@@ -6,7 +6,6 @@ import android.support.annotation.Nullable;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
-import android.widget.ImageView;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.example.mydouban.R;
@@ -15,7 +14,6 @@ import com.example.mydouban.bean.Book;
 import com.example.mydouban.inte.BookInter;
 import com.example.mydouban.presenter.BookPterImpl;
 import com.example.mydouban.ui.activity.BookValueActivity;
-import com.example.mydouban.util.LoaderAnim;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -28,18 +26,16 @@ import butterknife.Unbinder;
  * 创建人：maimanchuang
  * 创建时间：2018/5/24 9:21
  */
-public class BookFragment extends AbstractViewPagerFragment<BookInter.BookPterInter> implements BookInter.BookViewInter<Book> {
+public class BookFragment extends AbstractViewPagerProgressFragment<BookInter.BookPterInter> implements BookInter.BookViewInter<Book> {
     @BindView(R.id.rv_book)
     RecyclerView rvBook;
     Unbinder unbinder;
-    @BindView(R.id.iv_loader)
-    ImageView ivLoader;
     private Context context;
     private List<Book.BooksBean> booksBeanList;
     private BookAdapter adapter;
     private String title;
 
-    private LoaderAnim loaderAnim;
+
 
     public void setTitle(String title) {
         this.title = title;
@@ -69,7 +65,6 @@ public class BookFragment extends AbstractViewPagerFragment<BookInter.BookPterIn
     @Override
     public void init() {
         presenter = new BookPterImpl(this, title);
-        loaderAnim=new LoaderAnim(ivLoader);
         initView();
         presenter.initData();
     }
@@ -113,18 +108,18 @@ public class BookFragment extends AbstractViewPagerFragment<BookInter.BookPterIn
 
     @Override
     public void onStop() {
-        loaderAnim.stopAnim();
         super.onStop();
     }
 
     @Override
     public void loaderAnimStar() {
-        loaderAnim.starAnim();
+        showLoading();
+
     }
 
     @Override
     public void loaderAnimStop() {
-        loaderAnim.stopAnim();
+        showContentView();
     }
 
     @Override
@@ -135,7 +130,7 @@ public class BookFragment extends AbstractViewPagerFragment<BookInter.BookPterIn
 
     @Override
     public void showDiao() {
-
+            showEmptyView();
     }
 
 

@@ -15,7 +15,7 @@ import com.example.mydouban.R;
  */
 public final class GlideUtil {
     private static RequestOptions options = new RequestOptions()
-            .error(R.mipmap.lost);
+            .error(R.drawable.ic_image);
  public  static void showGlide(Context context, String url, ImageView view){
          Glide.with(context).load(url).apply(options).thumbnail(0.1f).into(view);
     }

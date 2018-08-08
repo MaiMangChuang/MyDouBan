@@ -7,6 +7,7 @@ import android.os.Parcelable;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 
+import com.example.mydouban.R;
 import com.example.mydouban.inte.BasePresenterInter;
 import com.example.mydouban.presenter.BasePresenter;
 import com.example.mydouban.util.ActivityLife;

@@ -17,7 +17,6 @@ import com.example.mydouban.inte.MovieInter;
 import com.example.mydouban.presenter.HotMoviePterImpl;
 import com.example.mydouban.ui.activity.MovieValueActivity;
 import com.example.mydouban.util.GlideUtil;
-import com.example.mydouban.util.LoaderAnim;
 import com.youth.banner.BannerConfig;
 import com.youth.banner.Transformer;
 import com.youth.banner.listener.OnBannerListener;
@@ -35,20 +34,18 @@ import butterknife.Unbinder;
  * 创建人：maimanchuang
  * 创建时间：2018/5/18 16:06
  */
-public class HotMovieFragment extends AbstractViewPagerFragment<MovieInter.MoviePterInter> implements MovieInter.MovieViewInter<MovieHot> {
+public class HotMovieFragment extends AbstractViewPagerProgressFragment<MovieInter.MoviePterInter> implements MovieInter.MovieViewInter<MovieHot> {
     @BindView(R.id.banner)
     com.youth.banner.Banner banner;
     @BindView(R.id.rv_hotMovie)
     RecyclerView rvHotMovie;
-    @BindView(R.id.iv_loader)
-    ImageView ivLoader;
+
     Unbinder unbinder;
     private Context context;
     private ArrayList<SubjectsBean> subjectsBeanBannerList;
     private ArrayList<SubjectsBean> subjectsBeanRVList;
     private MovieHotAdapter adapter;
     private final int BANNERSIZE = 4;
-    private LoaderAnim loaderAnim;
 
 
     @Override
@@ -65,7 +62,6 @@ public class HotMovieFragment extends AbstractViewPagerFragment<MovieInter.Movie
 
     @Override
     public void init() {
-        loaderAnim = new LoaderAnim(ivLoader);
         presenter = new HotMoviePterImpl(this);
         subjectsBeanBannerList = new ArrayList<>();
         subjectsBeanRVList = new ArrayList<>();
@@ -133,20 +129,17 @@ banner.setOnBannerListener(new OnBannerListener() {
 
 
 
-    @Override
-    public void onStop() {
-        super.onStop();
-        loaderAnim.stopAnim();
-    }
+
 
     @Override
     public void loaderAnimStar() {
-        loaderAnim.starAnim();
+        showLoading();
+
     }
 
     @Override
     public void loaderAnimStop() {
-        loaderAnim.stopAnim();
+      showContentView();
     }
 
     @Override
@@ -164,7 +157,7 @@ banner.setOnBannerListener(new OnBannerListener() {
 
     @Override
     public void showDiao() {
-
+showEmptyView();
     }
 
     @Override

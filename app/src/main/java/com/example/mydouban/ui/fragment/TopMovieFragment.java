@@ -6,7 +6,6 @@ import android.support.annotation.Nullable;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
-import android.widget.ImageView;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.example.mydouban.R;
@@ -16,7 +15,6 @@ import com.example.mydouban.bean.SubjectsBean;
 import com.example.mydouban.inte.MovieInter;
 import com.example.mydouban.presenter.TopMoviePterImpl;
 import com.example.mydouban.ui.activity.MovieValueActivity;
-import com.example.mydouban.util.LoaderAnim;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -29,16 +27,14 @@ import butterknife.Unbinder;
  * 创建人：maimanchuang
  * 创建时间：2018/5/18 16:15
  */
-public class TopMovieFragment extends AbstractViewPagerFragment<MovieInter.MoviePterInter> implements MovieInter.MovieViewInter<MovieTop250> {
+public class TopMovieFragment extends AbstractViewPagerProgressFragment<MovieInter.MoviePterInter> implements MovieInter.MovieViewInter<MovieTop250> {
     Context context;
     @BindView(R.id.rv_movie)
     RecyclerView rvMovie;
     Unbinder unbinder;
     List<SubjectsBean> list;
     MovieTopAdapter adapter;
-    @BindView(R.id.iv_loader)
-    ImageView ivLoader;
-    private LoaderAnim loaderAnim;
+
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -58,7 +54,6 @@ public class TopMovieFragment extends AbstractViewPagerFragment<MovieInter.Movie
 
     @Override
     public void init() {
-        loaderAnim=new LoaderAnim(ivLoader);
         rvMovie.setLayoutManager(new LinearLayoutManager(context));
         adapter.setOnLoadMoreListener(new BaseQuickAdapter.RequestLoadMoreListener() {
             @Override
@@ -93,21 +88,16 @@ public class TopMovieFragment extends AbstractViewPagerFragment<MovieInter.Movie
 
 
 
-    @Override
-    public void onStop() {
-        super.onStop();
-        loaderAnim.stopAnim();
 
-    }
 
     @Override
     public void loaderAnimStar() {
-        loaderAnim.starAnim();
+     showLoading();
     }
 
     @Override
     public void loaderAnimStop() {
-        loaderAnim.stopAnim();
+       showContentView();
     }
 
     @Override
@@ -126,7 +116,7 @@ public class TopMovieFragment extends AbstractViewPagerFragment<MovieInter.Movie
 
     @Override
     public void showDiao() {
-
+showEmptyView();
     }
 
     @Override
