@@ -16,7 +16,7 @@ import butterknife.BindView;
  * 创建人：maimanchuang
  * 创建时间：2018/5/21 22:24
  */
-public class MovieWebActivity extends AbstractProgressActivity  {
+public class MovieWebActivity extends AbstractProgressActivity {
 
     @BindView(R.id.wv_movie)
     WebView wvMovie;
@@ -30,13 +30,6 @@ public class MovieWebActivity extends AbstractProgressActivity  {
         return R.layout.activity_movie_web;
     }
 
-//    @Override
-//    protected void onCreate(Bundle savedInstanceState) {
-//        super.onCreate(savedInstanceState);
-//
-//
-//
-//    }
 
     @Override
     public void init() {
@@ -57,16 +50,15 @@ public class MovieWebActivity extends AbstractProgressActivity  {
     private WebViewClient webViewClient = new WebViewClient() {
         @Override
         public void onPageFinished(WebView view, String url) {//页面加载完成
-         showLoading();
+            showLoading();
             showUtil.showLog("页面加载完成");
         }
 
         @Override
         public void onPageStarted(WebView view, String url, Bitmap favicon) {//页面开始加载
-           showContentView();
+            showContentView();
             showUtil.showLog("页面开始加载");
         }
-
 
 
     };
@@ -74,6 +66,6 @@ public class MovieWebActivity extends AbstractProgressActivity  {
     @Override
     protected void onStop() {
         super.onStop();
-       showEmptyView();
+        showEmptyView();
     }
 }

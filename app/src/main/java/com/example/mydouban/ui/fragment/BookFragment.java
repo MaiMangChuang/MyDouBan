@@ -95,7 +95,7 @@ public class BookFragment extends AbstractViewPagerProgressFragment<BookInter.Bo
             @Override
             public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
                 Book.BooksBean booksBean = booksBeanList.get(position);
-                myStartActivity(context, BookValueActivity.class, "BooksBean", booksBean);
+                showUtil.myStartActivity(BookValueActivity.class, "BooksBean", booksBean);
             }
         });
         rvBook.setLayoutManager(new GridLayoutManager(context, 4));

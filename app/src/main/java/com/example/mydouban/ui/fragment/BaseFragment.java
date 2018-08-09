@@ -15,6 +15,7 @@ import com.example.mydouban.R;
 import com.example.mydouban.inte.BasePresenterInter;
 import com.example.mydouban.inte.ViewPagerInter;
 import com.example.mydouban.presenter.BasePresenter;
+import com.example.mydouban.util.ShowUtil;
 
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
@@ -25,16 +26,10 @@ import butterknife.Unbinder;
  * 创建时间：2018/5/18 17:28
  */
 public abstract class  BaseFragment<T extends BasePresenterInter> extends Fragment   {
-//    public abstract String getTiele();
     protected T presenter;
     Unbinder unbinder;
-    public  void myStartActivity(Context context, Class<?> cls, String key , Parcelable value){
-        Bundle bundle = new Bundle();
-        bundle.putParcelable(key, value);
-        Intent intent=new Intent(context,cls);
-        intent.putExtras(bundle);
-        startActivity(intent);
-    }
+    protected ShowUtil showUtil;
+
 
 
 
@@ -43,6 +38,7 @@ public abstract class  BaseFragment<T extends BasePresenterInter> extends Fragme
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(getLayoutResID(), container, false);
         unbinder = ButterKnife.bind(this, view);
+        showUtil=new ShowUtil(getContext());
         init();
         return view;
     }

@@ -58,7 +58,7 @@ import butterknife.Unbinder;
 
     }
 
-    public void finishAll() {
+    protected void finishAll() {
         for (Activity activity : activityList) {
             if (!activity.isFinishing()) {
                 activity.finish();
@@ -68,15 +68,15 @@ import butterknife.Unbinder;
 
     }
 
-    public void myFinish() {
+    protected void myFinish() {
         activityList.remove(this);
         this.finish();
     }
-    public  void myStartActivity( Class<?> cls){
+    protected  void myStartActivity( Class<?> cls){
         Intent intent=new Intent(this,cls);
         startActivity(intent);
     }
-    public  void myStartActivity( Class<?> cls,String key ,Parcelable value){
+    protected  void myStartActivity( Class<?> cls,String key ,Parcelable value){
         Bundle bundle = new Bundle();
         bundle.putParcelable(key, value);
         Intent intent=new Intent(this,cls);
@@ -84,7 +84,7 @@ import butterknife.Unbinder;
         startActivity(intent);
     }
 
-    public  void myStartActivity( Class<?> cls,String key ,String value){
+    protected  void myStartActivity( Class<?> cls,String key ,String value){
         Intent intent=new Intent(this,cls);
         intent.putExtra(key, value);
         startActivity(intent);

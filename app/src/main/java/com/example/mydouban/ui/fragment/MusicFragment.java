@@ -75,9 +75,7 @@ public class MusicFragment extends AbstractViewPagerProgressFragment<MusicPterIm
             @Override
             public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
                 Music.MusicsBean musicsBean = musicBeanList.get(position);
-                Intent intent = new Intent(context, MusicWebActivity.class);
-                intent.putExtra("musicUrl", musicsBean.getAlt());
-                MusicFragment.this.startActivity(intent);
+                showUtil.myStartActivity(MusicWebActivity.class,"musicUrl", musicsBean.getAlt());
             }
         });
         rvMusic.setLayoutManager(new LinearLayoutManager(context));

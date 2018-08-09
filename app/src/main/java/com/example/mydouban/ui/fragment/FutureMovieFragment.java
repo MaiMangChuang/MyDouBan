@@ -67,7 +67,9 @@ public class FutureMovieFragment extends AbstractViewPagerProgressFragment<Movie
             @Override
             public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
                 SubjectsBean subjectsBean = subjectsBeanRVList.get(position);
-                myStartActivity(context,MovieValueActivity.class,"MovieValu", subjectsBean);
+                showUtil.myStartActivity(MovieValueActivity.class,"MovieValu", subjectsBean);
+
+
             }
         });
 

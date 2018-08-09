@@ -54,18 +54,6 @@ public class MovieValueActivity extends AbstractProgressActivity<MovieInter.Movi
     String movieUrl;
 
 
-
-//    @Override
-//    protected void onCreate(Bundle savedInstanceState) {
-//        super.onCreate(savedInstanceState);
-//        subjectsBean = getIntent().getParcelableExtra("MovieValu");
-//        String movieId = subjectsBean.getId();
-//        loaderAnim = new LoaderAnim(ivLoader);
-//        presenter = new MoviePterImpl(this, movieId);
-//        presenter.initData();
-//    }
-
-
     @Override
     public int getLayoutResID() {
         return R.layout.activity_movie_value;
@@ -89,9 +77,7 @@ public class MovieValueActivity extends AbstractProgressActivity<MovieInter.Movi
                 showUtil.showTose("点击了收藏");
                 break;
             case R.id.fab_web:
-                Intent intent = new Intent(this, MovieWebActivity.class);
-                intent.putExtra("movieUrl", movieUrl);
-                startActivity(intent);
+                showUtil.myStartActivity(MovieWebActivity.class,"movieUrl", movieUrl);
                 break;
             default:
                 break;
@@ -101,7 +87,7 @@ public class MovieValueActivity extends AbstractProgressActivity<MovieInter.Movi
 
     @Override
     public void loaderAnimStar() {
-       showLoading();
+        showLoading();
     }
 
     @Override

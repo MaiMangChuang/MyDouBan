@@ -20,11 +20,6 @@ public class MusicWebActivity extends AbstractProgressActivity {
     String musicUrl;
 
 
-//    @Override
-//    protected void onCreate(Bundle savedInstanceState) {
-//        super.onCreate(savedInstanceState);
-//
-//    }
     private WebViewClient webViewClient = new WebViewClient() {
         @Override
         public void onPageFinished(WebView view, String url) {//页面加载完成
@@ -33,9 +28,8 @@ public class MusicWebActivity extends AbstractProgressActivity {
 
         @Override
         public void onPageStarted(WebView view, String url, Bitmap favicon) {//页面开始加载
-       showLoading();
+            showLoading();
         }
-
 
 
     };

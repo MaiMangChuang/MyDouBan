@@ -66,7 +66,6 @@ public class HotMovieFragment extends AbstractViewPagerProgressFragment<MovieInt
         subjectsBeanBannerList = new ArrayList<>();
         subjectsBeanRVList = new ArrayList<>();
         adapter = new MovieHotAdapter(R.layout.ftagment_hotmovie_item, subjectsBeanRVList, context);
-
         initBanner();
         initRV();
         presenter.initData();
@@ -94,7 +93,7 @@ banner.setOnBannerListener(new OnBannerListener() {
     @Override
     public void OnBannerClick(int position) {
         SubjectsBean subjectsBean=  subjectsBeanBannerList.get(position);
-        myStartActivity(context, MovieValueActivity.class, "MovieValu", subjectsBean);
+        showUtil.myStartActivity(MovieValueActivity.class, "MovieValu", subjectsBean);
     }
 });
 }
@@ -105,7 +104,7 @@ banner.setOnBannerListener(new OnBannerListener() {
             @Override
             public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
                 SubjectsBean subjectsBean = subjectsBeanRVList.get(position);
-                myStartActivity(context, MovieValueActivity.class, "MovieValu", subjectsBean);
+                showUtil.myStartActivity(MovieValueActivity.class, "MovieValu", subjectsBean);
             }
         });
         rvHotMovie.setAdapter(adapter);

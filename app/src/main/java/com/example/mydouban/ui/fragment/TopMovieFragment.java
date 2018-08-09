@@ -40,11 +40,10 @@ public class TopMovieFragment extends AbstractViewPagerProgressFragment<MovieInt
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         context = getContext();
-        presenter=new TopMoviePterImpl(this);
+        presenter = new TopMoviePterImpl(this);
         list = new ArrayList<>();
         adapter = new MovieTopAdapter(R.layout.ftagment_topmovie_item, list, context);
     }
-
 
 
     @Override
@@ -77,8 +76,7 @@ public class TopMovieFragment extends AbstractViewPagerProgressFragment<MovieInt
             @Override
             public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
                 SubjectsBean subjectsBean = list.get(position);
-                myStartActivity(context, MovieValueActivity.class,"MovieValu", subjectsBean);
-
+                showUtil.myStartActivity(MovieValueActivity.class, "MovieValu", subjectsBean);
             }
         });
         rvMovie.setAdapter(adapter);
@@ -86,37 +84,33 @@ public class TopMovieFragment extends AbstractViewPagerProgressFragment<MovieInt
     }
 
 
-
-
-
-
     @Override
     public void loaderAnimStar() {
-     showLoading();
+        showLoading();
     }
 
     @Override
     public void loaderAnimStop() {
-       showContentView();
+        showContentView();
     }
 
     @Override
     public void notifyData(MovieTop250 movieTop250) {
-        int listSize=list.size();
-        if(listSize<250){
-            if(listSize+20<=250){
+        int listSize = list.size();
+        if (listSize < 250) {
+            if (listSize + 20 <= 250) {
                 list.addAll(movieTop250.getSubjects());
-                adapter.notifyItemRangeChanged(list.size()-20, list.size() );
-            }else {
-                list.addAll(movieTop250.getSubjects().subList(0,250-listSize));
-                adapter.notifyItemRangeChanged(list.size()-(250-listSize), list.size() );
+                adapter.notifyItemRangeChanged(list.size() - 20, list.size());
+            } else {
+                list.addAll(movieTop250.getSubjects().subList(0, 250 - listSize));
+                adapter.notifyItemRangeChanged(list.size() - (250 - listSize), list.size());
             }
         }
     }
 
     @Override
     public void showDiao() {
-showEmptyView();
+        showEmptyView();
     }
 
     @Override

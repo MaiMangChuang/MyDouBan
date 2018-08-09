@@ -1,7 +1,7 @@
 package com.example.mydouban.inte;
 
 /**
- * 类描述：
+ * 类描述：加载视图与内容视图，错误提示的显示控制
  * 创建人：maimanchuang
  * 创建时间：2018/8/7 15:52
  */

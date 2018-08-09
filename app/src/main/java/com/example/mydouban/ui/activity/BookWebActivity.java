@@ -20,28 +20,22 @@ public class BookWebActivity extends AbstractProgressActivity {
     WebView wvBook;
     String movieUrl;
 
-//    @Override
-////    protected void onCreate(Bundle savedInstanceState) {
-////        super.onCreate(savedInstanceState);
-////        movieUrl = getIntent().getStringExtra("bookUrl");
-////    }
-
 
     private WebViewClient webViewClient = new WebViewClient() {
         @Override
         public void onPageFinished(WebView view, String url) {//页面加载完成
-          showContentView();
+            showContentView();
         }
 
         @Override
         public void onPageStarted(WebView view, String url, Bitmap favicon) {//页面开始加载
-           showLoading();
+            showLoading();
 
         }
 
 
-
     };
+
     @Override
     public void init() {
         movieUrl = getIntent().getStringExtra("bookUrl");

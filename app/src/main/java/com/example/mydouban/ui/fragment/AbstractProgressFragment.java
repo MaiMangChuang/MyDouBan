@@ -15,6 +15,7 @@ import android.widget.TextView;
 import com.example.mydouban.R;
 import com.example.mydouban.inte.BasePresenterInter;
 import com.example.mydouban.inte.ProgressInter;
+import com.example.mydouban.util.ShowUtil;
 
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
@@ -44,7 +45,7 @@ public abstract class AbstractProgressFragment<T extends BasePresenterInter> ext
     private FrameLayout mViewContent;
     private View mViewEmpty;
     Unbinder unbinder;
-
+ protected ShowUtil showUtil;
     private TextView mTextError;
 
     protected T presenter;
@@ -53,25 +54,19 @@ public abstract class AbstractProgressFragment<T extends BasePresenterInter> ext
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-
-
         mRootView = (FrameLayout) inflater.inflate(R.layout.progress,container,false);
         mViewProgress = mRootView.findViewById(R.id.view_progress);
         mViewContent =  mRootView.findViewById(R.id.view_content);
         mViewEmpty = mRootView.findViewById(R.id.view_empty);
-
         mTextError =  mRootView.findViewById(R.id.text_tip);
-
         mViewEmpty.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 onEmptyViewClick();
             }
         });
-
-
+        showUtil=new ShowUtil(getContext());
         return mRootView;
-
     }
 
     @Override
@@ -162,13 +157,7 @@ public abstract class AbstractProgressFragment<T extends BasePresenterInter> ext
     public void showValue() {
         showContentView();
     }
-    public  void myStartActivity(Context context, Class<?> cls, String key , Parcelable value){
-        Bundle bundle = new Bundle();
-        bundle.putParcelable(key, value);
-        Intent intent=new Intent(context,cls);
-        intent.putExtras(bundle);
-        startActivity(intent);
-    }
+
 
 
 }

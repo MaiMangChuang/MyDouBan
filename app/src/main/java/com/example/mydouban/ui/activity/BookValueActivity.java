@@ -70,15 +70,6 @@ public class BookValueActivity extends AbstractProgressActivity<BookInter.BookPt
     private List<Book.BooksBean> booksBeans;
     private BookAdapter adapter;
 
-//    @Override
-//    protected void onCreate(Bundle savedInstanceState) {
-//        super.onCreate(savedInstanceState);
-//
-//    }
-
-
-
-
 
     @Override
     public int getLayoutResID() {
@@ -116,10 +107,7 @@ public class BookValueActivity extends AbstractProgressActivity<BookInter.BookPt
                 myFinish();
                 break;
             case R.id.tv_web:
-//                Intent intent = new Intent(this, BookWebActivity.class);
-//                intent.putExtra("bookUrl", booksBean.getAlt());
-//                startActivity(intent);
-                myStartActivity(BookWebActivity.class,"bookUrl", booksBean.getAlt());
+                 showUtil.myStartActivity(BookWebActivity.class, "bookUrl", booksBean.getAlt());
                 break;
             default:
                 break;
@@ -128,12 +116,12 @@ public class BookValueActivity extends AbstractProgressActivity<BookInter.BookPt
 
     @Override
     public void loaderAnimStar() {
-     showLoading();
+        showLoading();
     }
 
     @Override
     public void loaderAnimStop() {
-    showContentView();
+        showContentView();
     }
 
     @Override
@@ -148,7 +136,7 @@ public class BookValueActivity extends AbstractProgressActivity<BookInter.BookPt
 
     @Override
     public void showDiao() {
-showEmptyView();
+        showEmptyView();
     }
 
 
