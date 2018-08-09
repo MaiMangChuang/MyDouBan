@@ -17,7 +17,7 @@ import rx.schedulers.Schedulers;
  */
 public final class HttpUtil {
     private static RetrofitInter retrofit;
-    public static final String URL = "https://api.douban.com";
+    private static final String URL = "https://api.douban.com";
 
     public static RetrofitInter getRetrofit() {
         if (retrofit == null) {

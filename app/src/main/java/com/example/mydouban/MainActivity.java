@@ -81,11 +81,11 @@ public class MainActivity extends BaseAppCompatActivity {
         int id = item.getItemId();
         switch (id) {
             case R.id.action_search:
+                //查询按钮
                 if (searchCall != null) {
                     //跳转到查询页面
-                    myStartActivity(SearchlnterActivity.class);
+                    showUtil.myStartActivity(SearchlnterActivity.class);
                 }
-                Toast.makeText(MainActivity.this, "查询", Toast.LENGTH_SHORT).show();
                 break;
 
             default:
@@ -149,7 +149,7 @@ public class MainActivity extends BaseAppCompatActivity {
                         dlType.closeDrawer(Gravity.LEFT);
                         break;
                     case R.id.nav_status:
-                        Toast.makeText(MainActivity.this, "收藏", Toast.LENGTH_SHORT).show();
+                      showUtil.showTose("点击了收藏");
                         dlType.closeDrawer(Gravity.LEFT);
                         break;
 

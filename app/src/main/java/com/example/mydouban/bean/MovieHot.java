@@ -10,7 +10,7 @@ import java.util.List;
  * 创建人：maimanchuang
  * 创建时间：2018/5/22 18:39
  */
-public class MovieHot extends BaseBean implements Parcelable {
+public final class MovieHot  implements Parcelable {
 
 
 

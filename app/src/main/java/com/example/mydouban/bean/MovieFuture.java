@@ -7,7 +7,7 @@ import java.util.List;
  * 创建人：maimanchuang
  * 创建时间：2018/5/25 13:45
  */
-public class MovieFuture extends BaseBean {
+public final class MovieFuture  {
 
 
 

@@ -7,7 +7,7 @@ import java.util.List;
  * 创建人：maimanchuang
  * 创建时间：2018/5/28 14:48
  */
-public class Music extends BaseBean {
+public final class Music  {
 
 
 

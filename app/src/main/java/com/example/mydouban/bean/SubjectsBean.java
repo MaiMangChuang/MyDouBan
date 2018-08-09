@@ -12,7 +12,7 @@ import java.util.List;
  * 创建人：maimanchuang
  * 创建时间：2018/5/23 0:52
  */
-public  class SubjectsBean extends BaseBean implements Parcelable {
+public  final class SubjectsBean implements Parcelable {
     /**
      * rating : {"max":10,"average":9.6,"stars":"50","min":0}
      * genres : ["犯罪","剧情"]

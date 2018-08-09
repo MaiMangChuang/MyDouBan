@@ -92,11 +92,11 @@ public class BookValueActivity extends AbstractProgressActivity<BookInter.BookPt
         tvYear.setText("出版日期：" + booksBean.getPubdate());
         String originTitle = booksBean.getOrigin_title().length() < 1 ? booksBean.getTitle() : booksBean.getOrigin_title();
         tvBookOriginTitle.setText("原名：" + originTitle);
-        Log.e("booksBean", "booksBean.getOrigin_title(): " + booksBean.getOrigin_title());
         tvPublisher.setText("出版社：" + booksBean.getPublisher());
         float average = Float.parseFloat(booksBean.getRating().getAverage());
         ratingBar.setRating(average / 2);
         GlideUtil.showGlide(this, booksBean.getImages().getSmall(), ivBookImage);
+        showUtil.showLog(booksBean);
     }
 
 

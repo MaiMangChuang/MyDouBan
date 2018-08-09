@@ -39,7 +39,7 @@ public class SearchManges {
         if(searchCalls.get(key)==null){
             Class aClass= null;
             try {
-                aClass = Class.forName("com.example.mydouban.SearchInter."+key);
+                aClass = Class.forName("com.example.mydouban.searchinter."+key);
                 searchCall=(SearchCall) aClass.newInstance();
             } catch (Exception e) {
                 e.printStackTrace();
@@ -50,7 +50,7 @@ public class SearchManges {
         return searchCalls.get(key);
     }
 
-    public static HashMap<String, SearchCall> getSearchCalls() {
-        return searchCalls;
-    }
+//    public static HashMap<String, SearchCall> getSearchCalls() {
+//        return searchCalls;
+//    }
 }

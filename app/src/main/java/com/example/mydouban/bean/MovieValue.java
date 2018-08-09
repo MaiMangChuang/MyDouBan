@@ -7,7 +7,7 @@ import java.util.List;
  * 创建人：maimanchuang
  * 创建时间：2018/5/20 3:59
  */
-public class MovieValue extends BaseBean {
+public final class MovieValue {
 
     /**
      * rating : {"max":10,"average":5.4,"stars":"30","min":0}
@@ -365,7 +365,7 @@ public class MovieValue extends BaseBean {
         }
     }
 
-    public static class CastsBean extends BaseBean {
+    public static class CastsBean  {
         /**
          * alt : https://movie.douban.com/celebrity/1314963/
          * avatars : {"small":"http://img3.doubanio.com/view/celebrity/s_ratio_celebrity/public/p53688.webp","large":"http://img3.doubanio.com/view/celebrity/s_ratio_celebrity/public/p53688.webp","medium":"http://img3.doubanio.com/view/celebrity/s_ratio_celebrity/public/p53688.webp"}
@@ -410,7 +410,7 @@ public class MovieValue extends BaseBean {
             this.id = id;
         }
 
-        public static class AvatarsBean  extends BaseBean{
+        public static class AvatarsBean {
             /**
              * small : http://img3.doubanio.com/view/celebrity/s_ratio_celebrity/public/p53688.webp
              * large : http://img3.doubanio.com/view/celebrity/s_ratio_celebrity/public/p53688.webp
@@ -447,7 +447,7 @@ public class MovieValue extends BaseBean {
         }
     }
 
-    public static class DirectorsBean extends BaseBean {
+    public static class DirectorsBean  {
         /**
          * alt : https://movie.douban.com/celebrity/1332723/
          * avatars : {"small":"http://img7.doubanio.com/view/celebrity/s_ratio_celebrity/public/p1417887954.94.webp","large":"http://img7.doubanio.com/view/celebrity/s_ratio_celebrity/public/p1417887954.94.webp","medium":"http://img7.doubanio.com/view/celebrity/s_ratio_celebrity/public/p1417887954.94.webp"}
@@ -492,7 +492,7 @@ public class MovieValue extends BaseBean {
             this.id = id;
         }
 
-        public static class AvatarsBeanX extends BaseBean{
+        public static class AvatarsBeanX {
             /**
              * small : http://img7.doubanio.com/view/celebrity/s_ratio_celebrity/public/p1417887954.94.webp
              * large : http://img7.doubanio.com/view/celebrity/s_ratio_celebrity/public/p1417887954.94.webp

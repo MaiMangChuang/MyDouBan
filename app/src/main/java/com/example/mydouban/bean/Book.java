@@ -11,7 +11,7 @@ import java.util.List;
  * 创建人：maimanchuang
  * 创建时间：2018/5/26 20:24
  */
-public class Book  extends BaseBean{
+public final class Book {
 
 
 

@@ -10,7 +10,7 @@ import java.util.List;
  * 创建人：maimanchuang
  * 创建时间：2018/5/18 23:18
  */
-public class MovieTop250  extends BaseBean implements Parcelable {
+public final class MovieTop250   implements Parcelable {
 
 
     private int count;

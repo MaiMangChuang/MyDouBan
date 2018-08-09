@@ -8,8 +8,10 @@ import android.os.Parcelable;
 import android.util.Log;
 import android.widget.Toast;
 
+import java.lang.reflect.Field;
 import java.util.List;
 import java.util.Objects;
+
 
 /**
  * 类描述：
@@ -19,7 +21,7 @@ import java.util.Objects;
 public final class ShowUtil {
     private Context context;
     private String packageCodePath;
-
+     private    Class mClass;
     public ShowUtil(Context context) {
         this.context = context;
         packageCodePath = context.getPackageCodePath();
@@ -45,15 +47,17 @@ public final class ShowUtil {
     public void showLog(double objects) {
         Log.e(packageCodePath, "showLog: " + objects);
     }
-
+    public void showLog(Object object) {
+        Log.e(packageCodePath, "showLog: " + showObject(object));
+    }
     public void showLog(List objects) {
         for (Object massge : objects) {
-            showTose(massge.toString());
+            showTose(massge);
         }
     }
 
-    public void showTose(Objects objects) {
-        Toast.makeText(context, objects.toString(), Toast.LENGTH_SHORT).show();
+    public void showTose(Object object) {
+        Toast.makeText(context, showObject(object), Toast.LENGTH_SHORT).show();
     }
 
     public void showTose(String objects) {
@@ -86,6 +90,27 @@ public final class ShowUtil {
         Intent intent = new Intent(context, cls);
         intent.putExtra(key, value);
         context.startActivity(intent);
+    }
+    private String showObject(Object object){
+        mClass= object.getClass();
+        if(mClass==null){
+            return "无法获取该类Class对象";
+        }
+        Field[] field=mClass.getDeclaredFields();
+        StringBuilder stringBuilder=new StringBuilder();
+        stringBuilder.append("\n").append(mClass.getCanonicalName()).append(":\n");
+        for(Field f : field) {
+            f.setAccessible(true);
+            stringBuilder.append(f.getName()).append(":");
+            try {
+                stringBuilder.append(f.get(object)).append(";\n");
+            } catch (IllegalAccessException e) {
+                e.printStackTrace();
+                return "类属性解析出现错误";
+            }
+
+        }
+        return stringBuilder.toString();
     }
 
 

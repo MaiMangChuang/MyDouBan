@@ -72,23 +72,7 @@ import butterknife.Unbinder;
         activityList.remove(this);
         this.finish();
     }
-    protected  void myStartActivity( Class<?> cls){
-        Intent intent=new Intent(this,cls);
-        startActivity(intent);
-    }
-    protected  void myStartActivity( Class<?> cls,String key ,Parcelable value){
-        Bundle bundle = new Bundle();
-        bundle.putParcelable(key, value);
-        Intent intent=new Intent(this,cls);
-        intent.putExtras(bundle);
-        startActivity(intent);
-    }
 
-    protected  void myStartActivity( Class<?> cls,String key ,String value){
-        Intent intent=new Intent(this,cls);
-        intent.putExtra(key, value);
-        startActivity(intent);
-    }
 
 
 }
