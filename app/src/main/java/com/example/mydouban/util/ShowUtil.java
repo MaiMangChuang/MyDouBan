@@ -20,36 +20,39 @@ import java.util.Objects;
  */
 public final class ShowUtil {
     private Context context;
-    private String packageCodePath;
-     private    Class mClass;
+    private String tag;
+    private Class mClass;
+
     public ShowUtil(Context context) {
         this.context = context;
-        packageCodePath = context.getPackageCodePath();
+        tag = context.getPackageName();
     }
 
 
     public void showLog(int objects) {
-        Log.e(packageCodePath, "showLog: " + objects);
+        Log.e(tag, String.valueOf(objects));
     }
 
     public void showLog(String objects) {
-        Log.e(packageCodePath, "showLog: " + objects);
+        Log.e(tag, objects);
     }
 
     public void showLog(boolean objects) {
-        Log.e(packageCodePath, "showLog: " + objects);
+        Log.e(tag, String.valueOf(objects));
     }
 
     public void showLog(float objects) {
-        Log.e(packageCodePath, "showLog: " + objects);
+        Log.e(tag, String.valueOf(objects));
     }
 
     public void showLog(double objects) {
-        Log.e(packageCodePath, "showLog: " + objects);
+        Log.e(tag, String.valueOf(objects));
     }
+
     public void showLog(Object object) {
-        Log.e(packageCodePath, "showLog: " + showObject(object));
+        Log.e(tag, showObject(object));
     }
+
     public void showLog(List objects) {
         for (Object massge : objects) {
             showTose(massge);
@@ -69,7 +72,7 @@ public final class ShowUtil {
     }
 
     public void showTose(boolean objects) {
-        Toast.makeText(context, objects + "", Toast.LENGTH_SHORT).show();
+        Toast.makeText(context, String.valueOf(objects), Toast.LENGTH_SHORT).show();
     }
 
 
@@ -91,15 +94,16 @@ public final class ShowUtil {
         intent.putExtra(key, value);
         context.startActivity(intent);
     }
-    private String showObject(Object object){
-        mClass= object.getClass();
-        if(mClass==null){
+
+    private String showObject(Object object) {
+        mClass = object.getClass();
+        if (mClass == null) {
             return "无法获取该类Class对象";
         }
-        Field[] field=mClass.getDeclaredFields();
-        StringBuilder stringBuilder=new StringBuilder();
+        Field[] field = mClass.getDeclaredFields();
+        StringBuilder stringBuilder = new StringBuilder();
         stringBuilder.append("\n").append(mClass.getCanonicalName()).append(":\n");
-        for(Field f : field) {
+        for (Field f : field) {
             f.setAccessible(true);
             stringBuilder.append(f.getName()).append(":");
             try {

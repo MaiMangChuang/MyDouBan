@@ -61,7 +61,7 @@ public class SearchlnterActivity extends BaseAppCompatActivity {
                     @Override
                     public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
                         SubjectsBean subjectsBean = (SubjectsBean) list.get(position);
-                        SearchlnterActivity.this.myStartActivity(MovieValueActivity.class, "MovieValu", subjectsBean);
+                       showUtil.myStartActivity(MovieValueActivity.class, "MovieValu", subjectsBean);
                     }
                 });
                 break;
@@ -71,7 +71,7 @@ public class SearchlnterActivity extends BaseAppCompatActivity {
                     @Override
                     public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
                         Book.BooksBean booksBean = (Book.BooksBean) list.get(position);
-                        SearchlnterActivity.this.myStartActivity(BookValueActivity.class, "BooksBean", booksBean);
+                        showUtil.myStartActivity(BookValueActivity.class, "BooksBean", booksBean);
                     }
                 });
                 break;
@@ -82,7 +82,7 @@ public class SearchlnterActivity extends BaseAppCompatActivity {
                     @Override
                     public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
                         Music.MusicsBean musicsBean = (Music.MusicsBean) list.get(position);
-                        SearchlnterActivity.this.myStartActivity(MusicWebActivity.class, "musicUrl", musicsBean.getAlt());
+                        showUtil.myStartActivity(MusicWebActivity.class, "musicUrl", musicsBean.getAlt());
                     }
                 });
                 break;
