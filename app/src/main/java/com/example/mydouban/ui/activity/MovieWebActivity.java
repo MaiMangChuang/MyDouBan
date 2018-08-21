@@ -50,13 +50,13 @@ public class MovieWebActivity extends AbstractProgressActivity {
     private WebViewClient webViewClient = new WebViewClient() {
         @Override
         public void onPageFinished(WebView view, String url) {//页面加载完成
-            showLoading();
+            showContentView();
             showUtil.showLog("页面加载完成");
         }
 
         @Override
         public void onPageStarted(WebView view, String url, Bitmap favicon) {//页面开始加载
-            showContentView();
+            showLoading();
             showUtil.showLog("页面开始加载");
         }
 

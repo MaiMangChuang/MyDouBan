@@ -50,7 +50,5 @@ public class SearchManges {
         return searchCalls.get(key);
     }
 
-//    public static HashMap<String, SearchCall> getSearchCalls() {
-//        return searchCalls;
-//    }
+
 }
