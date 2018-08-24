@@ -34,7 +34,7 @@ public class TopMoviePterImpl extends BasePresenter<MovieInter.MovieViewInter<Mo
 
        @Override
        public void dataLose(String message) {
-           mView.loaderAnimStop();
+           mView.showDiao();
        }
 
        @Override

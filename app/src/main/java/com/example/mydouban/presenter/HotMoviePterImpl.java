@@ -24,7 +24,7 @@ public class HotMoviePterImpl extends BasePresenter<MovieInter.MovieViewInter<Mo
         mModel.getData(new DataCallBack<MovieHot>() {
             @Override
             public void dataLose(String message) {
-                mView.loaderAnimStop();
+                mView.showDiao();
             }
 
             @Override

@@ -25,7 +25,7 @@ public class FutureMoviePterImpl extends BasePresenter<MovieInter.MovieViewInter
         mModel.getData(new DataCallBack<MovieFuture>() {
             @Override
             public void dataLose(String message) {
-                mView.loaderAnimStop();
+                mView.showDiao();
             }
 
             @Override
