@@ -35,14 +35,18 @@ public class MusicPterImpl extends BasePresenter<MusicInter.MusicViewInter<Music
 
         @Override
         public void dataLose(String message) {
-            mView.loaderAnimStop();
-            mView.showDiao();
+
+                mView.showDiao();
+
+
         }
 
         @Override
         public void dataSucceed(Music data) {
-            mView.notifyData(data);
-            mView.loaderAnimStop();
+
+                mView.notifyData(data);
+                mView.loaderAnimStop();
+
         }
     }
 

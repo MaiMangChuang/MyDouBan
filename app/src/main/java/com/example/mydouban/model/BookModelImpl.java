@@ -21,6 +21,7 @@ public class BookModelImpl implements BookInter.BookModInter<Book> {
    private String tag;
     private int start;
     private final int COUNT=20;
+    private MySubscriber<Book> subscriber;
    public BookModelImpl(String tag){
        this.tag=tag;
        start=0;
@@ -39,17 +40,23 @@ public class BookModelImpl implements BookInter.BookModInter<Book> {
     }
 
     private void httpData(final DataCallBack<Book> dataCallBack){
-
-
-        HttpUtil.getRetrofit().getTagBooks(tag,start,COUNT).compose(HttpUtil.<Book>compatResult()).subscribe(new MySubscriber<Book>(dataCallBack){
+        subscriber=new MySubscriber<Book>(dataCallBack){
             @Override
             public void onNext(Book book) {
                 super.onNext(book);
                 start+=20;
             }
-        });
+        };
+
+        HttpUtil.getRetrofit().getTagBooks(tag,start,COUNT).compose(HttpUtil.<Book>compatResult()).subscribe(subscriber);
 
 
     }
 
+    @Override
+    public void unsubscribe() {
+        if(subscriber!=null&&subscriber.isUnsubscribed()){
+            subscriber.unsubscribe();
+        }
+    }
 }

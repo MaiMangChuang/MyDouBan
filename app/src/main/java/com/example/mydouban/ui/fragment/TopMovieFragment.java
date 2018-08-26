@@ -42,7 +42,7 @@ public class TopMovieFragment extends AbstractViewPagerProgressFragment<MovieInt
         context = getContext();
         presenter = new TopMoviePterImpl(this);
         list = new ArrayList<>();
-        adapter = new MovieTopAdapter(R.layout.ftagment_topmovie_item, list, context);
+        adapter = new MovieTopAdapter(R.layout.ftagment_topmovie_item, list, getActivity().getApplicationContext());
     }
 
 
@@ -116,5 +116,11 @@ public class TopMovieFragment extends AbstractViewPagerProgressFragment<MovieInt
     @Override
     public String getTitle() {
         return "TOP250";
+    }
+
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+
     }
 }

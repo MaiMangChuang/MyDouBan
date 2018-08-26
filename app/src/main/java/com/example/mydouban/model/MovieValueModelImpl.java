@@ -23,13 +23,15 @@ public class MovieValueModelImpl implements MovieInter.MovieModInter<MovieValue>
     public  MovieValueModelImpl(String tag){
         this.tag=tag;
     }
+    private MySubscriber<MovieValue> subscriber;
 
     @Override
     public void getData(final DataCallBack<MovieValue> dataCallBack) {
+        subscriber=new MySubscriber<MovieValue>(dataCallBack);
         HttpUtil.getRetrofit()
                 .getMovieValue(tag)
                .compose(HttpUtil.<MovieValue>compatResult())
-                .subscribe(new MySubscriber<MovieValue>(dataCallBack));
+                .subscribe(subscriber);
 
 
     }
@@ -37,5 +39,12 @@ public class MovieValueModelImpl implements MovieInter.MovieModInter<MovieValue>
     @Override
     public void moreData(DataCallBack<MovieValue> dataCallBack) {
 
+    }
+
+    @Override
+    public void unsubscribe() {
+        if(subscriber!=null&&subscriber.isUnsubscribed()){
+            subscriber.unsubscribe();
+        }
     }
 }

@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.View;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
@@ -31,7 +32,6 @@ public class MusicFragment extends AbstractViewPagerProgressFragment<MusicPterIm
     @BindView(R.id.rv_music)
     RecyclerView rvMusic;
     private String title;
-    private Context context;
     private List<Music.MusicsBean> musicBeanList;
     private MusicAdapter adapter;
     Unbinder unbinder;
@@ -49,7 +49,6 @@ public class MusicFragment extends AbstractViewPagerProgressFragment<MusicPterIm
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        context = getContext();
         musicBeanList = new ArrayList<>();
     }
 
@@ -70,7 +69,8 @@ public class MusicFragment extends AbstractViewPagerProgressFragment<MusicPterIm
 
 
     private void initView() {
-        adapter = new MusicAdapter(R.layout.fragment_music_item, musicBeanList, context);
+
+        adapter = new MusicAdapter(R.layout.fragment_music_item, musicBeanList, getActivity().getApplicationContext());
         adapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
@@ -78,7 +78,7 @@ public class MusicFragment extends AbstractViewPagerProgressFragment<MusicPterIm
                 showUtil.myStartActivity(MusicWebActivity.class,"musicUrl", musicsBean.getAlt());
             }
         });
-        rvMusic.setLayoutManager(new LinearLayoutManager(context));
+        rvMusic.setLayoutManager(new LinearLayoutManager(getActivity().getApplicationContext()));
         rvMusic.setAdapter(adapter);
         adapter.setOnLoadMoreListener(new BaseQuickAdapter.RequestLoadMoreListener() {
             @Override
@@ -88,15 +88,21 @@ public class MusicFragment extends AbstractViewPagerProgressFragment<MusicPterIm
                     public void run() {
                         if (musicBeanList.size() > 300) {
                             //数据全部加载完毕
-                            adapter.loadMoreEnd();
+                            if(adapter!=null){
+                                adapter.loadMoreEnd();
+                            }
                         } else {
-                            presenter.moreData();
-                            adapter.loadMoreComplete();
+                            if(presenter!=null){
+                                presenter.moreData();
+                            }
+                            if(adapter!=null){
+                                adapter.loadMoreComplete();
+                            }
 
                         }
                     }
 
-                }, 800);
+                }, 500);
             }
         }, rvMusic);
 
@@ -107,7 +113,6 @@ public class MusicFragment extends AbstractViewPagerProgressFragment<MusicPterIm
 
     @Override
     public void loaderAnimStar() {
-
       showLoading();
     }
 
@@ -124,6 +129,8 @@ public class MusicFragment extends AbstractViewPagerProgressFragment<MusicPterIm
         adapter.notifyDataSetChanged();
     }
 
+
+
     @Override
     public void showDiao() {
 showEmptyView();
@@ -133,4 +140,6 @@ showEmptyView();
     public String getTitle() {
         return title;
     }
+
+
 }

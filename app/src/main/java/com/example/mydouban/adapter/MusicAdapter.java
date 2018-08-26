@@ -49,6 +49,7 @@ public class MusicAdapter extends BaseQuickAdapter<Music.MusicsBean, MusicAdapte
     }
 
 
+
     public class MusicHolder extends BaseViewHolder {
         @BindView(R.id.civ_image)
         CircleImageView civImage;

@@ -3,6 +3,7 @@ package com.example.mydouban.model;
 import android.view.View;
 
 import com.example.mydouban.bean.Book;
+import com.example.mydouban.bean.Music;
 import com.example.mydouban.inte.BookInter;
 import com.example.mydouban.inte.DataCallBack;
 import com.example.mydouban.util.HttpUtil;
@@ -20,7 +21,7 @@ import rx.schedulers.Schedulers;
  */
 public class BookValueModelImpl implements BookInter.BookModInter<Book> {
     private String tag;
-
+    private MySubscriber<Book> subscribe;
     public BookValueModelImpl(String tag) {
         this.tag = tag;
     }
@@ -36,14 +37,21 @@ public class BookValueModelImpl implements BookInter.BookModInter<Book> {
     }
 
     private void httpDate(final DataCallBack<Book> dataCallBack) {
-
+        subscribe=new MySubscriber<Book>(dataCallBack);
         HttpUtil.getRetrofit()
                 .getAuthorBooks(tag)
                 .compose(HttpUtil.<Book>compatResult())
-                .subscribe(new MySubscriber<Book>(dataCallBack));
+                .subscribe(subscribe);
 
 
 
 
+    }
+
+    @Override
+    public void unsubscribe() {
+        if(subscribe!=null&&subscribe.isUnsubscribed()){
+            subscribe.unsubscribe();
+        }
     }
 }

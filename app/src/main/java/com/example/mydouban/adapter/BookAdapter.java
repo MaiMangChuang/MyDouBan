@@ -41,6 +41,7 @@ private  Context context;
         GlideUtil.showGlide(context,item.getImage(),helper.ivBookImage);
     }
 
+
    public   static class BookHolder extends BaseViewHolder {
         @BindView(R.id.iv_bookImage)
         ImageView ivBookImage;

@@ -102,20 +102,5 @@ public class SearchlnterActivity extends BaseAppCompatActivity {
         return R.layout.activity_searchlnter;
     }
 
-    @Override
-    protected void onStop() {
-        super.onStop();
 
-    }
-
-    @Override
-    protected void onDestroy() {
-        super.onDestroy();
-    }
-
-    @Override
-    protected void onRestart() {
-        super.onRestart();
-
-    }
 }

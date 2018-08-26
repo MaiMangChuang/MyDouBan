@@ -20,7 +20,7 @@ public interface BookInter {
 
     }
 
-    public interface BookModInter<M>   {
+    public interface BookModInter<M>  extends BaseModel  {
         /**
          * 获取M数据
          * @param dataCallBack 接口调用

@@ -28,7 +28,6 @@ import butterknife.Unbinder;
 public abstract class AbstractProgressFragment<T extends BasePresenterInter> extends Fragment implements ProgressInter {
 
 
-
     /**
      * 设置Fragment的布局内容
      */
@@ -45,7 +44,7 @@ public abstract class AbstractProgressFragment<T extends BasePresenterInter> ext
     private FrameLayout mViewContent;
     private View mViewEmpty;
     Unbinder unbinder;
- protected ShowUtil showUtil;
+    protected ShowUtil showUtil;
     private TextView mTextError;
 
     protected T presenter;
@@ -54,18 +53,18 @@ public abstract class AbstractProgressFragment<T extends BasePresenterInter> ext
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        mRootView = (FrameLayout) inflater.inflate(R.layout.progress,container,false);
+        mRootView = (FrameLayout) inflater.inflate(R.layout.progress, container, false);
         mViewProgress = mRootView.findViewById(R.id.view_progress);
-        mViewContent =  mRootView.findViewById(R.id.view_content);
+        mViewContent = mRootView.findViewById(R.id.view_content);
         mViewEmpty = mRootView.findViewById(R.id.view_empty);
-        mTextError =  mRootView.findViewById(R.id.text_tip);
+        mTextError = mRootView.findViewById(R.id.text_tip);
         mViewEmpty.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 onEmptyViewClick();
             }
         });
-        showUtil=new ShowUtil(getContext());
+        showUtil = new ShowUtil(getContext());
         return mRootView;
     }
 
@@ -76,53 +75,50 @@ public abstract class AbstractProgressFragment<T extends BasePresenterInter> ext
         init();
     }
 
-    public void onEmptyViewClick(){
+    public void onEmptyViewClick() {
 
     }
 
     private void setRealContentView() {
-        View realContentView=  LayoutInflater.from(getActivity()).inflate(getLayoutResID(),mViewContent,true);
-        unbinder=  ButterKnife.bind(this, realContentView);
+        View realContentView = LayoutInflater.from(getActivity()).inflate(getLayoutResID(), mViewContent, true);
+        unbinder = ButterKnife.bind(this, realContentView);
 
     }
 
 
-
-    private void  showProgressView(){
+    private void showProgressView() {
         showView(R.id.view_progress);
 
     }
 
-    public void showContentView(){
+    public void showContentView() {
         showView(R.id.view_content);
     }
 
-    public void showEmptyView(){
+    public void showEmptyView() {
         showView(R.id.view_empty);
     }
 
 
-    public void showEmptyView(int resId){
+    public void showEmptyView(int resId) {
         showEmptyView();
         mTextError.setText(resId);
     }
 
-    public void showEmptyView(String msg){
+    public void showEmptyView(String msg) {
         showEmptyView();
         mTextError.setText(msg);
     }
 
 
+    public void showView(int viewId) {
 
-    public void showView(int viewId){
+        for (int i = 0; i < mRootView.getChildCount(); i++) {
 
-        for(int i=0;i<mRootView.getChildCount();i++){
-
-            if( mRootView.getChildAt(i).getId() == viewId){
+            if (mRootView.getChildAt(i).getId() == viewId) {
 
                 mRootView.getChildAt(i).setVisibility(View.VISIBLE);
-            }
-            else {
+            } else {
                 mRootView.getChildAt(i).setVisibility(View.GONE);
             }
 
@@ -134,13 +130,20 @@ public abstract class AbstractProgressFragment<T extends BasePresenterInter> ext
     @Override
     public void onDestroy() {
         super.onDestroy();
-        if(presenter!=null){
+
+    }
+
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        if (presenter != null) {
             presenter.relieve();
-            presenter=null;
+            presenter = null;
         }
-        if(unbinder != Unbinder.EMPTY){
+        if (unbinder != Unbinder.EMPTY) {
             unbinder.unbind();
         }
+
     }
 
     @Override
@@ -157,7 +160,6 @@ public abstract class AbstractProgressFragment<T extends BasePresenterInter> ext
     public void showValue() {
         showContentView();
     }
-
 
 
 }

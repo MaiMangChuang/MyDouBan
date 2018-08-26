@@ -30,11 +30,9 @@ public class BookFragment extends AbstractViewPagerProgressFragment<BookInter.Bo
     @BindView(R.id.rv_book)
     RecyclerView rvBook;
     Unbinder unbinder;
-    private Context context;
     private List<Book.BooksBean> booksBeanList;
     private BookAdapter adapter;
     private String title;
-
 
 
     public void setTitle(String title) {
@@ -50,7 +48,6 @@ public class BookFragment extends AbstractViewPagerProgressFragment<BookInter.Bo
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        context = getContext();
         booksBeanList = new ArrayList<>();
 
     }
@@ -71,7 +68,7 @@ public class BookFragment extends AbstractViewPagerProgressFragment<BookInter.Bo
 
 
     private void initView() {
-        adapter = new BookAdapter(R.layout.fragment_book_item, booksBeanList, context);
+        adapter = new BookAdapter(R.layout.fragment_book_item, booksBeanList, getActivity().getApplicationContext());
         adapter.setOnLoadMoreListener(new BaseQuickAdapter.RequestLoadMoreListener() {
             @Override
             public void onLoadMoreRequested() {
@@ -83,12 +80,14 @@ public class BookFragment extends AbstractViewPagerProgressFragment<BookInter.Bo
                             //数据全部加载完毕
                             adapter.loadMoreEnd();
                         } else {
-                            presenter.moreData();
+                            if(presenter!=null){
+                                presenter.moreData();
+                            }
                             adapter.loadMoreComplete();
                         }
                     }
 
-                }, 800);
+                }, 500);
             }
         }, rvBook);
         adapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
@@ -98,7 +97,7 @@ public class BookFragment extends AbstractViewPagerProgressFragment<BookInter.Bo
                 showUtil.myStartActivity(BookValueActivity.class, "BooksBean", booksBean);
             }
         });
-        rvBook.setLayoutManager(new GridLayoutManager(context, 4));
+        rvBook.setLayoutManager(new GridLayoutManager(getActivity().getApplicationContext(), 4));
         rvBook.setAdapter(adapter);
     }
 
@@ -138,4 +137,6 @@ public class BookFragment extends AbstractViewPagerProgressFragment<BookInter.Bo
     public String getTitle() {
         return title;
     }
+
+
 }

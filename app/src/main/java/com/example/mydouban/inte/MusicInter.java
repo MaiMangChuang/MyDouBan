@@ -20,7 +20,7 @@ public interface MusicInter {
 
     }
 
-    public interface MusicModInter<M>   {
+    public interface MusicModInter<M> extends BaseModel   {
         /**
          * 获取M数据
          *

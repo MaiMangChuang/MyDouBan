@@ -43,9 +43,10 @@ public abstract class  BaseFragment<T extends BasePresenterInter> extends Fragme
         return view;
     }
 
+
     @Override
-    public void onDestroy() {
-        super.onDestroy();
+    public void onDestroyView() {
+        super.onDestroyView();
         if(presenter!=null){
             presenter.relieve();
             presenter=null;
@@ -53,8 +54,8 @@ public abstract class  BaseFragment<T extends BasePresenterInter> extends Fragme
         if(unbinder != Unbinder.EMPTY){
             unbinder.unbind();
         }
-
     }
+
     /**
      * 设置Fragment的布局内容
      */

@@ -165,6 +165,8 @@ public class MainActivity extends BaseAppCompatActivity {
     private void initMusicFragment() {
         if (fragmentMusicList == null) {
             fragmentMusicList = new ArrayList<ViewPagerInter>();
+        }
+        if(fragmentMusicList.size()==0){
             for (String title : DataUtil.musicType) {
                 fragmentMusicList.add(MusicFragment.newInstance(title));
             }
@@ -174,7 +176,7 @@ public class MainActivity extends BaseAppCompatActivity {
             adapter.setFragmentList(fragmentMusicList);
         }
         adapter.notifyDataSetChanged();
-
+        clearList(fragmentMusicList);
     }
 
 
@@ -182,17 +184,22 @@ public class MainActivity extends BaseAppCompatActivity {
      * 准备MovieFragment
      */
     private void initMovieFragment() {
-        if (fragmentMovieList == null) {
-            fragmentMovieList = new ArrayList<ViewPagerInter>();
+        if(fragmentMovieList==null){
+            fragmentMovieList = new ArrayList<ViewPagerInter>(3);
+        }
+        if (fragmentMovieList.size()==0) {
             fragmentMovieList.add(new HotMovieFragment());
             fragmentMovieList.add(new TopMovieFragment());
             fragmentMovieList.add(new FutureMovieFragment());
         }
 
+
         if (adapter.getFragmentList() == null || adapter.getFragmentList() != fragmentMovieList) {
             adapter.setFragmentList(fragmentMovieList);
         }
         adapter.notifyDataSetChanged();
+
+        clearList(fragmentMovieList);
     }
 
     /**
@@ -201,6 +208,8 @@ public class MainActivity extends BaseAppCompatActivity {
     private void initBookFragment() {
         if (fragmentBookList == null) {
             fragmentBookList = new ArrayList<ViewPagerInter>();
+        }
+        if(fragmentBookList.size()==0){
             for (String title : DataUtil.bookType) {
                 fragmentBookList.add(BookFragment.newInstance(title));
             }
@@ -209,12 +218,41 @@ public class MainActivity extends BaseAppCompatActivity {
             adapter.setFragmentList(fragmentBookList);
         }
         adapter.notifyDataSetChanged();
-
+        clearList(fragmentBookList);
     }
 
 
     @Override
     public int getLayoutResID() {
         return R.layout.activity_main;
+    }
+
+    private void clearList(List list){
+        if(list==fragmentBookList){
+            if(fragmentMusicList!=null&&fragmentMusicList.size()!=0){
+                fragmentMusicList.clear();
+            }
+            if(fragmentMovieList!=null&&fragmentMovieList.size()!=0){
+                fragmentMovieList.clear();
+            }
+        }else if(list==fragmentMovieList){
+            if(fragmentMusicList!=null&&fragmentMusicList.size()!=0){
+                fragmentMusicList.clear();
+            }
+            if(fragmentBookList!=null&&fragmentBookList.size()!=0){
+                fragmentBookList.clear();
+            }
+
+
+        }else if(list==fragmentMusicList){
+            if(fragmentBookList!=null&&fragmentBookList.size()!=0){
+                fragmentBookList.clear();
+            }
+            if(fragmentMovieList!=null&&fragmentMovieList.size()!=0){
+                fragmentMovieList.clear();
+            }
+
+        }
+
     }
 }

@@ -19,7 +19,7 @@ public interface MovieInter {
 
     }
 
-    public interface MovieModInter<M>   {
+    public interface MovieModInter<M>   extends BaseModel {
         /**
          * 获取M数据
          * @return M数据
