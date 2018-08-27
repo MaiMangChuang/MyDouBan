@@ -71,7 +71,7 @@ public class MovieValueActivity extends AbstractProgressActivity<MovieInter.Movi
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.iv_black:
-                myFinish();
+               finish();
                 break;
             case R.id.iv_enshrine:
                 showUtil.showTose("点击了收藏");

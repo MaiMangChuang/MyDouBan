@@ -104,7 +104,7 @@ public class BookValueActivity extends AbstractProgressActivity<BookInter.BookPt
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.iv_black:
-                myFinish();
+             finish();
                 break;
             case R.id.tv_web:
                  showUtil.myStartActivity(BookWebActivity.class, "bookUrl", booksBean.getAlt());

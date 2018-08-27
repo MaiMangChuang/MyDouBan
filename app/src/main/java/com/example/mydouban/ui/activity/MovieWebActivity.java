@@ -38,7 +38,7 @@ public class MovieWebActivity extends AbstractProgressActivity {
         toolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                myFinish();
+                finish();
             }
         });
         WebSettings webSettings = wvMovie.getSettings();

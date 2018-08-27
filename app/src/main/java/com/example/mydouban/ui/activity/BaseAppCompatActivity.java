@@ -1,19 +1,11 @@
 package com.example.mydouban.ui.activity;
 
-import android.app.Activity;
-import android.content.Intent;
 import android.os.Bundle;
-import android.os.Parcelable;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 
-import com.example.mydouban.R;
 import com.example.mydouban.inte.BasePresenterInter;
-import com.example.mydouban.presenter.BasePresenter;
-import com.example.mydouban.util.ActivityLife;
 import com.example.mydouban.util.ShowUtil;
-
-import java.util.List;
 
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
@@ -25,7 +17,6 @@ import butterknife.Unbinder;
  * @author Administrator
  */
   public abstract class BaseAppCompatActivity<T extends BasePresenterInter> extends AppCompatActivity {
-    protected List<Activity> activityList = ActivityLife.getActivityList();
     protected ShowUtil showUtil;
     protected T presenter;
     Unbinder unbinder;
@@ -35,7 +26,6 @@ import butterknife.Unbinder;
         super.onCreate(savedInstanceState);
         setContentView(getLayoutResID());
         showUtil=new ShowUtil(this);
-        activityList.add(this);
         unbinder= ButterKnife.bind(this);
     }
 
@@ -51,27 +41,13 @@ import butterknife.Unbinder;
             presenter.relieve();
             presenter=null;
         }
-        activityList.remove(this);
         if(unbinder != Unbinder.EMPTY){
             unbinder.unbind();
         }
 
     }
 
-    protected void finishAll() {
-        for (Activity activity : activityList) {
-            if (!activity.isFinishing()) {
-                activity.finish();
-            }
-        }
-        activityList.clear();
 
-    }
-
-    protected void myFinish() {
-        activityList.remove(this);
-        this.finish();
-    }
 
 
 

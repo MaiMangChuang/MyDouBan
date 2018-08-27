@@ -1,12 +1,8 @@
 package com.example.mydouban.ui.activity;
 
-import android.app.Activity;
-import android.content.Intent;
 import android.os.Bundle;
-import android.os.Parcelable;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
-import android.text.Layout;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.FrameLayout;
@@ -15,11 +11,7 @@ import android.widget.TextView;
 import com.example.mydouban.R;
 import com.example.mydouban.inte.BasePresenterInter;
 import com.example.mydouban.inte.ProgressInter;
-import com.example.mydouban.inte.ViewInterface;
-import com.example.mydouban.util.ActivityLife;
 import com.example.mydouban.util.ShowUtil;
-
-import java.util.List;
 
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
@@ -31,7 +23,6 @@ import butterknife.Unbinder;
  * @date 2018/8/8
  */
 public abstract class AbstractProgressActivity<T extends BasePresenterInter> extends AppCompatActivity implements ProgressInter {
-    protected List<Activity> activityList = ActivityLife.getActivityList();
     protected ShowUtil showUtil;
     protected T presenter;
     Unbinder unbinder;
@@ -45,7 +36,6 @@ public abstract class AbstractProgressActivity<T extends BasePresenterInter> ext
         super.onCreate(savedInstanceState);
         setContentView(R.layout.progress);
         showUtil=new ShowUtil(this);
-        activityList.add(this);
         mRootView=findViewById(R.id.rootView);
         mViewProgress = findViewById(R.id.view_progress);
         mViewContent =  findViewById(R.id.view_content);
@@ -73,20 +63,8 @@ public abstract class AbstractProgressActivity<T extends BasePresenterInter> ext
      */
     public abstract void init();
 
-    protected void finishAll() {
-        for (Activity activity : activityList) {
-            if (!activity.isFinishing()) {
-                activity.finish();
-            }
-        }
-        activityList.clear();
 
-    }
 
-    protected void myFinish() {
-        activityList.remove(this);
-        this.finish();
-    }
 
     public void onEmptyViewClick(){
 
@@ -116,7 +94,7 @@ public abstract class AbstractProgressActivity<T extends BasePresenterInter> ext
 
     public void showEmptyView(int resId){
         showEmptyView();
-        mTextError.setText(resId);
+        mTextError.setText(getString(resId));
     }
 
     public void showEmptyView(String msg){
