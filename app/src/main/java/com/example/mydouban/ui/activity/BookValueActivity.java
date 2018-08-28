@@ -1,10 +1,7 @@
 package com.example.mydouban.ui.activity;
 
-import android.content.Intent;
-import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -18,16 +15,12 @@ import com.example.mydouban.bean.Book;
 import com.example.mydouban.inte.BookInter;
 import com.example.mydouban.presenter.BookPterImpl;
 import com.example.mydouban.util.GlideUtil;
-import com.example.mydouban.util.HttpUtil;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
 import butterknife.OnClick;
-import rx.Subscriber;
-import rx.android.schedulers.AndroidSchedulers;
-import rx.schedulers.Schedulers;
 
 /**
  * @author Administrator

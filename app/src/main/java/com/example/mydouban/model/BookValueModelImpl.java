@@ -1,18 +1,12 @@
 package com.example.mydouban.model;
 
-import android.view.View;
-
 import com.example.mydouban.bean.Book;
-import com.example.mydouban.bean.Music;
 import com.example.mydouban.inte.BookInter;
 import com.example.mydouban.inte.DataCallBack;
 import com.example.mydouban.util.HttpUtil;
 import com.example.mydouban.util.MySubscriber;
 
-import rx.Subscriber;
-import rx.android.schedulers.AndroidSchedulers;
-import rx.functions.Action1;
-import rx.schedulers.Schedulers;
+import io.reactivex.disposables.Disposable;
 
 /**
  * 类描述：
@@ -21,7 +15,8 @@ import rx.schedulers.Schedulers;
  */
 public class BookValueModelImpl implements BookInter.BookModInter<Book> {
     private String tag;
-    private MySubscriber<Book> subscribe;
+    private Disposable disposable;
+
     public BookValueModelImpl(String tag) {
         this.tag = tag;
     }
@@ -37,21 +32,22 @@ public class BookValueModelImpl implements BookInter.BookModInter<Book> {
     }
 
     private void httpDate(final DataCallBack<Book> dataCallBack) {
-        subscribe=new MySubscriber<Book>(dataCallBack);
         HttpUtil.getRetrofit()
                 .getAuthorBooks(tag)
                 .compose(HttpUtil.<Book>compatResult())
-                .subscribe(subscribe);
-
-
-
-
+                .subscribe(new MySubscriber<Book>(dataCallBack) {
+                    @Override
+                    public void onSubscribe(Disposable d) {
+                        super.onSubscribe(d);
+                        disposable = d;
+                    }
+                });
     }
 
     @Override
     public void unsubscribe() {
-        if(subscribe!=null&&subscribe.isUnsubscribed()){
-            subscribe.unsubscribe();
+        if (!disposable.isDisposed()) {
+            disposable.dispose();
         }
     }
 }

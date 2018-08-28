@@ -9,10 +9,11 @@ import com.example.mydouban.bean.MovieTop250;
 import com.example.mydouban.bean.MovieValue;
 import com.example.mydouban.bean.Music;
 
+import io.reactivex.Observable;
 import retrofit2.http.GET;
 import retrofit2.http.Path;
 import retrofit2.http.Query;
-import rx.Observable;
+
 
 /**
  * 类描述：

@@ -3,15 +3,10 @@ package com.example.mydouban.model;
 import com.example.mydouban.bean.MovieValue;
 import com.example.mydouban.inte.DataCallBack;
 import com.example.mydouban.inte.MovieInter;
-import com.example.mydouban.ui.activity.MovieValueActivity;
-import com.example.mydouban.util.GlideUtil;
 import com.example.mydouban.util.HttpUtil;
 import com.example.mydouban.util.MySubscriber;
-import com.example.mydouban.util.ProjectUtil;
 
-import rx.Subscriber;
-import rx.android.schedulers.AndroidSchedulers;
-import rx.schedulers.Schedulers;
+import io.reactivex.disposables.Disposable;
 
 /**
  * 类描述：
@@ -20,18 +15,24 @@ import rx.schedulers.Schedulers;
  */
 public class MovieValueModelImpl implements MovieInter.MovieModInter<MovieValue> {
     private String tag;
+    private Disposable disposable;
     public  MovieValueModelImpl(String tag){
         this.tag=tag;
     }
-    private MySubscriber<MovieValue> subscriber;
 
     @Override
     public void getData(final DataCallBack<MovieValue> dataCallBack) {
-        subscriber=new MySubscriber<MovieValue>(dataCallBack);
+
         HttpUtil.getRetrofit()
                 .getMovieValue(tag)
                .compose(HttpUtil.<MovieValue>compatResult())
-                .subscribe(subscriber);
+                .subscribe(new MySubscriber<MovieValue>(dataCallBack){
+                    @Override
+                    public void onSubscribe(Disposable d) {
+                        super.onSubscribe(d);
+                        disposable=d;
+                    }
+                });
 
 
     }
@@ -43,8 +44,8 @@ public class MovieValueModelImpl implements MovieInter.MovieModInter<MovieValue>
 
     @Override
     public void unsubscribe() {
-        if(subscriber!=null&&subscriber.isUnsubscribed()){
-            subscriber.unsubscribe();
+        if (!disposable.isDisposed()) {
+            disposable.dispose();
         }
     }
 }

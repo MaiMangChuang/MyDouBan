@@ -1,16 +1,15 @@
 package com.example.mydouban.model;
 
-import android.util.Log;
-
 import com.example.mydouban.bean.Book;
 import com.example.mydouban.inte.BookInter;
 import com.example.mydouban.inte.DataCallBack;
 import com.example.mydouban.util.HttpUtil;
 import com.example.mydouban.util.MySubscriber;
 
-import rx.Subscriber;
-import rx.android.schedulers.AndroidSchedulers;
-import rx.schedulers.Schedulers;
+import org.reactivestreams.Subscription;
+
+import io.reactivex.disposables.Disposable;
+
 
 /**
  * 类描述：
@@ -21,7 +20,7 @@ public class BookModelImpl implements BookInter.BookModInter<Book> {
    private String tag;
     private int start;
     private final int COUNT=20;
-    private MySubscriber<Book> subscriber;
+    private Disposable dispose;
    public BookModelImpl(String tag){
        this.tag=tag;
        start=0;
@@ -40,23 +39,30 @@ public class BookModelImpl implements BookInter.BookModInter<Book> {
     }
 
     private void httpData(final DataCallBack<Book> dataCallBack){
-        subscriber=new MySubscriber<Book>(dataCallBack){
-            @Override
+       HttpUtil.getRetrofit()
+                .getTagBooks(tag,start,COUNT)
+                .compose(HttpUtil.<Book>compatResult())
+                .subscribe(new MySubscriber<Book>(dataCallBack){
+                    @Override
+                    public void onSubscribe(Disposable d) {
+                        super.onSubscribe(d);
+                        dispose=d;
+                    }
+
+                    @Override
             public void onNext(Book book) {
                 super.onNext(book);
                 start+=20;
             }
-        };
-
-        HttpUtil.getRetrofit().getTagBooks(tag,start,COUNT).compose(HttpUtil.<Book>compatResult()).subscribe(subscriber);
+        });
 
 
     }
 
     @Override
     public void unsubscribe() {
-        if(subscriber!=null&&subscriber.isUnsubscribed()){
-            subscriber.unsubscribe();
+        if(!dispose.isDisposed()){
+            dispose.dispose();
         }
     }
 }

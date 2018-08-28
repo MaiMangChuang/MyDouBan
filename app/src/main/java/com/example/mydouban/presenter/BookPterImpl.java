@@ -41,7 +41,6 @@ public class BookPterImpl extends BasePresenter<BookInter.BookViewInter<Book>,Bo
         @Override
         public void dataLose(String message) {
             mView.loaderAnimStop();
-
             mView.showDiao();
         }
 

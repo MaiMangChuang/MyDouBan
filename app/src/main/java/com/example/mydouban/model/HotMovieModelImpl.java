@@ -6,19 +6,27 @@ import com.example.mydouban.inte.MovieInter;
 import com.example.mydouban.util.HttpUtil;
 import com.example.mydouban.util.MySubscriber;
 
+import io.reactivex.disposables.Disposable;
+
 /**
  * 类描述：
  * 创建人：maimanchuang
  * 创建时间：2018/6/6 23:37
  */
 public class HotMovieModelImpl implements MovieInter.MovieModInter<MovieHot> {
-    private MySubscriber<MovieHot> subscriber;
+    private Disposable disposable;
     @Override
     public void getData(final DataCallBack<MovieHot> dataCallBack) {
-          subscriber=new MySubscriber<MovieHot>(dataCallBack);
-        HttpUtil.getRetrofit().getHotMovies()
+
+            HttpUtil.getRetrofit().getHotMovies()
               .compose(HttpUtil.<MovieHot>compatResult())
-                .subscribe(subscriber);
+                .subscribe(new MySubscriber<MovieHot>(dataCallBack){
+                    @Override
+                    public void onSubscribe(Disposable d) {
+                        super.onSubscribe(d);
+                        disposable=d;
+                    }
+                });
 
 
 
@@ -33,8 +41,8 @@ public class HotMovieModelImpl implements MovieInter.MovieModInter<MovieHot> {
 
     @Override
     public void unsubscribe() {
-        if(subscriber!=null&&subscriber.isUnsubscribed()){
-            subscriber.unsubscribe();
+        if (!disposable.isDisposed()) {
+            disposable.dispose();
         }
     }
 }

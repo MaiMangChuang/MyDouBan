@@ -8,12 +8,7 @@ import com.example.mydouban.inte.MusicInter;
 import com.example.mydouban.util.HttpUtil;
 import com.example.mydouban.util.MySubscriber;
 
-import javax.security.auth.login.LoginException;
-
-import rx.Observable;
-import rx.Observer;
-import rx.android.schedulers.AndroidSchedulers;
-import rx.schedulers.Schedulers;
+import io.reactivex.disposables.Disposable;
 
 /**
  * 类描述：
@@ -24,7 +19,7 @@ public class MusicModelImpl implements MusicInter.MusicModInter<Music> {
     private int start;
     private final int COUNT = 20;
     private String tag;
-    private MySubscriber<Music> subscribe;
+    private Disposable disposable;
 
     public MusicModelImpl(String tag) {
         this.tag = tag;
@@ -43,23 +38,30 @@ public class MusicModelImpl implements MusicInter.MusicModInter<Music> {
     }
 
     private void httpData(final DataCallBack<Music> dataCallBack) {
-        subscribe=new MySubscriber<Music>(dataCallBack) {
-            @Override
-            public void onNext(Music music) {
-                super.onNext(music);
-                start += 20;
-            }
 
-        };
         HttpUtil.getRetrofit().getTagMusic(tag, start, COUNT)
                 .compose(HttpUtil.<Music>compatResult())
-                .subscribe(subscribe);
+                .subscribe(new MySubscriber<Music>(dataCallBack) {
+                    @Override
+                    public void onSubscribe(Disposable d) {
+                        super.onSubscribe(d);
+                        disposable=d;
+                    }
+
+                    @Override
+                    public void onNext(Music music) {
+                        super.onNext(music);
+                        start += 20;
+                    }
+
+                });
     }
 
     @Override
     public void unsubscribe() {
-        if(subscribe!=null){
-            subscribe.unsubscribe();
+        if (!disposable.isDisposed()) {
+            Log.e("音乐", "unsubscribe: 执行了" );
+            disposable.dispose();
         }
     }
 }
